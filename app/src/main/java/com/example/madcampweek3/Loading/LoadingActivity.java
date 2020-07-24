@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.example.madcampweek3.Intro.IntroActivity;
+import com.example.madcampweek3.Intro.PreIntroActivity;
 import com.example.madcampweek3.R;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -30,13 +31,13 @@ public class LoadingActivity extends AppCompatActivity {
                 .into(new DrawableImageViewTarget(splashGif));
 
         Handler hd = new Handler();
-        hd.postDelayed(new splashhandler(), 3500); // 1초 후에 hd handler 실행  3000ms = 3초
+        hd.postDelayed(new splashhandler(), 4000); // 1초 후에 hd handler 실행  3000ms = 3초
 
     }
 
     private class splashhandler implements Runnable{
         public void run(){
-            startActivity(new Intent(getApplication(), IntroActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
+            startActivity(new Intent(getApplication(), PreIntroActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
             LoadingActivity.this.finish(); // 로딩페이지 Activity stack에서 제거
         }
     }

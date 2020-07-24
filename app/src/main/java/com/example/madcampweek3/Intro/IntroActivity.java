@@ -13,7 +13,7 @@ import com.github.paolorotolo.appintro.AppIntro;
 
 public class IntroActivity extends AppIntro {
 
-    Fragment mSplash0 = new SplashFragmentPermission();
+
     Fragment mSplash1 = new SplashFragment1();
     Fragment mSplash2 = new SplashFragment2();
     Fragment mSplash3 = new SplashFragment3();
@@ -30,7 +30,7 @@ public class IntroActivity extends AppIntro {
 //            w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        }
-        addSlide(mSplash0);
+
         addSlide(mSplash1);
         addSlide(mSplash2);
         addSlide(mSplash3);
@@ -62,14 +62,7 @@ public class IntroActivity extends AppIntro {
 
 
 
-        String[] permissionList = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_CONTACTS};
 
-        askForPermissions(permissionList,1);
 
     }
 
