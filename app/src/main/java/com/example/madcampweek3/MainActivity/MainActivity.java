@@ -1,4 +1,4 @@
-package com.example.madcampweek3;
+package com.example.madcampweek3.MainActivity;
 
 
 import android.app.Fragment;
@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
 import com.example.madcampweek3.menu.DrawerAdapter;
 import com.example.madcampweek3.menu.DrawerItem;
