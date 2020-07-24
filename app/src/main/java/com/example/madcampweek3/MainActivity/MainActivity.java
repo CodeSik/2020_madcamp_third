@@ -1,7 +1,5 @@
 package com.example.madcampweek3.MainActivity;
 
-
-import android.app.Fragment;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,11 +10,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
+import com.example.madcampweek3.fragment.ProfileFragment;
 import com.example.madcampweek3.menu.DrawerAdapter;
 import com.example.madcampweek3.menu.DrawerItem;
 import com.example.madcampweek3.menu.SimpleItem;
@@ -84,15 +84,24 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         if (position == POS_LOGOUT) {
             finish();
         }
-        slidingRootNav.closeMenu();
-        Fragment selectedScreen = CenteredTextFragment.createFor(screenTitles[position]);
-        showFragment(selectedScreen);
+        else if (position == POS_DASHBOARD)
+        {
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new ProfileFragment();
+            showFragment(selectedScreen);
+        }
+        else {
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = CenteredTextFragment.createFor(screenTitles[position]);
+            showFragment(selectedScreen);
+        }
     }
 
     private void showFragment(Fragment fragment) {
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+
     }
 
     private DrawerItem createItemFor(int position) {
