@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
-import com.example.madcampweek3.fragment.ProfileFragment;
 import com.example.madcampweek3.menu.DrawerAdapter;
 import com.example.madcampweek3.menu.DrawerItem;
 import com.example.madcampweek3.menu.SimpleItem;

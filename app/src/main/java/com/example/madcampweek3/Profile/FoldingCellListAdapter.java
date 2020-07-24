@@ -8,11 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
+import com.example.madcampweek3.Profile.FoldingCell;
 import com.example.madcampweek3.R;
+
 import java.util.HashSet;
 import java.util.List;
 
+;
 /**
  * Simple example of ListAdapter for using with Folding Cell
  * Adapter holds indexes of unfolded elements for correct work with default reusable views behavior
@@ -33,6 +35,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         // get item for selected view
         Item item = getItem(position);
         // if cell is exists - reuse it, if not - create the new one from resource
+
         FoldingCell cell = (FoldingCell) convertView;
         ViewHolder viewHolder;
         if (cell == null) {
