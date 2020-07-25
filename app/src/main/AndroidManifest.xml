@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity android:name=".Intro.PreIntroActivity"></activity>
         <activity
             android:name=".Intro.IntroActivity"
@@ -30,6 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity.MainActivity" />
+        <activity android:name=".Login.LoginActivity"></activity>
     </application>
 
 </manifest>
