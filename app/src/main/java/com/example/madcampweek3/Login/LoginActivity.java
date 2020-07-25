@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         String id = "test12";
         String password = "test";
 
-        /* Send register request */
+        /* Send withdrawal request */
         service.withdrawal(id, password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
