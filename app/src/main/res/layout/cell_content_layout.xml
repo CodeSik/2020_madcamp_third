@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
-    >
+    android:visibility="gone">
 
     <!-- content header line -->
     <RelativeLayout
@@ -16,23 +15,6 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingTop="7dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/order_id_mock"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="@string/price_mock"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -48,65 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/head_image"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:src="@drawable/head_image" />-->
-<!--        <TextView-->
-<!--            android:id="@+id/head_image_left_text"-->
-<!--            style="@style/ContentImageBadgeText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignStart="@id/head_image"-->
-<!--            android:layout_alignBottom="@id/head_image"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/requests_count_mock" />-->
+        <ImageView
+            android:id="@+id/head_image"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/spring_background" />
 
-<!--        <TextView-->
-<!--            style="@style/ContentImageBadgeTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_above="@id/head_image_left_text"-->
-<!--            android:layout_alignStart="@id/head_image_left_text"-->
-<!--            android:text="@string/requests_count_badge" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/head_image_right_text"-->
-<!--            style="@style/ContentImageBadgeText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignEnd="@id/head_image"-->
-<!--            android:layout_alignBottom="@id/head_image"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/weight_mock" />-->
-
-<!--        <TextView-->
-<!--            style="@style/ContentImageBadgeTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_above="@id/head_image_right_text"-->
-<!--            android:layout_alignStart="@id/head_image_right_text"-->
-<!--            android:text="@string/weight_badge" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/head_image_center_text"-->
-<!--            style="@style/ContentImageBadgeText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignBottom="@id/head"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:paddingBottom="10dp"-->
-<!--            android:text="@string/pledge_mock" />-->
-
-<!--        <TextView-->
-<!--            style="@style/ContentImageBadgeTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_above="@id/head_image_center_text"-->
-<!--            android:layout_alignStart="@id/head_image_center_text"-->
-<!--            android:text="@string/pledge_badge" />-->
 
 
     </RelativeLayout>
@@ -370,30 +300,26 @@
         </LinearLayout>
 
         <!-- request button -->
-        <TextView
-            android:id="@+id/content_request_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/myrect"
-            android:elevation="8dp"
-            android:padding="10dp"
-            android:text="@string/request_btn_text"
-            android:textAlignment="center"
-            android:textColor="@color/mainTextColor"
-            android:layout_marginLeft="3dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="10dp"
-            android:textSize="20sp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/btn_annotation_mock"
-            android:textAlignment="center"
-            android:textColor="@color/contentBadgeTitle"
-            android:textSize="12sp" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/content_request_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:alpha="0.6"
+                android:background="@color/selected"
+                android:padding="10dp"
+                android:text="@string/request_btn_text"
+                android:textAlignment="center"
+                android:textColor="@color/mainTextColor"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

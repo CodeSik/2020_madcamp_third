@@ -74,6 +74,7 @@ public class PreIntroActivity extends AppIntro {
         super.onSkipPressed(currentFragment);
         Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -82,6 +83,7 @@ public class PreIntroActivity extends AppIntro {
         super.onDonePressed(currentFragment);
         Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
