@@ -53,7 +53,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class AccountEditFragment extends Fragment {
-    ImageView profileImage;
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
     public static final String PROFILE_IMAGE_KIND = "profile";
@@ -89,6 +88,7 @@ public class AccountEditFragment extends Fragment {
     private boolean sentToSettings = false;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
+    private int selectedImagePos = 0;
 
 
     private void startMainActivity() {
@@ -144,10 +144,13 @@ public class AccountEditFragment extends Fragment {
             }
         });
 
+        setInitProfileImage();
+
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageView = imageView1;
+                selectedImagePos = 1;
                 proceedAfterPermission();
 
             }
@@ -156,6 +159,7 @@ public class AccountEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imageView = imageView2;
+                selectedImagePos = 2;
                 proceedAfterPermission();
 
             }
@@ -165,6 +169,7 @@ public class AccountEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imageView = imageView3;
+                selectedImagePos = 3;
                 proceedAfterPermission();
 
             }
@@ -174,6 +179,7 @@ public class AccountEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imageView = imageView4;
+                selectedImagePos = 4;
                 proceedAfterPermission();
 
             }
@@ -183,6 +189,7 @@ public class AccountEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imageView = imageView5;
+                selectedImagePos = 5;
                 proceedAfterPermission();
 
             }
@@ -192,6 +199,7 @@ public class AccountEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imageView = imageView6;
+                selectedImagePos = 6;
                 proceedAfterPermission();
 
             }
@@ -331,7 +339,7 @@ public class AccountEditFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == PICK_IMAGE) {
+        if (requestCode == SELECT_FILE) {
             if (data == null) {
                 return;
             }
@@ -340,7 +348,7 @@ public class AccountEditFragment extends Fragment {
                 InputStream stream = getContext().getContentResolver().openInputStream(data.getData());
                 Bitmap bitmap = BitmapFactory.decodeStream(stream);
                 File storage = getContext().getCacheDir();
-                File tempFile = new File(storage, PROFILE_IMAGE_NAME);
+                File tempFile = new File(storage, selectedImagePos + "_" + PROFILE_IMAGE_NAME);
                 try{
                     tempFile.createNewFile();
                     FileOutputStream out = new FileOutputStream(tempFile);
@@ -354,6 +362,25 @@ public class AccountEditFragment extends Fragment {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        } else if (requestCode == REQUEST_CAMERA) {
+            if (data == null) {
+                return;
+            }
+            /* Create temp profile image file */
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            File storage = getContext().getCacheDir();
+            File tempFile = new File(storage, selectedImagePos + "_" + PROFILE_IMAGE_NAME);
+            try{
+                tempFile.createNewFile();
+                FileOutputStream out = new FileOutputStream(tempFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90 , out);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            tryUploadProfileImage(tempFile);
         }
     }
 
@@ -388,7 +415,7 @@ public class AccountEditFragment extends Fragment {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    setProfileImage();
+                    setProfileImage(imageView, selectedImagePos);
                 }
             }
 
@@ -401,13 +428,14 @@ public class AccountEditFragment extends Fragment {
     }
 
     /* Download profile image from server, and set profile */
-    private void setProfileImage() {
+    private void setProfileImage(ImageView imageView, int position) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
         ProfileService service = retrofit.create(ProfileService.class);
 
         /* Send image download request */
-        service.downloadProfile(userID, PROFILE_IMAGE_KIND, PROFILE_IMAGE_NAME).enqueue(new Callback<ResponseBody>() {
+        String fileName = position + "_" + PROFILE_IMAGE_NAME;
+        service.downloadProfile(userID, PROFILE_IMAGE_KIND, fileName).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.body() == null) {
@@ -424,7 +452,7 @@ public class AccountEditFragment extends Fragment {
                     /* Change profile image */
                     InputStream stream = response.body().byteStream();
                     Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                    profileImage.setImageBitmap(bitmap);
+                    imageView.setImageBitmap(bitmap);
                 }
             }
 
@@ -435,4 +463,31 @@ public class AccountEditFragment extends Fragment {
             }
         });
     }
+
+    private void setInitProfileImage() {
+        imageView = imageView1;
+        selectedImagePos = 1;
+        setProfileImage(imageView, selectedImagePos);
+
+        imageView = imageView2;
+        selectedImagePos = 2;
+        setProfileImage(imageView, selectedImagePos);
+
+        imageView = imageView3;
+        selectedImagePos = 3;
+        setProfileImage(imageView, selectedImagePos);
+
+        imageView = imageView4;
+        selectedImagePos = 4;
+        setProfileImage(imageView, selectedImagePos);
+
+        imageView = imageView5;
+        selectedImagePos = 5;
+        setProfileImage(imageView, selectedImagePos);
+
+        imageView = imageView6;
+        selectedImagePos = 6;
+        setProfileImage(imageView, selectedImagePos);
+    }
+
 }
