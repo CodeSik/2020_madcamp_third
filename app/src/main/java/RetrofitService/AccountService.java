@@ -6,10 +6,11 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public interface LoginService {
+public interface AccountService {
     @POST("/api/account/register")
     Call<ResponseBody> register(
             @Body JsonObject body
@@ -24,6 +25,11 @@ public interface LoginService {
     Call<ResponseBody> withdrawal(
             @Query("id") String id,
             @Query("password") String password
+    );
+
+    @GET("/api/account/findUser")
+    Call<ResponseBody> findUser(
+            @Query("macAddress") String address
     );
 
 }

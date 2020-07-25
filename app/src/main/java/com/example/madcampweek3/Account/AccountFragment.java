@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.R;
-import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,8 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import RetrofitService.LoginService;
-import RetrofitService.ProfileService;
+import RetrofitService.ImageService;
 import RetrofitService.RetrofitClient;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -105,7 +103,7 @@ public class AccountFragment extends Fragment {
     private void tryUploadProfileImage(File image) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        ProfileService service = retrofit.create(ProfileService.class);
+        ImageService service = retrofit.create(ImageService.class);
 
 
         /* Prepare image */
@@ -148,7 +146,7 @@ public class AccountFragment extends Fragment {
     private void setProfileImage() {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        ProfileService service = retrofit.create(ProfileService.class);
+        ImageService service = retrofit.create(ImageService.class);
 
         /* Send image download request */
         service.downloadProfile(userID, PROFILE_IMAGE_KIND, PROFILE_IMAGE_NAME).enqueue(new Callback<ResponseBody>() {

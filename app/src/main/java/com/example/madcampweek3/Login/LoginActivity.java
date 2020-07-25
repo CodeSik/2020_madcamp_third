@@ -13,8 +13,11 @@ import com.example.madcampweek3.R;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.net.NetworkInterface;
+import java.util.Collections;
+import java.util.List;
 
-import RetrofitService.LoginService;
+import RetrofitService.AccountService;
 import RetrofitService.RetrofitClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tryLogin();
+                tryRegister();
             }
         });
     }
@@ -45,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private void tryLogin() {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        LoginService service = retrofit.create(LoginService.class);
+        AccountService service = retrofit.create(AccountService.class);
 
         /* Get ID & PW */
         JsonObject body = new JsonObject();
@@ -58,13 +61,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() == null) {
                     try { // Login Failure
-                        Log.d("LoginService", "res:" + response.errorBody().string());
+                        Log.d("AccountService", "res:" + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try { // Login Success
-                        Log.d("LoginService", "res:" + response.body().string());
+                        Log.d("AccountService", "res:" + response.body().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -74,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("LoginService", "Failed API call with call: " + call
+                Log.d("AccountService", "Failed API call with call: " + call
                         + ", exception: " + t);
             }
         });
@@ -83,15 +86,16 @@ public class LoginActivity extends AppCompatActivity {
     private void tryRegister() {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        LoginService service = retrofit.create(LoginService.class);
+        AccountService service = retrofit.create(AccountService.class);
 
         /* Get personal info */
         JsonObject body = new JsonObject();
         /* TODO: Change input */
         body.addProperty("id", "test12");
         body.addProperty("password", "test");
-        body.addProperty("name", "SEO");
+        body.addProperty("name", "SEO12");
         body.addProperty("phoneNumber", "010-1111-1111");
+        body.addProperty("macAddress", getMacAddress());
 
         /* Send register request */
         service.register(body).enqueue(new Callback<ResponseBody>() {
@@ -99,13 +103,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() == null) {
                     try { // Register Failure
-                        Log.d("LoginService", "res:" + response.errorBody().string());
+                        Log.d("AccountService", "res:" + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try { // Register Success
-                        Log.d("LoginService", "res:" + response.body().string());
+                        Log.d("AccountService", "res:" + response.body().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -115,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("LoginService", "Failed API call with call: " + call
+                Log.d("AccountService", "Failed API call with call: " + call
                         + ", exception: " + t);
             }
         });
@@ -124,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
     private void tryWithdrawal() {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        LoginService service = retrofit.create(LoginService.class);
+        AccountService service = retrofit.create(AccountService.class);
 
         /* Get personal info */
         JsonObject body = new JsonObject();
@@ -138,13 +142,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body() == null) {
                     try { // Withdrawal Failure
-                        Log.d("LoginService", "res:" + response.errorBody().string());
+                        Log.d("AccountService", "res:" + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try { // Withdrawal Success
-                        Log.d("LoginService", "res:" + response.body().string());
+                        Log.d("AccountService", "res:" + response.body().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -154,9 +158,38 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("LoginService", "Failed API call with call: " + call
+                Log.d("AccountService", "Failed API call with call: " + call
                         + ", exception: " + t);
             }
         });
+    }
+
+    private String getMacAddress() {
+        try {
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+                byte[] macBytes = nif.getHardwareAddress();
+                macBytes[5] = (byte) (macBytes[5] - 1);
+                if (macBytes == null) {
+                    return "";
+                }
+
+                StringBuilder res1 = new StringBuilder();
+
+                for (byte b : macBytes) {
+                    res1.append(String.format("%02X:",b));
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

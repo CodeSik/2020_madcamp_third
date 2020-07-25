@@ -20,6 +20,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.R;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.util.Set;
+
+import RetrofitService.AccountService;
+import RetrofitService.RetrofitClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
 
 public class LocalScan extends Fragment {
@@ -60,9 +73,23 @@ public class LocalScan extends Fragment {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+        requestPermissions(
+                new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                1
+        );
         /* Scan bluetooth */
         IntentFilter bluetoothFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         getActivity().registerReceiver(receiver, bluetoothFilter);
+
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+
+        if (pairedDevices.size() > 0) {
+            // There are paired devices. Get the name and address of each paired device.
+            for (BluetoothDevice device : pairedDevices) {
+                String deviceHardwareAddress = device.getAddress(); // MAC address
+                String deviceName = device.getName();
+            }
+        }
 
         bluetoothAdapter.startDiscovery();
     }
@@ -73,9 +100,18 @@ public class LocalScan extends Fragment {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String name = device.getName();
+                if (name != null) {
+                    Log.d("Bluetooth", "Find name: " + name);
+                }
                 String deviceHardwareAddress = device.getAddress(); // MAC address
-                Log.d("Bluetooth scan:", "Find device: " + deviceHardwareAddress);
-                mAdapter.addFriend(new Friend(deviceHardwareAddress));
+
+                tryFindUser(deviceHardwareAddress, new FindUserResponse() {
+                    @Override
+                    public void onResponseReceived(String name) {
+                        mAdapter.addFriend(new Friend(name));
+                    }
+                });
             }
         }
     };
@@ -86,4 +122,43 @@ public class LocalScan extends Fragment {
         getActivity().unregisterReceiver(receiver);
     }
 
+    private void tryFindUser(String address, FindUserResponse findUserResponse) {
+        /* Init */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        AccountService service = retrofit.create(AccountService.class);
+
+        /* Send macAddress */
+        service.findUser(address).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.body() == null) {
+                    try { // Can't find user
+                        assert response.errorBody() != null;
+                        Log.d("AccountService", "res: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();;
+                    }
+                } else {
+                    String res = null;
+                    try { // Find user
+                        res = response.body().string();
+                        Log.d("AccountService", "res:" + res);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    findUserResponse.onResponseReceived(res.split("\"")[7]);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                Log.d("AccountService", "Failed API call with call: " + call
+                        + ", exception: " + t);
+            }
+        });
+    }
+
+    interface FindUserResponse {
+        void onResponseReceived(String name);
+    }
 }

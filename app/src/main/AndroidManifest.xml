@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".MainActivity.MainActivity" />
         <activity android:name=".Login.LoginActivity"></activity>
+        <service android:name=".BluetoothService.BluetoothService" />
     </application>
 
 </manifest>
