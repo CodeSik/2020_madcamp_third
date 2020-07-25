@@ -38,7 +38,7 @@ public class FoldingCell extends RelativeLayout {
 
     // default values
     private final int DEF_ANIMATION_DURATION = 1000;
-    private final int DEF_BACK_SIDE_COLOR = Color.GRAY;
+    private final int DEF_BACK_SIDE_COLOR = Color.rgb(250,250,250);
     private final int DEF_ADDITIONAL_FLIPS = 0;
     private final int DEF_CAMERA_HEIGHT = 30;
 
@@ -269,7 +269,6 @@ public class FoldingCell extends RelativeLayout {
             partsList.add(new FoldingCellView(frontView, backView, getContext()));
             yOffset = yOffset + partHeight;
         }
-
         return partsList;
     }
 
@@ -325,7 +324,7 @@ public class FoldingCell extends RelativeLayout {
      */
     protected ImageView createBackSideView(int height) {
         ImageView imageView = new ImageView(getContext());
-        imageView.setBackgroundColor(mBackSideColor);
+        imageView.setBackgroundColor(Color.rgb(248,212,216));
         imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
         return imageView;
     }
