@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.Account.AccountFragment;
+import com.example.madcampweek3.LocalScan.LocalScan;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
@@ -93,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         } else if (position == POS_ACCOUNT) {
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new AccountFragment();
+            showFragment(selectedScreen);
+        } else if (position == POS_CART) { // TODO: Change POS_CART
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new LocalScan();
             showFragment(selectedScreen);
         }
         else {
