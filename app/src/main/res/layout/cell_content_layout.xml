@@ -312,9 +312,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:alpha="0.6"
-                android:background="@color/selected"
+                android:background="@drawable/request_button"
                 android:padding="10dp"
-                android:text="@string/request_btn_text"
+                android:text="프로필"
                 android:textAlignment="center"
                 android:textColor="@color/mainTextColor"
                 android:textSize="20sp" />
