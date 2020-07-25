@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.madcampweek3.Account.AccountFragment;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
@@ -88,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         {
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new ProfileFragment();
+            showFragment(selectedScreen);
+        } else if (position == POS_ACCOUNT) {
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new AccountFragment();
             showFragment(selectedScreen);
         }
         else {
