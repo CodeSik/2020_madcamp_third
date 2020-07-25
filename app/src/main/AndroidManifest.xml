@@ -17,9 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".Intro.PreIntroActivity"></activity>
+        <activity android:name=".Account.AccountActivity"></activity>
+        <activity android:name=".Intro.PreIntroActivity" />
         <activity
             android:name=".Intro.IntroActivity"
             android:label="My Custom AppIntro" />
@@ -31,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity.MainActivity" />
-        <activity android:name=".Login.LoginActivity"></activity>
+        <activity android:name=".Login.LoginActivity" />
     </application>
 
 </manifest>

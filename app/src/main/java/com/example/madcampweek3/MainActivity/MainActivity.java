@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.madcampweek3.Account.AccountFragment;
+import com.example.madcampweek3.Account.AccountEditFragment;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO: 확인 필요해
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
             showFragment(selectedScreen);
         } else if (position == POS_ACCOUNT) {
             slidingRootNav.closeMenu();
-            Fragment selectedScreen = new AccountFragment();
+            Fragment selectedScreen = new AccountEditFragment();
             showFragment(selectedScreen);
         }
         else {
@@ -140,4 +141,6 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
     }
+
+
 }
