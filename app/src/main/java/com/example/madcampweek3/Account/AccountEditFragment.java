@@ -94,6 +94,7 @@ public class AccountEditFragment extends Fragment {
     private void startMainActivity() {
         Intent intent = new Intent(this.getActivity(), MainActivity.class);
         startActivity(intent);
+        this.getActivity().finish();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -227,20 +228,20 @@ public class AccountEditFragment extends Fragment {
 
             public void onClick(DialogInterface dialog, int item) {
 
-                if (options[item].equals("Take Photo"))
+                if (options[item].equals("사진 찍기"))
 
                 {
 
                     cameraIntent();
 
-                } else if (options[item].equals("Choose from Gallery"))
+                } else if (options[item].equals("갤러리에서 선택"))
 
                 {
 
                     galleryIntent();
 
 
-                } else if (options[item].equals("Cancel")) {
+                } else if (options[item].equals("취소")) {
 
                     dialog.dismiss();
 
