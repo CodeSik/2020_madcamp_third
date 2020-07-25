@@ -1,5 +1,6 @@
 package com.example.madcampweek3.Profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.madcampweek3.Account.AccountActivity;
 import com.example.madcampweek3.R;
 
 import java.util.ArrayList;
@@ -49,7 +50,9 @@ public class ProfileFragment extends Fragment {
         items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "CUSTOM HANDLER FOR FIRST BUTTON", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -60,7 +63,9 @@ public class ProfileFragment extends Fragment {
         adapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "DEFAULT HANDLER FOR ALL BUTTONS", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 

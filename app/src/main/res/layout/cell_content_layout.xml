@@ -311,10 +311,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+
                 android:background="@drawable/myrect"
                 android:padding="10dp"
                 android:elevation="8dp"
-                android:text="@string/request_btn_text"
+                android:text="프로필"
+
                 android:textAlignment="center"
                 android:textColor="@color/mainTextColor"
                 android:layout_marginLeft="3dp"
