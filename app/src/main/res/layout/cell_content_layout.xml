@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone">
+    >
 
     <!-- content header line -->
     <RelativeLayout
@@ -311,12 +311,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:alpha="0.6"
-                android:background="@drawable/request_button"
+
+                android:background="@drawable/myrect"
                 android:padding="10dp"
+                android:elevation="8dp"
                 android:text="프로필"
+
                 android:textAlignment="center"
                 android:textColor="@color/mainTextColor"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="10dp"
                 android:textSize="20sp" />
 
         </LinearLayout>
