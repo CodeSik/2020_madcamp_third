@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.example.madcampweek3.Intro.IntroActivity;
 import com.example.madcampweek3.Intro.PreIntroActivity;
+import com.example.madcampweek3.Login.LoginActivity;
 import com.example.madcampweek3.R;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     private class splashhandler implements Runnable{
         public void run(){
+//            startActivity(new Intent(getApplication(), LoginActivity.class));
             startActivity(new Intent(getApplication(), PreIntroActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
             LoadingActivity.this.finish(); // 로딩페이지 Activity stack에서 제거
         }
