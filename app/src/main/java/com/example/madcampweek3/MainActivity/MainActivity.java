@@ -1,5 +1,6 @@
 package com.example.madcampweek3.MainActivity;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.Account.AccountFragment;
+import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.LocalScan.LocalScan;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private static final int POS_MESSAGES = 2;
     private static final int POS_CART = 3;
     private static final int POS_LOGOUT = 5;
+    public static final int ONGOING_BLUETOOTH = 1;
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
@@ -52,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /* Run bluetooth service */
+        Intent intent = new Intent(this, BluetoothService.class);
+        startService(intent);
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)

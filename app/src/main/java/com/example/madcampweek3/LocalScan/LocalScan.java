@@ -73,6 +73,7 @@ public class LocalScan extends Fragment {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+        // TODO: Delete permission request
         requestPermissions(
                 new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
                 1
@@ -80,16 +81,6 @@ public class LocalScan extends Fragment {
         /* Scan bluetooth */
         IntentFilter bluetoothFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         getActivity().registerReceiver(receiver, bluetoothFilter);
-
-        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-
-        if (pairedDevices.size() > 0) {
-            // There are paired devices. Get the name and address of each paired device.
-            for (BluetoothDevice device : pairedDevices) {
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-                String deviceName = device.getName();
-            }
-        }
 
         bluetoothAdapter.startDiscovery();
     }
@@ -122,7 +113,7 @@ public class LocalScan extends Fragment {
         getActivity().unregisterReceiver(receiver);
     }
 
-    private void tryFindUser(String address, FindUserResponse findUserResponse) {
+    public static void tryFindUser(String address, FindUserResponse findUserResponse) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
         AccountService service = retrofit.create(AccountService.class);
@@ -158,7 +149,7 @@ public class LocalScan extends Fragment {
         });
     }
 
-    interface FindUserResponse {
+    public interface FindUserResponse {
         void onResponseReceived(String name);
     }
 }
