@@ -77,6 +77,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

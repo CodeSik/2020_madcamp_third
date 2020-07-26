@@ -129,33 +129,35 @@ public class RegisterProfileInfo extends AppCompatActivity {
 
         int age = getAge(ageSelectionPicker.getYear(), ageSelectionPicker.getMonth(), ageSelectionPicker.getDayOfMonth());
 
+        if(checkInputs(username,school,major,job)) {
         // if user is above 13 years old then only he/she will be allowed to register to the system.
-        if (age > ageLimit) {
+              if (age > ageLimit) {
             // code for converting date to string
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, ageSelectionPicker.getYear());
-            cal.set(Calendar.MONTH, ageSelectionPicker.getMonth());
-            cal.set(Calendar.DAY_OF_MONTH, ageSelectionPicker.getDayOfMonth());
-            Date dateOfBirth = cal.getTime();
-            String strDateOfBirth = dateFormatter.format(dateOfBirth);
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.YEAR, ageSelectionPicker.getYear());
+                    cal.set(Calendar.MONTH, ageSelectionPicker.getMonth());
+                    cal.set(Calendar.DAY_OF_MONTH, ageSelectionPicker.getDayOfMonth());
+                    Date dateOfBirth = cal.getTime();
+                    String strDateOfBirth = dateFormatter.format(dateOfBirth);
 
-            // code to set the dateOfBirthAttribute.
-            user.setDateOfBirth(strDateOfBirth);
-
-            if(checkInputs(username,school,major,job)) {
-                Intent intent = new Intent(this, RegisterAdditional.class);
-                intent.putExtra("password", password);
-                intent.putExtra("classUser", user);
-                startActivity(intent);
-
-        } else {
-            Toast.makeText(getApplicationContext(), "20살 이상의 성인만 가입할 수 있습니다. " , Toast.LENGTH_SHORT).show();
-        }
+                    // code to set the dateOfBirthAttribute.
+                    user.setDateOfBirth(strDateOfBirth);
 
 
+                    Intent intent = new Intent(this, RegisterAdditional.class);
+                    intent.putExtra("password", password);
+                    intent.putExtra("classUser", user);
+                    startActivity(intent);
+                    finish();
+
+              } else {
+                  Toast.makeText(getApplicationContext(), "20살 이상의 성인만 가입할 수 있습니다. ", Toast.LENGTH_SHORT).show();
+              }
         }
 
     }
+
+
 
 
     private int getAge(int year, int month, int day) {

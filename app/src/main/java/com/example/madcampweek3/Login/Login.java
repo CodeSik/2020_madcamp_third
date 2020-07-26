@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
                 String password = mPassword.getText().toString();
 
                 if (isStringNull(email) || isStringNull(password)) {
-                    Toast.makeText(mContext, "You must fill out all the fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
 
                     Intent intent = new Intent(Login.this, MainActivity.class);
@@ -82,6 +82,7 @@ public class Login extends AppCompatActivity {
                 Log.d(TAG, "onClick: navigating to register screen");
                 Intent intent = new Intent(Login.this, RegisterBasicInfo.class);
                 startActivity(intent);
+                finish();
             }
         });
 

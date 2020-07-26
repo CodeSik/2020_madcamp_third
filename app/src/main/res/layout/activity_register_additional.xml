@@ -286,7 +286,7 @@
                         android:layout_marginBottom="25dp"
                         android:background="@drawable/buttonshapepinkbg"
                         android:padding="12dp"
-                        android:text="다음으로"
+                        android:text="가입완료"
                         android:textColor="@color/white" />
                 </LinearLayout>
 

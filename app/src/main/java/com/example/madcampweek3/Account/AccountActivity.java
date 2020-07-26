@@ -61,9 +61,10 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
 
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().hide();
         age = (TextView) findViewById(R.id.age);
         region = (TextView) findViewById(R.id.region);
         height = (TextView) findViewById(R.id.height);
