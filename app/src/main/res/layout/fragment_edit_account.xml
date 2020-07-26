@@ -268,7 +268,8 @@
                     android:paddingRight="10dp">
 
                     <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
+                        android:id="@+id/myTextView_Roboto_Bold"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="소개글"
@@ -276,6 +277,7 @@
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/self_instruction"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:background="@android:color/transparent"
@@ -283,6 +285,83 @@
                         android:hint="회원님을 어필할 소개글을 작성 해주세요." />
 
                     <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/colorAccent" />
+
+                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
+                        android:id="@+id/myTextView_Roboto_Bold3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="나이"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="bottom"
+                        android:hint="나이를 입력해주세요."
+                        android:inputType="number"
+                        android:padding="@dimen/_5dp" />
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/colorAccent" />
+
+                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
+                        android:id="@+id/myTextView_Roboto_Bold5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="사는 곳"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/region"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="bottom"
+                        android:hint="사는 곳을 입력해주세요."
+                        android:padding="@dimen/_5dp" />
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/colorAccent" />
+
+                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
+                        android:id="@+id/myTextView_Roboto_Bold4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="키"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="bottom"
+                        android:hint="키를 입력해주세요."
+                        android:inputType="number"
+                        android:padding="@dimen/_5dp" />
+
+                    <View
+                        android:id="@+id/view4"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
@@ -297,6 +376,7 @@
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/job"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -314,33 +394,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="직장 / 학교"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="직장 / 학교를 추가해주세요."
-                        android:padding="@dimen/_5dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="취미"
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/hobby"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -414,7 +473,40 @@
                             android:layout_centerVertical="true"
                             android:background="@drawable/ic_check_unselect"
                             android:visibility="visible" />
+
                     </RelativeLayout>
+
+                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
+                        android:id="@+id/myTextView_Roboto_Bold7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="음주 여부"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/drink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="bottom"
+                        android:hint="음주 여부를 표시해주세요 (0~3)"
+                        android:inputType="number"
+                        android:padding="@dimen/_5dp" />
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/colorAccent" />
+
+                    <Button
+                        android:id="@+id/apply_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Apply" />
 
                 </LinearLayout>
             </LinearLayout>
