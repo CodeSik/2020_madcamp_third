@@ -207,10 +207,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
                         String self_instruction_str = response.body().get("self_instruction").toString();
                         self_instruction.setText(self_instruction_str.substring(1, self_instruction_str.length() - 1));
                     }
-
                 }
             }
-
             @Override
             public void onFailure(@NotNull Call<JsonObject> call, @NotNull Throwable t) {
                 Log.d("ProfileService", "Failed API call with call: " + call
