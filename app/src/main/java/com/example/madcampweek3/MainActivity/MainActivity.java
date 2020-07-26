@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private static final int POS_DASHBOARD = 0;
     private static final int POS_ACCOUNT = 1;
     private static final int POS_MESSAGES = 2;
-    private static final int POS_CART = 3;
-    private static final int POS_PROBABILITY = 4;
+    private static final int POS_PROBABILITY = 3;
+    private static final int POS_CART = 4;
     private static final int POS_LOGOUT = 5;
 
     private String[] screenTitles;
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                 createItemFor(POS_DASHBOARD).setChecked(true),
                 createItemFor(POS_ACCOUNT),
                 createItemFor(POS_MESSAGES),
-                createItemFor(POS_CART),
                 createItemFor(POS_PROBABILITY),
+                createItemFor(POS_CART),
                 new SpaceItem(48),
                 createItemFor(POS_LOGOUT)));
         adapter.setListener(this);

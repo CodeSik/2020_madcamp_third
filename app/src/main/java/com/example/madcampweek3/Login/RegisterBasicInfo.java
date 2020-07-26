@@ -29,8 +29,8 @@ public class RegisterBasicInfo extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
     GPS gps;
     private Context mContext;
-    private String email, username, password;
-    private EditText mEmail, mPassword, mUsername;
+    private String email, password;
+    private EditText mEmail, mPassword;
     private TextView loadingPleaseWait;
     private Button btnRegister;
     private String append = "";
@@ -57,10 +57,9 @@ public class RegisterBasicInfo extends AppCompatActivity {
             public void onClick(View v) {
 
                 email = mEmail.getText().toString();
-                username = mUsername.getText().toString();
                 password = mPassword.getText().toString();
 
-                if (checkInputs(email, username, password)) {
+                if (checkInputs(email, password)) {
                     //find geo location
                     //find geo location
                     Location location = gps.getLocation();
@@ -73,8 +72,8 @@ public class RegisterBasicInfo extends AppCompatActivity {
                     Log.d("Location==>", longtitude + "   " + latitude);
 
 
-                    Intent intent = new Intent(RegisterBasicInfo.this, RegisterGender.class);
-                    User user = new User("", "", "", "", email, username, false, false, false, false, "", "", "", latitude, longtitude);
+                    Intent intent = new Intent(RegisterBasicInfo.this, RegisterProfileInfo.class);
+                    User user = new User("", "", email, "", "","", "", "", "", "", 0,true,true,"", "", latitude, longtitude);
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);
@@ -83,16 +82,16 @@ public class RegisterBasicInfo extends AppCompatActivity {
         });
     }
 
-    private boolean checkInputs(String email, String username, String password) {
+    private boolean checkInputs(String email,  String password) {
         Log.d(TAG, "checkInputs: checking inputs for null values.");
-        if (email.equals("") || username.equals("") || password.equals("")) {
-            Toast.makeText(mContext, "All fields must be filed out.", Toast.LENGTH_SHORT).show();
+        if (email.equals("") || password.equals("")) {
+            Toast.makeText(mContext, "모든 정보를 기입해주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Below code checks if the email id is valid or not.
         if (!email.matches(emailPattern)) {
-            Toast.makeText(getApplicationContext(), "Invalid email address, enter valid email id and click on Continue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "올바르지 않은 이메일입니다.", Toast.LENGTH_SHORT).show();
             return false;
 
         }
@@ -104,8 +103,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
     private void initWidgets() {
         Log.d(TAG, "initWidgets: initializing widgets");
         mEmail = findViewById(R.id.input_email);
-        mUsername = findViewById(R.id.input_username);
-        btnRegister = findViewById(R.id.btn_register);
+        btnRegister = findViewById(R.id.btn_register_basic_next);
         mPassword = findViewById(R.id.input_password);
         mContext = RegisterBasicInfo.this;
 

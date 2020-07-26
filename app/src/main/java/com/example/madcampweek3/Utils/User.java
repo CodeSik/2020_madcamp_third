@@ -10,43 +10,100 @@ import java.io.Serializable;
  */
 
 public class User implements Serializable {
-    private String user_id;
-    private String phone_number;
-    private String email;
-    private String username;
-    private boolean sports;
-    private boolean travel;
-    private boolean music;
-    private boolean fishing;
-    private String description;
-    private String sex;
-    private String preferSex;
-    private String dateOfBirth;
+    private String user_id; //id
+    private String phone_number; //핸드폰번호
+    private String email; //이메일
+    private String username; //닉네임
+    private String hobby; // 취미
+    private String description; //소개글
+    private String sex; //성별
+    private String dateOfBirth; //생년월일
     private String profileImageUrl;
-    private double latitude;
+    private String school; //학교
+    private int height; //키
+    private boolean smoking,drinking;
+
+    public User(String user_id, String phone_number, String email, String username, String hobby, String description, String sex, String dateOfBirth, String profileImageUrl, String school, int height, boolean smoking, boolean drinking, String major, String job, double latitude, double longtitude) {
+        this.user_id = user_id;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.username = username;
+        this.hobby = hobby;
+        this.description = description;
+        this.sex = sex;
+        this.dateOfBirth = dateOfBirth;
+        this.profileImageUrl = profileImageUrl;
+        this.school = school;
+        this.height = height;
+        this.smoking = smoking;
+        this.drinking = drinking;
+        this.major = major;
+        this.job = job;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+    }
+
+    public boolean isSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(boolean smoking) {
+        this.smoking = smoking;
+    }
+
+    public boolean isDrinking() {
+        return drinking;
+    }
+
+    public void setDrinking(boolean drinking) {
+        this.drinking = drinking;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+
+
+    private String major; //전공
+    private String job; //직업
+
+    private double latitude; //위치정보
     private double longtitude;
 
 
     public User() {
     }
 
-    public User(String sex, String preferSex, String user_id, String phone_number, String email, String username, boolean sport, boolean travel, boolean music, boolean fish, String description, String dateOfBirth, String profileImageUrl, double latitude, double longtitude) {
-        this.sex = sex;
-        this.user_id = user_id;
-        this.phone_number = phone_number;
-        this.email = email;
-        this.username = username;
-        this.sports = sport;
-        this.travel = travel;
-        this.music = music;
-        this.fishing = fish;
-        this.description = description;
-        this.preferSex = preferSex;
-        this.dateOfBirth = dateOfBirth;
-        this.profileImageUrl = profileImageUrl;
-        this.latitude = latitude;
-        this.longtitude = longtitude;
-    }
+
 
     public double getLatitude() {
         return latitude;
@@ -120,45 +177,7 @@ public class User implements Serializable {
         this.description = description;
     }
 
-    public boolean isSports() {
-        return sports;
-    }
 
-    public void setSports(boolean sports) {
-        this.sports = sports;
-    }
-
-    public boolean isTravel() {
-        return travel;
-    }
-
-    public void setTravel(boolean travel) {
-        this.travel = travel;
-    }
-
-    public boolean isMusic() {
-        return music;
-    }
-
-    public void setMusic(boolean music) {
-        this.music = music;
-    }
-
-    public boolean isFishing() {
-        return fishing;
-    }
-
-    public void setFishing(boolean fishing) {
-        this.fishing = fishing;
-    }
-
-    public String getPreferSex() {
-        return preferSex;
-    }
-
-    public void setPreferSex(String preferSex) {
-        this.preferSex = preferSex;
-    }
 
     // Added new attribute called date of birth.
     public String getDateOfBirth() {
@@ -170,6 +189,14 @@ public class User implements Serializable {
     }
 
 
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -177,13 +204,8 @@ public class User implements Serializable {
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", sports=" + sports +
-                ", travel=" + travel +
-                ", music=" + music +
-                ", fishing=" + fishing +
                 ", description='" + description + '\'' +
                 ", sex='" + sex + '\'' +
-                ", preferSex='" + preferSex + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 '}';
     }

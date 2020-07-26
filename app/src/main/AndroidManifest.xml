@@ -24,11 +24,9 @@
             android:name=".Intro.IntroActivity"
             android:label="My Custom AppIntro" />
         <activity android:name=".Login.Login"></activity>
-        <activity android:name=".Login.RegisterAge"></activity>
         <activity android:name=".Login.RegisterBasicInfo"></activity>
-        <activity android:name=".Login.RegisterGender"></activity>
-        <activity android:name=".Login.RegisterGenderPrefection"></activity>
-        <activity android:name=".Login.RegisterHobby"></activity>
+        <activity android:name=".Login.RegisterProfileInfo"></activity>
+        <activity android:name=".Login.RegisterAdditional"></activity>
         <activity android:name=".Loading.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
