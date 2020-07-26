@@ -137,7 +137,7 @@
     <color name="smoke_purple">#6200EA</color>
     <color name="smoke_pink">#C51162</color>
     <color name="smoke_green">#1B5E20</color>
-
+    <color name="textInputLayout">#96ffffff</color>
     <color name="dpnamecolor">#fff</color>
     <color name="weekcolor">#fff</color>
     <color name="agendacolor">#8E9097</color>
