@@ -33,8 +33,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mEmail = findViewById(R.id.input_email);
-        mPassword = findViewById(R.id.input_password);
+        mEmail = findViewById(R.id.login_email);
+        mPassword = findViewById(R.id.login_pwd);
         mContext = Login.this;
 
 
