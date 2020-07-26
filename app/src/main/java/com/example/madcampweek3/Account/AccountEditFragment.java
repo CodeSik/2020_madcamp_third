@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
+import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +43,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import RetrofitService.LoginService;
 import RetrofitService.ProfileService;
 import RetrofitService.RetrofitClient;
 import okhttp3.MediaType;
@@ -56,17 +59,21 @@ public class AccountEditFragment extends Fragment {
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
     public static final String PROFILE_IMAGE_KIND = "profile";
-    public static final String userID = "test"; // TODO: Change it
+    public static final String userID = "test14"; // TODO: Change it
+    public static final String SMOKE = "smoking";
+    public static final String NON_SMOKE = "nonsmoking";
 
 
     private static final String TAG = "EditProfileActivity";
     private static final int PERMISSION_CALLBACK_CONSTANT = 100;
     //firebase
     private static final int REQUEST_PERMISSION_SETTING = 101;
-    Button man, woman;
+    Button smoking, nonsmoking, apply;
     ImageButton back;
-    TextView man_text, women_text;
+    TextView smoking_text, nonsmoking_text;
     ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView;
+    EditText self_instruction, age, region, height, job, hobby, drink;
+    boolean smoke = true;
     Bitmap myBitmap;
     Uri picUri;
     String[] permissionsRequired = new String[]{Manifest.permission.CAMERA,
@@ -110,10 +117,18 @@ public class AccountEditFragment extends Fragment {
         imageView4 = view.findViewById(R.id.image_view_4);
         imageView5 = view.findViewById(R.id.image_view_5);
         imageView6 = view.findViewById(R.id.image_view_6);
-        man = view.findViewById(R.id.smoking_button);
-        woman = view.findViewById(R.id.nonsmoking_button);
-        man_text = view.findViewById(R.id.smoking_text);
-        women_text = view.findViewById(R.id.nonsmoking_text);
+        self_instruction = view.findViewById(R.id.self_instruction);
+        age = view.findViewById(R.id.age);
+        region = view.findViewById(R.id.region);
+        height = view.findViewById(R.id.height);
+        job = view.findViewById(R.id.job);
+        hobby = view.findViewById(R.id.hobby);
+        drink = view.findViewById(R.id.drink);
+        smoking = view.findViewById(R.id.smoking_button);
+        nonsmoking = view.findViewById(R.id.nonsmoking_button);
+        apply = view.findViewById(R.id.apply_button);
+        smoking_text = view.findViewById(R.id.smoking_text);
+        nonsmoking_text = view.findViewById(R.id.nonsmoking_text);
         back = view.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,25 +137,34 @@ public class AccountEditFragment extends Fragment {
             }
         });
 
-        woman.setOnClickListener(new View.OnClickListener() {
+        nonsmoking.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                women_text.setTextColor(R.color.colorAccent);
-                woman.setBackgroundResource(R.drawable.ic_check_select);
-                man_text.setTextColor(R.color.black);
-                man.setBackgroundResource(R.drawable.ic_check_unselect);
+                nonsmoking_text.setTextColor(R.color.colorAccent);
+                nonsmoking.setBackgroundResource(R.drawable.ic_check_select);
+                smoking_text.setTextColor(R.color.black);
+                smoking.setBackgroundResource(R.drawable.ic_check_unselect);
+                smoke = false;
             }
         });
 
-        man.setOnClickListener(new View.OnClickListener() {
+        smoking.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                man_text.setTextColor(R.color.colorAccent);
-                man.setBackgroundResource(R.drawable.ic_check_select);
-                women_text.setTextColor(R.color.black);
-                woman.setBackgroundResource(R.drawable.ic_check_unselect);
+                smoking_text.setTextColor(R.color.colorAccent);
+                smoking.setBackgroundResource(R.drawable.ic_check_select);
+                nonsmoking_text.setTextColor(R.color.black);
+                nonsmoking.setBackgroundResource(R.drawable.ic_check_unselect);
+                smoke = true;
+            }
+        });
+
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryUploadProfileInfo(); // TODO: Fix automatically profile image upload
             }
         });
 
@@ -417,6 +441,55 @@ public class AccountEditFragment extends Fragment {
                     }
                     setProfileImage(imageView, selectedImagePos);
                 }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                Log.d("ProfileService", "Failed API call with call: " + call
+                        + ", exception: " + t);
+            }
+        });
+    }
+
+    /* Upload profile image to server */
+    private void tryUploadProfileInfo() {
+        /* Init */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        LoginService service = retrofit.create(LoginService.class);
+
+
+        /* Prepare information */
+        JsonObject body = new JsonObject();
+        body.addProperty("id", userID);
+        body.addProperty("age", Integer.parseInt(age.getText().toString()));
+        body.addProperty("region", region.getText().toString());
+        body.addProperty("height", Integer.parseInt(height.getText().toString()));
+        body.addProperty("job", job.getText().toString());
+        body.addProperty("hobby", hobby.getText().toString());
+        body.addProperty("smoke", smoke);
+        body.addProperty("drink",Integer.parseInt(drink.getText().toString()));
+        body.addProperty("self_instruction",self_instruction.getText().toString());
+
+
+        /* Send image upload request */
+        service.updateProfile(body).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.body() == null) {
+                    try { // Profile upload failure
+                        assert response.errorBody() != null;
+                        Log.d("LoginService", "res:" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try { // Profile upload success
+                        Log.d("LoginService", "res:" + response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Toast.makeText(getContext(), "프로필이 성공적으로 업데이트 되었습니다.", Toast.LENGTH_LONG);
             }
 
             @Override
