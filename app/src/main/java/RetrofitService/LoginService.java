@@ -35,7 +35,7 @@ public interface LoginService {
     );
 
     @GET("/api/account/downloadProfile")
-    Call<ResponseBody> downloadProfile(
+    Call<JsonObject> downloadProfile(
             @Query("id") String id
     );
 
