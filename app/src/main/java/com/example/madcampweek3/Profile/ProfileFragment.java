@@ -17,6 +17,10 @@ import com.example.madcampweek3.R;
 
 import java.util.ArrayList;
 
+import RetrofitService.LoginService;
+import RetrofitService.RetrofitClient;
+import retrofit2.Retrofit;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -44,6 +48,8 @@ public class ProfileFragment extends Fragment {
         ListView theListView = view.findViewById(R.id.mainListView);
 
         // prepare elements to display
+
+
         final ArrayList<Item> items = Item.getTestingList();
 
         // add custom btn handler to first list item
@@ -119,6 +125,14 @@ public class ProfileFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+    private void setFoldingProfile(){
+        /* Init */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        LoginService service = retrofit.create(LoginService.class);
+
+
+
     }
 
 

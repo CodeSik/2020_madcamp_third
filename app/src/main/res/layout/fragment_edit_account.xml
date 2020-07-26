@@ -158,16 +158,6 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="나이를 입력해주세요."
-                        android:inputType="number"
-                        android:padding="@dimen/_5dp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -328,6 +318,16 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
                         android:background="#75FFCDD2" />
+
+                    <EditText
+                        android:id="@+id/age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="bottom"
+                        android:hint="나이를 입력해주세요."
+                        android:inputType="number"
+                        android:padding="@dimen/_5dp" />
 
                     <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
                         android:id="@+id/myTextView_Roboto_Bold5"

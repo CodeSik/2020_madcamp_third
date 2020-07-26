@@ -153,6 +153,8 @@
 
 
     <color name="color">#767578</color>
+    <color name="floding_pink" />
+    <color name="folding_pink">#FF9FA1</color>
 
 
 </resources>
