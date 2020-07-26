@@ -59,7 +59,7 @@ public class AccountEditFragment extends Fragment {
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
     public static final String PROFILE_IMAGE_KIND = "profile";
-    public static final String userID = "test14"; // TODO: Change it
+    public static final String userID = "test"; // TODO: Change it
     public static final String SMOKE = "smoking";
     public static final String NON_SMOKE = "nonsmoking";
 
