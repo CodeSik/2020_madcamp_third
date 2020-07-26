@@ -11,9 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import com.example.madcampweek3.Intro.IntroActivity;
 import com.example.madcampweek3.Intro.PreIntroActivity;
-import com.example.madcampweek3.Login.LoginActivity;
 import com.example.madcampweek3.R;
 
 public class LoadingActivity extends AppCompatActivity {
