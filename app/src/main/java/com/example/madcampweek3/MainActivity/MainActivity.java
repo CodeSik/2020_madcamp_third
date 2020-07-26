@@ -13,11 +13,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.madcampweek3.Account.AccountEditFragment;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
+import com.example.madcampweek3.probability.probabilityFragment;
 import com.example.madcampweek3.menu.DrawerAdapter;
 import com.example.madcampweek3.menu.DrawerItem;
 import com.example.madcampweek3.menu.SimpleItem;
@@ -96,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         } else if (position == POS_ACCOUNT) {
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new AccountEditFragment();
+            showFragment(selectedScreen);
+        }else if(position == POS_PROBABILITY){
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new ProfileFragment();
             showFragment(selectedScreen);
         }
         else {
