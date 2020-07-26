@@ -1,13 +1,12 @@
 package com.example.madcampweek3.Intro;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.madcampweek3.MainActivity.MainActivity;
+import com.example.madcampweek3.Login.Login;
 import com.example.madcampweek3.R;
 import com.github.paolorotolo.appintro.AppIntro;
 
@@ -69,13 +68,13 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        startMainActivity();
+        startLoginActivity();
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        startMainActivity();
+        startLoginActivity();
     }
 
     @Override
@@ -89,8 +88,8 @@ public class IntroActivity extends AppIntro {
         super.onResume();
     }
 
-    private void startMainActivity() {
-        Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+    private void startLoginActivity() {
+        Intent intent = new Intent(IntroActivity.this, Login.class);
         startActivity(intent);
         finish();
     }
