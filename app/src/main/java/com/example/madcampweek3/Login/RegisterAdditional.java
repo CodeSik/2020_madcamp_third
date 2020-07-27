@@ -220,6 +220,7 @@ public class RegisterAdditional
         body_account.addProperty("name", userInfo.getUsername());
         body_account.addProperty("phoneNumber", userInfo.getPhone_number());
         body_account.addProperty("macAddress", getMacAddress());
+        body_account.addProperty("gender",userInfo.getSex());
 
 
         /*insert profile info*/
@@ -233,8 +234,10 @@ public class RegisterAdditional
         body_profile.addProperty("smoke",userInfo.getEmail());
         body_profile.addProperty("drink",userInfo.getEmail());
         body_profile.addProperty("self_instruction",userInfo.getEmail());
+        body_profile.addProperty("school",userInfo.getSchool());
+        body_profile.addProperty("major",userInfo.getMajor());
 
-
+        
         /* Send register request */
         service.register(body_account).enqueue(new Callback<ResponseBody>() {
             @Override

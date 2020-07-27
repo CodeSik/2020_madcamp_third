@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,25 +22,19 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.example.madcampweek3.R;
+import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.PositionService;
-import com.google.android.gms.location.LocationRequest;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.example.madcampweek3.RetrofitService.AccountService;
-import com.example.madcampweek3.RetrofitService.RetrofitClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
