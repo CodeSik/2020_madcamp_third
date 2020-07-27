@@ -55,8 +55,9 @@ public class BluetoothService extends Service {
     private BluetoothAdapter bluetoothAdapter;
     private static final int REQUEST_CODE_LOCATION = 2;
     private LocationManager locationManager;
-    private int contactID = 0; // TODO: Change contactID
+    private Number contactID = 0; // TODO: Change contactID
     private String frinedID = null; // TODO: Support multiple friend
+    private boolean first = true;
 
     @Override
     public void onCreate() {
@@ -73,7 +74,6 @@ public class BluetoothService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Bluetoothservice starting", Toast.LENGTH_SHORT).show();
-        /* Init contactID */
 
         /* Init bluetooth */
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -110,7 +110,7 @@ public class BluetoothService extends Service {
 
         Timer timer = new Timer();
         timer.schedule(discoverRequest, 0, 1000 * 3600);
-        timer.schedule(bluetoothSearch, 0, 1000 * 300);
+        timer.schedule(bluetoothSearch, 0, 1000 * 15);
         return START_STICKY;
 
     }
@@ -144,6 +144,7 @@ public class BluetoothService extends Service {
                     public void onResponseReceived(String id) {
                         Log.d("Bluetooth Service", "ID: " + id);
                         frinedID = id;
+                        getContactID();
                         getPosition();
                     }
                 });
@@ -176,7 +177,8 @@ public class BluetoothService extends Service {
                 } else {
                     String res = null;
                     if (response.body().has("userID")) {
-                        res = response.body().get("userID").toString();
+                        String temp = response.body().get("userID").toString();
+                        res = temp.substring(1, temp.length() - 1);
                     }
                     Log.d("AccountService", "res:" + res);
                     findUserResponse.onResponseReceived(res);
@@ -311,10 +313,47 @@ public class BluetoothService extends Service {
 
             @Override
             public void onFailure(@NotNull Call<JsonObject> call, @NotNull Throwable t) {
-                Log.d("AccountService", "Failed API call with call: " + call
+                Log.d("FriendService", "Failed API call with call: " + call
                         + ", exception: " + t);
             }
         });
+    }
+
+    private void getContactID() {
+        if (!first) {
+            return;
+        }
+        first = false;
+        /* Init retrofit */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        FriendService service = retrofit.create(FriendService.class);
+
+
+        service.getContactID("test12", frinedID).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
+                if (response.body() == null) {
+                    try { // Failure
+                        assert response.errorBody() != null;
+                        Log.d("FriendService", "res: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else { // Success
+                    Log.d("FriendService", "res: " + response.body().toString());
+                    if (response.body().has("contactID")) {
+                        contactID = response.body().get("contactID").getAsNumber();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<JsonObject> call, @NotNull Throwable t) {
+                Log.d("FriendService", "Failed API call with call: " + call
+                        + ", exception: " + t);
+            }
+        });
+
     }
 
     interface FindUserResponse {

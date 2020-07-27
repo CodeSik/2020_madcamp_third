@@ -17,6 +17,6 @@ public interface FriendService {
     @GET("/api/friend/getContactID")
     Call<JsonObject> getContactID(
             @Query("id") String id,
-            @Query("frinedID") String friendID
+            @Query("friendID") String friendID
     );
 }
