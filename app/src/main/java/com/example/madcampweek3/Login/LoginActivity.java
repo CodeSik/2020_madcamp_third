@@ -13,9 +13,6 @@ import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,43 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 //        });
     }
 
-    private void tryLogin() {
-        /* Init */
-        Retrofit retrofit = RetrofitClient.getInstnce();
-        AccountService service = retrofit.create(AccountService.class);
-
-        /* Get ID & PW */
-        JsonObject body = new JsonObject();
-        body.addProperty("id", login.getText().toString());
-        body.addProperty("password", password.getText().toString());
-
-        /* Send ID & PW */
-        service.login(body).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.body() == null) {
-                    try { // Login Failure
-                        Log.d("AccountService", "res:" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try { // Login Success
-                        Log.d("AccountService", "res:" + response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("AccountService", "Failed API call with call: " + call
-                        + ", exception: " + t);
-            }
-        });
-    }
 
 
     private void tryWithdrawal() {
