@@ -275,6 +275,7 @@ public class BluetoothService extends Service {
         /* Get time */
         String contaactTime;
         int hours = time.get(Calendar.HOUR_OF_DAY);
+        int date = time.get(Calendar.DAY_OF_YEAR) + (365 * time.get(Calendar.YEAR));
         if (hours >= 8 && hours < 16) {
             contaactTime = "day";
         } else if (hours >= 16 && hours < 24) {
@@ -283,11 +284,12 @@ public class BluetoothService extends Service {
             contaactTime = "night";
         }
         JsonObject body = new JsonObject();
-        body.addProperty("id", "test11");
+        body.addProperty("id", "test");
         body.addProperty("friendID", frinedID);
         body.addProperty("contactID", contactID);
         body.addProperty("position", position);
         body.addProperty("contactTime", contaactTime);
+        body.addProperty("date", date);
         /* Send meetInfo */
         service.addContact(body).enqueue(new Callback<JsonObject>() {
             @Override
@@ -320,9 +322,11 @@ public class BluetoothService extends Service {
         /* Init retrofit */
         Retrofit retrofit = RetrofitClient.getInstnce();
         FriendService service = retrofit.create(FriendService.class);
+        Calendar time = Calendar.getInstance();
+        int date = time.get(Calendar.DAY_OF_YEAR) + (365 * time.get(Calendar.YEAR));
 
 
-        service.getContactID("test12", frinedID).enqueue(new Callback<JsonObject>() {
+        service.getContactID("test", frinedID, date).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                 if (response.body() == null) {
