@@ -48,7 +48,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AccountEditFragment extends Fragment {
     SharedPreferences appData ;
-    String userId = "";
+    String userId="";
 
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
@@ -100,6 +100,7 @@ public class AccountEditFragment extends Fragment {
                 startMainActivity();
             }
         });
+
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,16 +279,16 @@ public class AccountEditFragment extends Fragment {
 
                 }
             }
-            @Override
-            public void onFailure (Call < JsonObject > call, Throwable t){
-                // Profile download success
-                Log.d("ProfileService", "Failed API call with call: " + call
-                        + ", exception: " + t);
+                @Override
+                public void onFailure (Call < JsonObject > call, Throwable t){
+                    // Profile download success
+                    Log.d("ProfileService", "Failed API call with call: " + call
+                            + ", exception: " + t);
 
-            }
+                }
 
         });
-    }
+     }
 
 
     public void smokeButtonClicked() {
