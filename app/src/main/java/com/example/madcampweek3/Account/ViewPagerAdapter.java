@@ -63,7 +63,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         appData = context.getSharedPreferences("appData", MODE_PRIVATE);
         userId = appData.getString("ID","");
 
-        ImageView imageView = (ImageView)v.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView)v.findViewById(R.id.inviewpagerimage);
 
 
         setProfileImage(imageView,position+1);
