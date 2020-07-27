@@ -35,4 +35,14 @@ public interface AccountService {
             @Query("macAddress") String address
     );
 
+    @GET("/api/account/downloadProfile")
+    Call<JsonObject> downloadProfile(
+            @Query("id") String id
+    );
+
+    @POST("/api/image/updateProfile")
+    Call<ResponseBody> updateProfile(
+            @Body JsonObject body
+    );
+
 }

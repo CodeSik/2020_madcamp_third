@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.madcampweek3.Account.AccountFragment;
 import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.LocalScan.LocalScan;
 import com.example.madcampweek3.Account.AccountEditFragment;

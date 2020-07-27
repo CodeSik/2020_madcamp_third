@@ -49,7 +49,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.madcampweek3.Account.AccountFragment.userID;
 import static com.example.madcampweek3.MainActivity.MainActivity.ONGOING_BLUETOOTH;
 
 public class BluetoothService extends Service {
@@ -101,9 +100,17 @@ public class BluetoothService extends Service {
             }
         };
 
-        bluetoothAdapter.startDiscovery();
+        TimerTask bluetoothSearch = new TimerTask() {
+            @Override
+            public void run() {
+                bluetoothAdapter.startDiscovery();
+            }
+        };
+
+
         Timer timer = new Timer();
         timer.schedule(discoverRequest, 0, 1000 * 3600);
+        timer.schedule(bluetoothSearch, 0, 1000 * 300);
         return START_STICKY;
 
     }
@@ -141,7 +148,6 @@ public class BluetoothService extends Service {
                     }
                 });
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                bluetoothAdapter.startDiscovery(); // TODO: Change search period every 5minutes
             }
         }
     };

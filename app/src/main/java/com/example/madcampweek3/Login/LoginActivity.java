@@ -33,16 +33,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button loginButton = (Button) findViewById(R.id.login);
-        login = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
+//        Button loginButton = (Button) findViewById(R.id.login);
+//        login = (EditText) findViewById(R.id.username);
+//        password = (EditText) findViewById(R.id.password);
 
-        loginButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tryRegister();
-            }
-        });
+//        loginButton.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tryRegister();
+//            }
+//        });
     }
 
     private void tryLogin() {
