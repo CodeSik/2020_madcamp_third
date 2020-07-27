@@ -1,5 +1,6 @@
 package com.example.madcampweek3.MainActivity;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.madcampweek3.Account.AccountFragment;
+import com.example.madcampweek3.BluetoothService.BluetoothService;
+import com.example.madcampweek3.LocalScan.LocalScan;
 import com.example.madcampweek3.Account.AccountEditFragment;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private static final int POS_PROBABILITY = 3;
     private static final int POS_CART = 4;
     private static final int POS_LOGOUT = 5;
+    public static final int ONGOING_BLUETOOTH = 1;
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
@@ -53,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO: 확인 필요해
+
+        /* Run bluetooth service */
+        Intent intent = new Intent(this, BluetoothService.class);
+        startService(intent);
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)
@@ -96,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         } else if (position == POS_ACCOUNT) {
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new AccountEditFragment();
+            showFragment(selectedScreen);
+        } else if (position == POS_CART) { // TODO: Change POS_CART
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new LocalScan();
             showFragment(selectedScreen);
         }
         else {
@@ -141,6 +154,4 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private int color(@ColorRes int res) {
         return ContextCompat.getColor(this, res);
     }
-
-
 }

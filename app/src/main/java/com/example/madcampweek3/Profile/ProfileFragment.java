@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.Account.AccountActivity;
 import com.example.madcampweek3.R;
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 
 import java.util.ArrayList;
 
-import RetrofitService.LoginService;
-import RetrofitService.RetrofitClient;
 import retrofit2.Retrofit;
 
 /**
@@ -129,7 +129,7 @@ public class ProfileFragment extends Fragment {
     private void setFoldingProfile(){
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        LoginService service = retrofit.create(LoginService.class);
+        AccountService service = retrofit.create(AccountService.class);
 
 
 

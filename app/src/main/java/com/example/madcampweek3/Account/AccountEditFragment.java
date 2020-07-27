@@ -33,6 +33,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.ImageService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,9 +46,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import RetrofitService.LoginService;
-import RetrofitService.ProfileService;
-import RetrofitService.RetrofitClient;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -412,7 +412,7 @@ public class AccountEditFragment extends Fragment {
     private void tryUploadProfileImage(File image) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        ProfileService service = retrofit.create(ProfileService.class);
+        ImageService service = retrofit.create(ImageService.class);
 
 
         /* Prepare image */
@@ -455,7 +455,7 @@ public class AccountEditFragment extends Fragment {
     private void tryUploadProfileInfo() {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        LoginService service = retrofit.create(LoginService.class);
+        AccountService service = retrofit.create(AccountService.class);
 
 
         /* Prepare information */
@@ -478,13 +478,13 @@ public class AccountEditFragment extends Fragment {
                 if (response.body() == null) {
                     try { // Profile upload failure
                         assert response.errorBody() != null;
-                        Log.d("LoginService", "res:" + response.errorBody().string());
+                        Log.d("AccountService", "res:" + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try { // Profile upload success
-                        Log.d("LoginService", "res:" + response.body().string());
+                        Log.d("AccountService", "res:" + response.body().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -504,7 +504,7 @@ public class AccountEditFragment extends Fragment {
     private void setProfileImage(ImageView imageView, int position) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        ProfileService service = retrofit.create(ProfileService.class);
+        ImageService service = retrofit.create(ImageService.class);
 
         /* Send image download request */
         String fileName = position + "_" + PROFILE_IMAGE_NAME;

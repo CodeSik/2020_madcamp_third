@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.madcampweek3.R;
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.ImageService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.JsonObject;
 
@@ -20,9 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.io.InputStream;
 
-import RetrofitService.LoginService;
-import RetrofitService.ProfileService;
-import RetrofitService.RetrofitClient;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.ResponseBody;
@@ -111,7 +112,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     private void setProfileImage(String userID, ImageView imageView, int position) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        ProfileService service = retrofit.create(ProfileService.class);
+        ImageService service = retrofit.create(ImageService.class);
 
         /* Send image download request */
         String fileName = position + "_" + PROFILE_IMAGE_NAME;
@@ -147,7 +148,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     private void setProfileInfo(String userID) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
-        LoginService service = retrofit.create(LoginService.class);
+        AccountService service = retrofit.create(AccountService.class);
 
         /* Send image download request */
         service.downloadProfile(userID).enqueue(new Callback<JsonObject>() {

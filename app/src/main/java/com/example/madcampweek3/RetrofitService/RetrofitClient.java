@@ -1,4 +1,4 @@
-package RetrofitService;
+package com.example.madcampweek3.RetrofitService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,7 +10,7 @@ public class RetrofitClient {
         if (instance == null) {
             // TODO: Change baseUrl
             instance = new Retrofit.Builder()
-                    .baseUrl("http://192.249.19.244:2280/")
+                    .baseUrl("http://ssal.sparcs.org:44153/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

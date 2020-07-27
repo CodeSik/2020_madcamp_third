@@ -1,8 +1,9 @@
-package RetrofitService;
+package com.example.madcampweek3.RetrofitService;
 
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -12,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public interface LoginService {
+public interface AccountService {
     @POST("/api/account/register")
     Call<ResponseBody> register(
             @Body JsonObject body
@@ -29,14 +30,9 @@ public interface LoginService {
             @Query("password") String password
     );
 
-    @POST("/api/account/updateProfile")
-    Call<ResponseBody> updateProfile(
-            @Body JsonObject body
-    );
-
-    @GET("/api/account/downloadProfile")
-    Call<JsonObject> downloadProfile(
-            @Query("id") String id
+    @GET("/api/account/findUser")
+    Call<JsonObject> findUser(
+            @Query("macAddress") String address
     );
 
 }

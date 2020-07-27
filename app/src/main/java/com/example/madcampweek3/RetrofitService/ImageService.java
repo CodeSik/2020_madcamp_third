@@ -1,4 +1,4 @@
-package RetrofitService;
+package com.example.madcampweek3.RetrofitService;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
-public interface ProfileService {
+public interface ImageService {
     @Multipart
     @POST("/api/image/uploadProfile")
     Call<ResponseBody> uploadProfile(
