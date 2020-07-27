@@ -1,5 +1,7 @@
 package com.example.madcampweek3.Account;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.ImageService;
@@ -23,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.ResponseBody;
@@ -34,13 +36,15 @@ import retrofit2.Retrofit;
 
 import static com.example.madcampweek3.Account.AccountEditFragment.PROFILE_IMAGE_KIND;
 import static com.example.madcampweek3.Account.AccountEditFragment.PROFILE_IMAGE_NAME;
-import static com.example.madcampweek3.Account.AccountEditFragment.userID;
 
 public class AccountActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
-    public static String userName = "seo"; // TODO: Change it into actual userName
+
     private ImageView profileImage;
-    private TextView age, region, height, job, hobby, smoke, drink, self_instruction;
+    private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor;
+    private int age;
+    private String region, username, id;
+
 
     @BindView(R.id.toolbar_header_view)
     protected HeaderView toolbarHeaderView;
@@ -55,25 +59,34 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     protected Toolbar toolbar;
 
     private boolean isHideToolbarView = false;
+    private SharedPreferences appData;
+
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(AccountActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
-
-
+        username = "앱내데이터";
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
-        age = (TextView) findViewById(R.id.age);
-        region = (TextView) findViewById(R.id.region);
-        height = (TextView) findViewById(R.id.height);
-        job = (TextView) findViewById(R.id.job);
-        hobby = (TextView) findViewById(R.id.hobby);
-        smoke = (TextView) findViewById(R.id.smoke);
-        drink = (TextView) findViewById(R.id.drink);
-        self_instruction = (TextView) findViewById(R.id.self_instruction);
+
+
+        mself_instruction = findViewById(R.id.profile_selfInstruction);
+        mheight = findViewById(R.id.profile_height);
+        mschool = findViewById(R.id.profile_school);
+        mmajor = findViewById(R.id.profile_major);
+        mjob = findViewById(R.id.profile_job);
+        mhobby = findViewById(R.id.profile_hobby);
+        msmoke = findViewById(R.id.profile_smoke);
+        mdrink = findViewById(R.id.profile_drink);
 
 
         // TODO: Suport multiple images
@@ -84,14 +97,15 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
     private void initUi() {
         appBarLayout.addOnOffsetChangedListener(this);
+        appData =getSharedPreferences("appData", MODE_PRIVATE);
+        id = appData.getString("ID","");
 
+        setProfileImage(id, profileImage, 1);
+        setProfileInfo(id);
 
-        setProfileImage(userID, profileImage, 1);
-        setProfileInfo(userID);
-
-        //TODO: 서버의 데이터로 바꿔야함
-        toolbarHeaderView.bindTo(userName, "Last seen today at 7.00PM");
-        floatHeaderView.bindTo(userName, "Last seen today at 7.00PM");
+        //TODO: 서버의 데이터로 바꿔야함 -> 이름, 나이, 사는곳
+        toolbarHeaderView.bindTo(username, age,region);
+        floatHeaderView.bindTo(username, age, region);
     }
 
     @Override
@@ -167,47 +181,54 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
                     /* Change profile info */
                     if (response.body().has("age")) {
-                        age.setText(response.body().get("age").toString());
+                        age=response.body().get("age").getAsInt();
                     }
                     if (response.body().has("region")) {
                         String region_str = response.body().get("region").toString();
-                        region.setText(region_str.substring(1, region_str.length() - 1));
+                        region=(region_str.substring(1, region_str.length() - 1));
                     }
                     if (response.body().has("height")) {
-                        height.setText(response.body().get("height").toString());
+                        String height_str = response.body().get("height").toString();
+                        mheight.setText(height_str.substring(1, height_str.length() - 1));
                     }
                     if (response.body().has("job")) {
                         String job_str = response.body().get("job").toString();
-                        job.setText(job_str.substring(1, job_str.length() - 1));
+                        mjob.setText(job_str.substring(1, job_str.length() - 1));
                     }
                     if (response.body().has("hobby")) {
                         String hobby_str = response.body().get("hobby").toString();
-                        hobby.setText(hobby_str.substring(1, hobby_str.length() - 1));
+                        mhobby.setText(hobby_str.substring(1, hobby_str.length() - 1));
                     }
                     if (response.body().has("smoke")) {
                         Boolean smoke_bol = Boolean.parseBoolean(response.body().get("smoke").toString());
                         if (smoke_bol) {
-                            smoke.setText("흡연");
+                            msmoke.setText("흡연");
                         }
                         else {
-                            smoke.setText("비흡연");
+                            msmoke.setText("비흡연");
                         }
                     }
                     if (response.body().has("drink")) {
-                        int drink_int = Integer.parseInt(response.body().get("drink").toString());
-                        if (drink_int == 0) {
-                            drink.setText("마시지 않음");
-                        } else if (drink_int == 1) {
-                            drink.setText("가끔 마심");
-                        } else if (drink_int == 2) {
-                            drink.setText("자주 마심");
-                        } else if (drink_int == 3) {
-                            drink.setText("즐겨 마심");
+                        Boolean drink_bol = Boolean.parseBoolean(response.body().get("drink").toString());
+                        if (drink_bol) {
+                            mdrink.setText("자주");
+                        }
+                        else {
+                            mdrink.setText("안마심");
                         }
                     }
                     if (response.body().has("self_instruction")) {
                         String self_instruction_str = response.body().get("self_instruction").toString();
-                        self_instruction.setText(self_instruction_str.substring(1, self_instruction_str.length() - 1));
+                        mself_instruction.setText(self_instruction_str.substring(1, self_instruction_str.length() - 1));
+                    }
+                    if (response.body().has("school")) {
+                        String school_str = response.body().get("school").toString();
+                        mschool.setText(school_str.substring(1, school_str.length() - 1));
+                    }
+
+                    if (response.body().has("major")) {
+                        String major_str = response.body().get("major").toString();
+                        mmajor.setText(major_str.substring(1, major_str.length() - 1));
                     }
                 }
             }

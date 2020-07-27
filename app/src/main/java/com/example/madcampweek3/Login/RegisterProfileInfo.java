@@ -141,7 +141,7 @@ public class RegisterProfileInfo extends AppCompatActivity {
                     String strDateOfBirth = dateFormatter.format(dateOfBirth);
 
                     // code to set the dateOfBirthAttribute.
-                    user.setDateOfBirth(strDateOfBirth);
+                    user.setDateOfBirth(age);
 
 
                     Intent intent = new Intent(this, RegisterAdditional.class);

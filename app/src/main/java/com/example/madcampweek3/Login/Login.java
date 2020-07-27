@@ -2,6 +2,7 @@ package com.example.madcampweek3.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,9 @@ public class Login extends AppCompatActivity {
 
     private Context mContext;
     private EditText mEmail, mPassword;
+    private String email;
+    private SharedPreferences appData;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class Login extends AppCompatActivity {
         mEmail = findViewById(R.id.login_email);
         mPassword = findViewById(R.id.login_pwd);
         mContext = Login.this;
+
 
         init();
     }
@@ -69,12 +74,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: attempting to log in");
 
-                String email = mEmail.getText().toString();
+                email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
                 if (isStringNull(email) || isStringNull(password)) {
                     Toast.makeText(mContext, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
+                    save();
                     tryLogin();
 
                 }
@@ -94,6 +100,22 @@ public class Login extends AppCompatActivity {
 
 
     }
+
+    private void save() {
+        // SharedPreferences 객체만으론 저장 불가능 Editor 사용
+        appData=getSharedPreferences("appData",MODE_PRIVATE);
+        SharedPreferences.Editor editor = appData.edit();
+
+        // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
+        // 저장시킬 이름이 이미 존재하면 덮어씌움
+
+        editor.putString("ID", email);
+
+        // apply, commit 을 안하면 변경된 내용이 저장되지 않음
+        editor.apply();
+    }
+
+
 
     private void tryLogin() {
         /* Init */

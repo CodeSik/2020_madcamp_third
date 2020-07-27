@@ -2,6 +2,7 @@ package com.example.madcampweek3.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,8 +53,10 @@ public class RegisterAdditional
     private boolean smoking=true;
     private boolean drinking=true;
     private NumberPicker mheight;
-
+    private LocationManager locationManager;
     private String append = "";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,9 @@ public class RegisterAdditional
 
         init();
     }
+
+
+
 
     private void initWidgets() {
         minstruction = findViewById(R.id.register_self_instruction);
@@ -103,14 +109,12 @@ public class RegisterAdditional
                 nonsmokeButtonClicked();
             }
         });
-
         drink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drinkButtonClicked();
             }
         });
-
         nondrink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,8 +122,9 @@ public class RegisterAdditional
             }
         });
 
-
     }
+
+
 
     public void smokeButtonClicked() {
         // this is to toggle between selection and non selection of button
@@ -130,7 +135,6 @@ public class RegisterAdditional
         nonsmoke.setBackgroundColor(getColor(R.color.white));
 
     }
-
     public void nonsmokeButtonClicked() {
         // this is to toggle between selection and non selection of button
         smoking = false;
@@ -140,7 +144,6 @@ public class RegisterAdditional
         smoke.setBackgroundColor(getColor(R.color.white));
 
     }
-
     public void drinkButtonClicked() {
         // this is to toggle between selection and non selection of button
         drinking = true;
@@ -151,7 +154,6 @@ public class RegisterAdditional
 
 
     }
-
     public void nondrinkButtonClicked() {
         // this is to toggle between selection and non selection of button
         drinking = false;
@@ -180,9 +182,11 @@ public class RegisterAdditional
                 userInfo.setSmoking(smoking);
                 userInfo.setDrinking(drinking);
                 if(checkInputs(instruction,hobby)) {
-                    Toast.makeText(mContext, "가입이 완료되었어요 :) 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), RegisterPhoto.class);
+                    intent.putExtra("password", password);
+                    intent.putExtra("classUser", userInfo);
                     tryRegister();
-                    startActivity(new Intent(getApplicationContext(), Login.class));
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -211,8 +215,7 @@ public class RegisterAdditional
         /* Get personal info */
         JsonObject body_account = new JsonObject();
 
-        /* Get proflie info*/
-        JsonObject body_profile = new JsonObject();
+
 
         /* TODO: Change input */
         body_account.addProperty("id", userInfo.getEmail());
@@ -223,21 +226,9 @@ public class RegisterAdditional
         body_account.addProperty("gender",userInfo.getSex());
 
 
-        /*insert profile info*/
-        //userInfo에서 받아오는데, 아직 정보 코드 수정은 안함
-        body_profile.addProperty("id",userInfo.getEmail());
-        body_profile.addProperty("age",userInfo.getEmail());
-        body_profile.addProperty("region",userInfo.getEmail());
-        body_profile.addProperty("height",userInfo.getEmail());
-        body_profile.addProperty("job",userInfo.getEmail());
-        body_profile.addProperty("hobby",userInfo.getEmail());
-        body_profile.addProperty("smoke",userInfo.getEmail());
-        body_profile.addProperty("drink",userInfo.getEmail());
-        body_profile.addProperty("self_instruction",userInfo.getEmail());
-        body_profile.addProperty("school",userInfo.getSchool());
-        body_profile.addProperty("major",userInfo.getMajor());
 
-        
+
+
         /* Send register request */
         service.register(body_account).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -254,6 +245,7 @@ public class RegisterAdditional
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    uploadProfileInfo();
                 }
 
             }
@@ -264,6 +256,36 @@ public class RegisterAdditional
                         + ", exception: " + t);
             }
         });
+
+
+
+
+
+    }
+
+    private void uploadProfileInfo() {
+        /* Init */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        AccountService service = retrofit.create(AccountService.class);
+
+        /* Get proflie info*/
+        JsonObject body_profile = new JsonObject();
+
+
+
+        /*insert profile info*/
+
+        body_profile.addProperty("id",userInfo.getEmail());
+        body_profile.addProperty("age", userInfo.getDateOfBirth());
+        body_profile.addProperty("region",userInfo.getRegion());
+        body_profile.addProperty("height",userInfo.getHeight());
+        body_profile.addProperty("job",userInfo.getJob());
+        body_profile.addProperty("hobby",userInfo.getHobby());
+        body_profile.addProperty("smoke",userInfo.isSmoking());
+        body_profile.addProperty("drink",userInfo.isDrinking());
+        body_profile.addProperty("self_instruction",userInfo.getDescription());
+        body_profile.addProperty("school",userInfo.getSchool());
+        body_profile.addProperty("major",userInfo.getMajor());
 
         /* Send register request */
         service.updateProfile(body_profile).enqueue(new Callback<ResponseBody>() {
@@ -291,9 +313,6 @@ public class RegisterAdditional
                         + ", exception: " + t);
             }
         });
-
-
-
     }
 
 
@@ -326,10 +345,6 @@ public class RegisterAdditional
         }
         return null;
     }
-
-
-
-
 
 
 

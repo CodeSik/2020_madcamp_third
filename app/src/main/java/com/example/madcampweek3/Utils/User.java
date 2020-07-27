@@ -17,13 +17,21 @@ public class User implements Serializable {
     private String hobby; // 취미
     private String description; //소개글
     private String sex; //성별
-    private String dateOfBirth; //생년월일
+    private int dateOfBirth; //생년월일
     private String profileImageUrl;
     private String school; //학교
     private int height; //키
+
+    private double latitude; //위치정보
+    private double longtitude;
+    private String major; //전공
+    private String job; //직업
+
     private boolean smoking,drinking;
 
-    public User(String user_id, String phone_number, String email, String username, String hobby, String description, String sex, String dateOfBirth, String profileImageUrl, String school, int height, boolean smoking, boolean drinking, String major, String job, double latitude, double longtitude) {
+    private String region;
+
+    public User(String user_id, String phone_number, String email, String username, String hobby, String description, String sex, int dateOfBirth, String profileImageUrl, String school, int height, String region, String major, String job, boolean smoking, boolean drinking) {
         this.user_id = user_id;
         this.phone_number = phone_number;
         this.email = email;
@@ -35,13 +43,25 @@ public class User implements Serializable {
         this.profileImageUrl = profileImageUrl;
         this.school = school;
         this.height = height;
-        this.smoking = smoking;
-        this.drinking = drinking;
-        this.major = major;
-        this.job = job;
         this.latitude = latitude;
         this.longtitude = longtitude;
+        this.region = region;
+        this.major = major;
+        this.job = job;
+        this.smoking = smoking;
+        this.drinking = drinking;
     }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+
+
 
     public boolean isSmoking() {
         return smoking;
@@ -93,11 +113,6 @@ public class User implements Serializable {
 
 
 
-    private String major; //전공
-    private String job; //직업
-
-    private double latitude; //위치정보
-    private double longtitude;
 
 
     public User() {
@@ -180,11 +195,11 @@ public class User implements Serializable {
 
 
     // Added new attribute called date of birth.
-    public String getDateOfBirth() {
+    public int getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(int dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
