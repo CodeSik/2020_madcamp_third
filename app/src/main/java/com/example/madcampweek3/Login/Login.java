@@ -55,7 +55,6 @@ public class Login extends AppCompatActivity {
         mPassword = findViewById(R.id.login_pwd);
         mContext = Login.this;
 
-
         init();
     }
 
@@ -82,7 +81,6 @@ public class Login extends AppCompatActivity {
                 } else {
                     save();
                     tryLogin();
-
                 }
             }
         });
@@ -108,9 +106,7 @@ public class Login extends AppCompatActivity {
 
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
-
         editor.putString("ID", email);
-
         // apply, commit 을 안하면 변경된 내용이 저장되지 않음
         editor.apply();
     }

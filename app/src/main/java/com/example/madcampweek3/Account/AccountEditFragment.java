@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
@@ -48,7 +49,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AccountEditFragment extends Fragment {
     SharedPreferences appData ;
-    String userId="";
+    String userId = "";
 
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
@@ -80,11 +81,12 @@ public class AccountEditFragment extends Fragment {
         this.getActivity().finish();
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         View view = inflater.inflate(R.layout.fragment_edit_account, container, false);
 
         appData =getContext().getSharedPreferences("appData", MODE_PRIVATE);
@@ -101,11 +103,11 @@ public class AccountEditFragment extends Fragment {
             }
         });
 
-
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tryUploadProfileInfo(); // TODO: Fix automatically profile image upload
+                startMainActivity();
             }
         });
         setInitProfileImage();

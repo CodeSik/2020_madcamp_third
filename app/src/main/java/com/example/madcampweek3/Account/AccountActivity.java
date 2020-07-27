@@ -7,11 +7,13 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
@@ -41,6 +43,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
 
     private ImageView profileImage;
+    ViewPager viewPager;
+    ViewPagerAdapter adapter;
     private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor;
     private int age;
     private String region, username, id;
@@ -66,17 +70,24 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     public void onBackPressed(){
         Intent intent = new Intent(AccountActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
         username = "앱내데이터";
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
+
+        viewPager = (ViewPager) findViewById(R.id.profile_image);
+        adapter= new ViewPagerAdapter (this);
+        viewPager.setAdapter(adapter);
 
 
         mself_instruction = findViewById(R.id.profile_selfInstruction);
@@ -90,7 +101,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
 
         // TODO: Suport multiple images
-        profileImage = (ImageView) findViewById(R.id.profile_image);
+        //profileImage = (ImageView) findViewById(R.id.profile_image);
 
         initUi();
     }
@@ -100,7 +111,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         appData =getSharedPreferences("appData", MODE_PRIVATE);
         id = appData.getString("ID","");
 
-        setProfileImage(id, profileImage, 1);
+        //setProfileImage(id, profileImage, 1);
         setProfileInfo(id);
 
         //TODO: 서버의 데이터로 바꿔야함 -> 이름, 나이, 사는곳
@@ -188,8 +199,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
                         region=(region_str.substring(1, region_str.length() - 1));
                     }
                     if (response.body().has("height")) {
-                        String height_str = response.body().get("height").toString();
-                        mheight.setText(height_str.substring(1, height_str.length() - 1));
+
+                        mheight.setText(response.body().get("height").toString());
                     }
                     if (response.body().has("job")) {
                         String job_str = response.body().get("job").toString();
