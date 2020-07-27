@@ -1,7 +1,5 @@
 package com.example.madcampweek3.Account;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
@@ -54,11 +50,9 @@ public class AccountEditFragment extends Fragment {
     SharedPreferences appData ;
     String userId="";
 
-
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
     public static final String PROFILE_IMAGE_KIND = "profile";
-
 
 
     Button smoking, nonsmoking, drinking, nondrinking, continueButton;
@@ -75,6 +69,9 @@ public class AccountEditFragment extends Fragment {
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private int selectedImagePos = 0;
+    private int age;
+    private String region;
+    private int height;
 
 
     private void startMainActivity() {
@@ -221,8 +218,78 @@ public class AccountEditFragment extends Fragment {
             }
         });
 
-        service.downloadProfile(userId)
-    }
+        service.downloadProfile(userId).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() == null) {
+                    try { // Profile download failure
+                        assert response.errorBody() != null;
+                        Log.d("LoginService", "res:" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Profile download success
+                    Log.d("LoginService", "res:" + response.message());
+
+                    if (response.body().has("self_instruction")) {
+                        String self_instruction_str = response.body().get("self_instruction").toString();
+                        mself_instruction.setText(self_instruction_str.substring(1, self_instruction_str.length() - 1));
+                    }
+
+                    if (response.body().has("school")) {
+                        String school_str = response.body().get("school").toString();
+                        mschool.setText(school_str.substring(1, school_str.length() - 1));
+                    }
+
+                    if (response.body().has("major")) {
+                        String major_str = response.body().get("major").toString();
+                        mmajor.setText(major_str.substring(1, major_str.length() - 1));
+                    }
+
+                    if (response.body().has("job")) {
+                        String job_str = response.body().get("job").toString();
+                        mjob.setText(job_str.substring(1, job_str.length() - 1));
+                    }
+                    if (response.body().has("hobby")) {
+                        String hobby_str = response.body().get("hobby").toString();
+                        mhobby.setText(hobby_str.substring(1, hobby_str.length() - 1));
+                    }
+
+                    /* Change profile info */
+                    if (response.body().has("age")) {
+                        age = response.body().get("age").getAsInt();
+                    }
+                    if (response.body().has("region")) {
+                        String region_str = response.body().get("region").toString();
+                        region = (region_str.substring(1, region_str.length() - 1));
+                    }
+                    if (response.body().has("height")) {
+                        height = response.body().get("height").getAsInt();
+                    }
+
+                    if (response.body().has("smoke")) {
+                        Boolean smoke_bol = Boolean.parseBoolean(response.body().get("smoke").toString());
+                        smoke = smoke_bol;
+                    }
+                    if (response.body().has("drink")) {
+                        Boolean drink_bol = Boolean.parseBoolean(response.body().get("drink").toString());
+                        drink = drink_bol;
+                    }
+
+                }
+            }
+                @Override
+                public void onFailure (Call < JsonObject > call, Throwable t){
+                    // Profile download success
+                    Log.d("ProfileService", "Failed API call with call: " + call
+                            + ", exception: " + t);
+
+                }
+
+        });
+     }
+
 
     public void smokeButtonClicked() {
         // this is to toggle between selection and non selection of button
@@ -418,14 +485,20 @@ public class AccountEditFragment extends Fragment {
         /* Prepare information */
         JsonObject body = new JsonObject();
         body.addProperty("id", userId);
-        body.addProperty("age", Integer.parseInt(age.getText().toString()));
-        body.addProperty("region", region.getText().toString());
-        body.addProperty("height", Integer.parseInt(height.getText().toString()));
-        body.addProperty("job", job.getText().toString());
-        body.addProperty("hobby", hobby.getText().toString());
+        body.addProperty("age", age);
+        body.addProperty("region", region);
+        body.addProperty("height", height);
+
+        //-------------------------------여기까지는 수정 불가 정보
+
+
+        body.addProperty("job", mjob.getText().toString());
+        body.addProperty("hobby", mhobby.getText().toString());
         body.addProperty("smoke", smoke);
-        body.addProperty("drink",Integer.parseInt(drink.getText().toString()));
-        body.addProperty("self_instruction",self_instruction.getText().toString());
+        body.addProperty("drink",drink);
+        body.addProperty("self_instruction",mself_instruction.getText().toString());
+        body.addProperty("school",mschool.getText().toString());
+        body.addProperty("major",mmajor.getText().toString());
 
 
         /* Send image upload request */
