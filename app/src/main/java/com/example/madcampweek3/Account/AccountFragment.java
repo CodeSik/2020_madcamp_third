@@ -23,8 +23,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import RetrofitService.ImageService;
-import RetrofitService.RetrofitClient;
+import com.example.madcampweek3.RetrofitService.ImageService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

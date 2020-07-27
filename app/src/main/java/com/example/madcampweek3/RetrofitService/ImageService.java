@@ -1,4 +1,4 @@
-package RetrofitService;
+package com.example.madcampweek3.RetrofitService;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;

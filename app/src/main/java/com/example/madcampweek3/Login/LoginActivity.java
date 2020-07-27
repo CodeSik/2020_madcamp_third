@@ -17,8 +17,8 @@ import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.List;
 
-import RetrofitService.AccountService;
-import RetrofitService.RetrofitClient;
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

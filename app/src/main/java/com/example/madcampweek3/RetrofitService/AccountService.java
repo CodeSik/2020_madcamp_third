@@ -1,6 +1,9 @@
-package RetrofitService;
+package com.example.madcampweek3.RetrofitService;
 
 import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -28,7 +31,7 @@ public interface AccountService {
     );
 
     @GET("/api/account/findUser")
-    Call<ResponseBody> findUser(
+    Call<JsonObject> findUser(
             @Query("macAddress") String address
     );
 

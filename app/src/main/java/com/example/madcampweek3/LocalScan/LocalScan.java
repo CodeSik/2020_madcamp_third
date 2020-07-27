@@ -13,27 +13,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.R;
+import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.Set;
 
-import RetrofitService.AccountService;
-import RetrofitService.RetrofitClient;
-import okhttp3.ResponseBody;
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
 
 public class LocalScan extends Fragment {
     public static final int REQUEST_ENABLE_BT = 1;
@@ -113,15 +110,15 @@ public class LocalScan extends Fragment {
         getActivity().unregisterReceiver(receiver);
     }
 
-    public static void tryFindUser(String address, FindUserResponse findUserResponse) {
+    private void tryFindUser(String address, FindUserResponse findUserResponse) {
         /* Init */
         Retrofit retrofit = RetrofitClient.getInstnce();
         AccountService service = retrofit.create(AccountService.class);
 
         /* Send macAddress */
-        service.findUser(address).enqueue(new Callback<ResponseBody>() {
+        service.findUser(address).enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                 if (response.body() == null) {
                     try { // Can't find user
                         assert response.errorBody() != null;
@@ -131,25 +128,23 @@ public class LocalScan extends Fragment {
                     }
                 } else {
                     String res = null;
-                    try { // Find user
-                        res = response.body().string();
-                        Log.d("AccountService", "res:" + res);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (response.body().has("userName")) {
+                        res = response.body().get("userName").toString();
                     }
-                    findUserResponse.onResponseReceived(res.split("\"")[7]);
+                    Log.d("AccountService", "res:" + res);
+                    findUserResponse.onResponseReceived(res);
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<JsonObject> call, @NotNull Throwable t) {
                 Log.d("AccountService", "Failed API call with call: " + call
                         + ", exception: " + t);
             }
         });
     }
 
-    public interface FindUserResponse {
+    interface FindUserResponse {
         void onResponseReceived(String name);
     }
 }
