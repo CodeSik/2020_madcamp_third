@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,8 +30,8 @@ public class RegisterBasicInfo extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
     GPS gps;
     private Context mContext;
-    private String email, password;
-    private EditText mEmail, mPassword;
+    private String email, password, phonenumber;
+    private EditText mEmail, mPassword, mPhonenumber;
     private TextView loadingPleaseWait;
     private Button btnRegister;
     private String append = "";
@@ -58,8 +59,10 @@ public class RegisterBasicInfo extends AppCompatActivity {
 
                 email = mEmail.getText().toString();
                 password = mPassword.getText().toString();
+                mPhonenumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
-                if (checkInputs(email, password)) {
+                phonenumber = mPhonenumber.getText().toString();
+                if (checkInputs(email, password,phonenumber)) {
                     //find geo location
                     //find geo location
                     Location location = gps.getLocation();
@@ -73,7 +76,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
 
 
                     Intent intent = new Intent(RegisterBasicInfo.this, RegisterProfileInfo.class);
-                    User user = new User("", "", email, "", "","", "", "", "", "", 0,true,true,"", "", latitude, longtitude);
+                    User user = new User("", phonenumber, email, "", "","", "", "", "", "", 0,true,true,"", "", latitude, longtitude);
                     intent.putExtra("password", password);
                     intent.putExtra("classUser", user);
                     startActivity(intent);
@@ -83,9 +86,9 @@ public class RegisterBasicInfo extends AppCompatActivity {
         });
     }
 
-    private boolean checkInputs(String email,  String password) {
+    private boolean checkInputs(String email,  String password, String phonenumber) {
         Log.d(TAG, "checkInputs: checking inputs for null values.");
-        if (email.equals("") || password.equals("")) {
+        if (email.equals("") || password.equals("") || phonenumber.equals("")) {
             Toast.makeText(mContext, "모든 정보를 기입해주세요.", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -106,6 +109,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
         mEmail = findViewById(R.id.input_email);
         btnRegister = findViewById(R.id.btn_register_basic_next);
         mPassword = findViewById(R.id.input_password);
+        mPhonenumber=findViewById(R.id.input_phonenumber);
         mContext = RegisterBasicInfo.this;
 
     }
