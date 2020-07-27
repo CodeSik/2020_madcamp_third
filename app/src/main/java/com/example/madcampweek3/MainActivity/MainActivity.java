@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.LocalScan.LocalScan;
 import com.example.madcampweek3.Account.AccountEditFragment;
+import com.example.madcampweek3.Message.MessageFragment;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
@@ -108,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         } else if (position == POS_CART) { // TODO: Change POS_CART
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new LocalScan();
+            showFragment(selectedScreen);
+        } else if (position == POS_MESSAGES){
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new MessageFragment();
             showFragment(selectedScreen);
         }
         else {
