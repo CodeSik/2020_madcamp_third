@@ -64,9 +64,10 @@
 
         <TextView
             android:id="@+id/letter"
+            android:padding="@dimen/_5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/letter_regular"
             android:text="낮에 만난 인연"
@@ -76,8 +77,8 @@
             android:id="@+id/inImage"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="55dp"
             tools:srcCompat="@drawable/couple" />
 
 
