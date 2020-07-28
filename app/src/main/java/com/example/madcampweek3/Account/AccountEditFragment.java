@@ -491,7 +491,6 @@ public class AccountEditFragment extends Fragment {
         JsonObject body = new JsonObject();
         body.addProperty("id", userId);
         body.addProperty("age", age);
-        body.addProperty("region", region);
         body.addProperty("height", height);
 
         //-------------------------------여기까지는 수정 불가 정보

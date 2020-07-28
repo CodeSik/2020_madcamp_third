@@ -277,7 +277,6 @@ public class RegisterAdditional
 
         body_profile.addProperty("id",userInfo.getEmail());
         body_profile.addProperty("age", userInfo.getDateOfBirth());
-        body_profile.addProperty("region",userInfo.getRegion());
         body_profile.addProperty("height",userInfo.getHeight());
         body_profile.addProperty("job",userInfo.getJob());
         body_profile.addProperty("hobby",userInfo.getHobby());
