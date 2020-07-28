@@ -26,22 +26,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pending_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/pending_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp" />
-            </RelativeLayout>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="44dp" />
 
         <ImageView
             android:id="@+id/title_from_to_dots_divider1"
@@ -67,21 +56,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/friends_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="345dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/friends_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="345dp" />
 
         <ImageView
             android:id="@+id/title_from_to_dots_divider2"
