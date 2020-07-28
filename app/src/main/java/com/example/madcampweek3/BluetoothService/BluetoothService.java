@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -51,6 +52,7 @@ public class BluetoothService extends Service {
     private Number contactID = 0; // TODO: Change contactID
     private String frinedID = null; // TODO: Support multiple friend
     private boolean first = true;
+    private String userID = null;
 
     @Override
     public void onCreate() {
@@ -61,6 +63,9 @@ public class BluetoothService extends Service {
                         .setSmallIcon(R.drawable.pngwing)
                         .build();
         startForeground(ONGOING_BLUETOOTH, notification);
+
+        SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE);
+        userID = appData.getString("ID","");
         super.onCreate();
     }
 
@@ -284,7 +289,7 @@ public class BluetoothService extends Service {
             contaactTime = "night";
         }
         JsonObject body = new JsonObject();
-        body.addProperty("id", "test");
+        body.addProperty("id", userID);
         body.addProperty("friendID", frinedID);
         body.addProperty("contactID", contactID);
         body.addProperty("position", position);
