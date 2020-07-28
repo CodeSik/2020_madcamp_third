@@ -8,15 +8,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.madcampweek3.LocalScan.Friend;
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.ImageService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.android.material.appbar.AppBarLayout;
@@ -47,6 +51,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     private int age;
     private String region, friendName;
     private String friendID, userID;
+    private RatingBar ratingbar;
 
 
     @BindView(R.id.toolbar_header_view)
@@ -101,6 +106,10 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         mhobby = findViewById(R.id.profile_hobby);
         msmoke = findViewById(R.id.profile_smoke);
         mdrink = findViewById(R.id.profile_drink);
+
+        /* Set rating bar */
+        ratingbar = findViewById(R.id.rating);
+        ratingbar.setOnRatingBarChangeListener(new RatingListener());
 
         initUi();
     }
@@ -211,5 +220,44 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
                         + ", exception: " + t);
             }
         });
+
+    }
+    class RatingListener implements  RatingBar.OnRatingBarChangeListener {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+            ratingBar.setIsIndicator(true);
+            ratingBar.setRating(rating);
+            /* Init retrofit */
+            Retrofit retrofit = RetrofitClient.getInstnce();
+            FriendService service = retrofit.create(FriendService.class);
+
+            /* Send star */
+            JsonObject body = new JsonObject();
+            body.addProperty("id", friendID);
+            body.addProperty("score", rating);
+
+            service.sendStar(body).enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if (response.body() == null) {
+                        try { // Failure
+                            assert response.errorBody() != null;
+                            Log.d("LoginService", "res:" + response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else { // Success
+                        Toast.makeText(getApplication(), "별점을 보냈습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    Log.d("FriendService", "Failed API call with call: " + call
+                            + ", exception: " + t);
+                }
+            });
+
+        }
     }
 }
