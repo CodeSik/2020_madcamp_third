@@ -1,200 +1,357 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/myprofile_image"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="10dp"
+            android:fitsSystemWindows="true"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_be_couple_icon">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/render"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="20dp"
+
+                    android:fontFamily="@font/gotham"
+                    android:gravity="left"
+                    android:text="닉네임"
+                    android:textColor="@color/mainColor"
+                    android:textColorHighlight="#0C0C0C"
+                    android:textSize="12sp"
+                    tools:fontFamily="@font/gotham" />
+
+                <TextView
+                    android:id="@+id/myprofile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gotham"
+                    android:textSize="24sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="20dp"
+
+                    android:fontFamily="@font/gotham"
+                    android:gravity="left"
+                    android:text="나이"
+                    android:textColor="@color/mainColor"
+                    android:textColorHighlight="#0C0C0C"
+                    android:textSize="12sp"
+                    tools:fontFamily="@font/gotham" />
+
+                <TextView
+                    android:id="@+id/myprofile_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gotham"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:alpha="0.7"
-            android:background="@color/mainColor"
+            android:background="@drawable/render"
             android:fontFamily="@font/gotham"
             android:gravity="center|left"
             android:text="   소개"
-            android:textColor="#FAFAFA" />
+            android:textColor="#000000" />
+
+        <View
+            android:layout_width="380dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="15dp"
+
+            android:background="@color/color_sweet" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
 
                 android:fontFamily="@font/gotham"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="자기소개"
-                android:textColorHighlight="#0C0C0C" />
+                android:textColor="@color/mainColor"
+                android:textColorHighlight="#0C0C0C"
+                android:textSize="12sp"
+                tools:fontFamily="@font/gotham" />
 
             <TextView
-                android:id="@+id/profile_selfInstruction"
+                android:id="@+id/myprofile_selfInstruction"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/gotham"
-                android:gravity="left" />
+                android:textSize="24sp" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
 
                 android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="키" />
+                android:gravity="left"
+                android:text="키"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/profile_height"
+                android:id="@+id/myprofile_height"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/gotham"
-                android:gravity="left" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-
-                android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="학교" />
-
-            <TextView
-                android:id="@+id/profile_school"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/gotham"
-                android:gravity="left" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-
-                android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="전공" />
-
-            <TextView
-                android:id="@+id/profile_major"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/gotham"
-                android:gravity="left" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-
-                android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="직업" />
-
-            <TextView
-                android:id="@+id/profile_job"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/gotham"
-                android:gravity="left" />
+                android:gravity="left"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
 
                 android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="취미" />
+                android:gravity="left"
+                android:text="학교"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/profile_hobby"
+                android:id="@+id/myprofile_school"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/gotham"
-                android:gravity="left" />
+                android:gravity="left"
+                android:textSize="24sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
 
                 android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="흡연 여부" />
+                android:gravity="left"
+                android:text="전공"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/profile_smoke"
+                android:id="@+id/myprofile_major"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/gotham"
-                android:gravity="left" />
+                android:gravity="left"
+                android:textSize="24sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="20dp"
 
                 android:fontFamily="@font/gotham"
-                android:gravity="center"
-                android:text="음주 여부" />
+                android:gravity="left"
+                android:text="직업"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/profile_drink"
-                android:layout_width="wrap_content"
+                android:id="@+id/myprofile_job"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/gotham"
-                android:gravity="left" />
+                android:gravity="left"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+
+                android:fontFamily="@font/gotham"
+                android:gravity="left"
+                android:text="취미"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/myprofile_hobby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/gotham"
+                android:gravity="left"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+
+                android:fontFamily="@font/gotham"
+                android:gravity="left"
+                android:text="흡연 여부"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/myprofile_smoke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/gotham"
+                android:gravity="left"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+
+                android:fontFamily="@font/gotham"
+                android:gravity="left"
+                android:text="음주 여부"
+                android:textColor="@color/mainColor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/myprofile_drink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/gotham"
+                android:gravity="left"
+                android:textSize="24sp" />
         </LinearLayout>
 
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

@@ -2,24 +2,21 @@ package com.example.madcampweek3.LocalScan;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.madcampweek3.Profile.Item;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
-import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.example.madcampweek3.RetrofitService.ImageService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -29,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashMap;
 import java.util.List;
 
@@ -208,6 +204,7 @@ public class LocalScan extends Fragment {
             friendName = friendName.substring(1, friendName.length() - 1);
             int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
             String phoneNumber = phoneNumberList.get(i).toString();
+            phoneNumber = phoneNumber.substring(1,phoneNumber.length()-1);
             matchings.add(new Friend(friendID, friendName, intimacyScore, phoneNumber));
         }
     }

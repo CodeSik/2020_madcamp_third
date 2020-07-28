@@ -25,7 +25,6 @@ import com.example.madcampweek3.Account.AccountEditFragment;
 import com.example.madcampweek3.Account.MyAccountActivity;
 import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.LocalScan.LocalScan;
-import com.example.madcampweek3.Profile.Item;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
@@ -241,7 +240,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
                     /* Change profile info */
                     if (response.body().has("userName")) {
-                        myUserName.setText(response.body().get("userName").toString());
+                        String myUserName_str = response.body().get("userName").toString();
+                        myUserName.setText((myUserName_str.substring(1, myUserName_str.length() - 1)));
                     }
                 }
             }

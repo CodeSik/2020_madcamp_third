@@ -14,6 +14,7 @@ import com.github.paolorotolo.appintro.AppIntro;
 public class PreIntroActivity extends AppIntro {
 
     Fragment mSplash0 = new SplashFragmentPermission();
+    Fragment mSplash1 = new SplashFragmentPermission();
     String[] permissionList = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -38,6 +39,7 @@ public class PreIntroActivity extends AppIntro {
 //                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        }
         addSlide(mSplash0);
+        addSlide(mSplash1);
 
 
         setIndicatorColor(
@@ -65,7 +67,7 @@ public class PreIntroActivity extends AppIntro {
         setSeparatorColor(white);
         setNextArrowColor(black);
 
-
+        askForPermissions(permissionList, 1);
 
     }
 
@@ -81,7 +83,7 @@ public class PreIntroActivity extends AppIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        askForPermissions(permissionList, 1);
+
         Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
         finish();
