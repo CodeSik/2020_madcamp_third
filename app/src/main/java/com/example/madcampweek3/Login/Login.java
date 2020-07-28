@@ -19,6 +19,7 @@ import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
+import com.example.madcampweek3.Utils.BackPressCloseHandler;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -44,7 +45,16 @@ public class Login extends AppCompatActivity {
     private String email;
     private SharedPreferences appData;
 
-
+    private BackPressCloseHandler backPressCloseHandler = new BackPressCloseHandler(this);
+    private String password;
+    /*자동 로그인 위한 변수*/
+    private String userID;
+    private String userPW;
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +64,15 @@ public class Login extends AppCompatActivity {
         mEmail = findViewById(R.id.login_email);
         mPassword = findViewById(R.id.login_pwd);
         mContext = Login.this;
+        appData =getSharedPreferences("appData", MODE_PRIVATE);
+        userID = appData.getString("ID","");
+        userPW = appData.getString("PW","");
 
+        if(userID != null && userPW != null)
+        {
+            mEmail.setText(userID);
+            mPassword.setText(userPW);
+        }
         init();
     }
 
@@ -74,7 +92,7 @@ public class Login extends AppCompatActivity {
                 Log.d(TAG, "onClick: attempting to log in");
 
                 email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
+                password = mPassword.getText().toString();
 
                 if (isStringNull(email) || isStringNull(password)) {
                     Toast.makeText(mContext, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
@@ -107,6 +125,7 @@ public class Login extends AppCompatActivity {
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
         editor.putString("ID", email);
+        editor.putString("PW",password);
         // apply, commit 을 안하면 변경된 내용이 저장되지 않음
         editor.apply();
     }
@@ -156,11 +175,6 @@ public class Login extends AppCompatActivity {
     }
 
 
-
-    @Override
-    public void onBackPressed() {
-
-    }
 
 
 }
