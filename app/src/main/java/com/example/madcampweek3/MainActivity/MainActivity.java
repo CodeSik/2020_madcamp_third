@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new AccountEditFragment();
             showFragment(selectedScreen);
-        } else if (position == POS_CART) { // TODO: Change POS_CART
+        } else if (position == POS_PROBABILITY) { // TODO: Change POS_CART
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new LocalScan();
             showFragment(selectedScreen);

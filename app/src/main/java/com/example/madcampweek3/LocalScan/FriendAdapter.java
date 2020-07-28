@@ -19,13 +19,19 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
     public static class FriendViewHolder extends  RecyclerView.ViewHolder {
         public TextView name;
+        public TextView score;
+        public TextView phoneNumber;
         public FriendViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.friend_name);
+            score = (TextView) v.findViewById(R.id.intimacy_score);
+            phoneNumber = (TextView) v.findViewById(R.id.phone_number);
         }
 
         public void bind(Friend friend) {
             name.setText(friend.name);
+            score.setText(friend.score.toString());
+            phoneNumber.setText(friend.phoneNumber);
         }
     }
 

@@ -110,12 +110,16 @@ public class LocalScan extends Fragment {
     private void setMatchingList(Response<JsonObject> response) {
         JsonArray friendNameList = new JsonArray ();
         JsonArray intimacyScoreList = new JsonArray ();
+        JsonArray phoneNumberList = new JsonArray ();
 
         if (response.body().has("friendName")) {
             friendNameList = response.body().getAsJsonArray("friendName");
         }
         if (response.body().has("intimacyScore")) {
             intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
+        }
+        if (response.body().has("phoneNumber")) {
+            phoneNumberList = response.body().getAsJsonArray("phoneNumber");
         }
 
         ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
@@ -124,7 +128,8 @@ public class LocalScan extends Fragment {
             String friendName = friendNameList.get(i).toString();
             friendName = friendName.substring(1, friendName.length() - 1);
             int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
-            mAdapter.addFriend(new Friend(friendName, intimacyScore));
+            String phoneNumber = phoneNumberList.get(i).toString();
+            mAdapter.addFriend(new Friend(friendName, intimacyScore, phoneNumber));
         }
     }
 
