@@ -1,6 +1,5 @@
 package com.example.madcampweek3.LocalScan;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.R;
-import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonObject;
@@ -29,7 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.example.madcampweek3.LocalScan.LocalScan.userID;
 
 public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingViewHolder>{
@@ -54,6 +50,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                 public void onClick(View view) {
                     sendDeny();
                     sendAllow();
+
                 }
             });
 
@@ -61,6 +58,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                 @Override
                 public void onClick(View view) {
                     sendDeny();
+
                 }
             });
         }
@@ -155,6 +153,10 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
 
     public void setPending(List<Pending> pending) {
         this.mDataset = pending;
+        notifyDataSetChanged();
+    }
+    public void clear(){
+        this.mDataset.clear();
         notifyDataSetChanged();
     }
 
