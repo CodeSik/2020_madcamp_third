@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,6 +26,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pending_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+            </RelativeLayout>
+        </ScrollView>
+
         <ImageView
             android:id="@+id/title_from_to_dots_divider1"
             android:layout_width="match_parent"
@@ -34,14 +51,6 @@
             android:src="@color/contentDividerLine"
             app:layout_constraintTop_toBottomOf="@+id/cell_username1"
             tools:layout_editor_absoluteX="0dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/pending_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_from_to_dots_divider2" />
 
         <TextView
             android:id="@+id/cell_username1"
@@ -57,6 +66,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/friends_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </ScrollView>
+
         <ImageView
             android:id="@+id/title_from_to_dots_divider2"
             android:layout_width="match_parent"
@@ -67,13 +91,6 @@
             app:layout_constraintTop_toBottomOf="@+id/cell_username2"
             tools:layout_editor_absoluteX="0dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/friends_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_from_to_dots_divider1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
