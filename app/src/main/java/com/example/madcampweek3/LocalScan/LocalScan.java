@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,19 +19,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.madcampweek3.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class LocalScan extends Fragment {
     public static final int REQUEST_ENABLE_BT = 1;
@@ -38,6 +45,7 @@ public class LocalScan extends Fragment {
     private RecyclerView recyclerView;
     private FriendAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private String userID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,80 +67,35 @@ public class LocalScan extends Fragment {
         /* Register for broadcasts when a device is discovered */
         super.onCreate(savedInstanceState);
 
-        /* Init bluetooth */
-        BluetoothAdapter bluetoothAdapter =  BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null) {
-            // Device doesn't support Bluetooth
-            return;
-        }
-        if (!bluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-
-        // TODO: Delete permission request
-        requestPermissions(
-                new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
-                1
-        );
-        /* Scan bluetooth */
-        IntentFilter bluetoothFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        getActivity().registerReceiver(receiver, bluetoothFilter);
-
-        bluetoothAdapter.startDiscovery();
+        SharedPreferences appData = getContext().getSharedPreferences("appData", MODE_PRIVATE);
+        userID = appData.getString("ID","");
+        downloadMatchingList();
     }
-
-    // Create a BroadcastReceiver for ACTION_FOUND.
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                String name = device.getName();
-                if (name != null) {
-                    Log.d("Bluetooth", "Find name: " + name);
-                }
-                String deviceHardwareAddress = device.getAddress(); // MAC address
-
-                tryFindUser(deviceHardwareAddress, new FindUserResponse() {
-                    @Override
-                    public void onResponseReceived(String name) {
-                        mAdapter.addFriend(new Friend(name));
-                    }
-                });
-            }
-        }
-    };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unregisterReceiver(receiver);
     }
 
-    private void tryFindUser(String address, FindUserResponse findUserResponse) {
-        /* Init */
+    private void downloadMatchingList() {
+        /* Init retrofit */
         Retrofit retrofit = RetrofitClient.getInstnce();
         AccountService service = retrofit.create(AccountService.class);
 
-        /* Send macAddress */
-        service.findUser(address).enqueue(new Callback<JsonObject>() {
+        /* Get matching list */
+        service.getMatch(userID).enqueue(new Callback<JsonObject>() {
+
             @Override
             public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                 if (response.body() == null) {
-                    try { // Can't find user
+                    try { // Failure
                         assert response.errorBody() != null;
-                        Log.d("AccountService", "res: " + response.errorBody().string());
+                        Log.d("AccountService", "res:" + response.errorBody().string());
                     } catch (IOException e) {
-                        e.printStackTrace();;
+                        e.printStackTrace();
                     }
-                } else {
-                    String res = null;
-                    if (response.body().has("userName")) {
-                        res = response.body().get("userName").toString();
-                    }
-                    Log.d("AccountService", "res:" + res);
-                    findUserResponse.onResponseReceived(res);
+                } else { // Success
+                    setMatchingList(response);
                 }
             }
 
@@ -144,7 +107,37 @@ public class LocalScan extends Fragment {
         });
     }
 
-    interface FindUserResponse {
-        void onResponseReceived(String name);
+    private void setMatchingList(Response<JsonObject> response) {
+        JsonArray friendNameList = new JsonArray ();
+        JsonArray intimacyScoreList = new JsonArray ();
+
+        if (response.body().has("friendName")) {
+            friendNameList = response.body().getAsJsonArray("friendName");
+        }
+        if (response.body().has("intimacyScore")) {
+            intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
+        }
+
+        ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
+
+        for (int i = 0; i < friendNameList.size(); ++i) {
+            String friendName = friendNameList.get(i).toString();
+            friendName = friendName.substring(1, friendName.length() - 1);
+            int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
+            mAdapter.addFriend(new Friend(friendName, intimacyScore));
+        }
+    }
+
+    private ArrayList<Number> reviseIntimacyScore(JsonArray intimacyScore) {
+        int totalScore = 0;
+        ArrayList<Number> res = new ArrayList<>();
+        for (JsonElement score: intimacyScore) {
+            totalScore += score.getAsInt();
+        }
+        for (JsonElement score: intimacyScore) {
+            res.add(score.getAsDouble() / totalScore * 100);
+        }
+
+        return res;
     }
 }
