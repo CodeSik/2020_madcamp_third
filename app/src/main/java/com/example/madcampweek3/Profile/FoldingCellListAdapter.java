@@ -53,7 +53,9 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
             /* Title */
             viewHolder.profileImage = cell.findViewById(R.id.profile_image);
-
+            viewHolder.username=cell.findViewById(R.id.cell_username);
+            viewHolder.letter=cell.findViewById(R.id.letter);
+            viewHolder.image=cell.findViewById(R.id.inImage);
 
             /* Content */
             viewHolder.contentAvatar = cell.findViewById(R.id.content_avatar);
@@ -89,8 +91,22 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         String contactTime = String.valueOf(item.getContactTime());
         /* Title */
         viewHolder.profileImage.setImageBitmap(item.getProfile());
+        viewHolder.username.setText(item.getUsername());
 
-//        viewHolder.contactTime.setText(contactTime);
+        if(contactTime.equals("day"))
+        {
+            viewHolder.letter.setText("낮에 만난 인연");
+        }
+        else if(contactTime.equals("dinner"))
+        {
+            viewHolder.letter.setText("저녁에 만난 인연");
+        }
+        else if (contactTime.equals("night"))
+        {
+            viewHolder.letter.setText("밤에 만난 인연");
+        }
+
+        viewHolder.image.setImageResource(R.drawable.couple);
 
         /* Content */
         viewHolder.contentAvatar.setImageBitmap(item.getProfile());
@@ -156,10 +172,9 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
     private static class ViewHolder {
         /* Title */
         CircleImageView profileImage;
-        TextView fromAddress;
-        TextView toAddress;
-        TextView contactTime;
-
+        TextView username;
+        TextView letter;
+        ImageView image;
         /* Content */
         ImageView contentAvatar;
         TextView contentNameView;

@@ -21,7 +21,6 @@ import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.ImageService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
@@ -48,11 +47,13 @@ import static com.example.madcampweek3.Account.AccountEditFragment.PROFILE_IMAGE
  * create an instance of this fragment.
  */
 // TODO: Using observer, realize asynchronous execution
+
+
 public class ProfileFragment extends Fragment {
 
     SharedPreferences appData ;
     String userId = "";
-
+    int age;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,23 +94,7 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -208,6 +193,44 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    private void getAgeOfFriend(String friendID)
+    {
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        AccountService service = retrofit.create(AccountService.class);
+
+        service.downloadProfile(friendID).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() == null) {
+                    try { // Profile download failure
+                        assert response.errorBody() != null;
+                        Log.d("LoginService", "res:" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Profile download success
+                    Log.d("LoginService", "res:" + response.message());
+
+
+                    /* Change profile info */
+                    if (response.body().has("age")) {
+                        age = response.body().get("age").getAsInt();
+                    }
+
+                }
+            }
+            @Override
+            public void onFailure (Call < JsonObject > call, Throwable t){
+                // Profile download success
+                Log.d("ProfileService", "Failed API call with call: " + call
+                        + ", exception: " + t);
+
+            }
+
+        });
+
+    }
     private ArrayList<String> getFriendIDList(Response<JsonObject> response) {
         ArrayList<String> result = new ArrayList<>();
         JsonArray friendIDList = new JsonArray ();
@@ -246,10 +269,12 @@ public class ProfileFragment extends Fragment {
         if (response.body().has("contactTime")) {
             contactTimeList = response.body().getAsJsonArray("contactTime");
         }
+        int age_friend;
 
         for (int i = 0; i < friendIDList.size(); ++i) {
             String friendID = friendIDList.get(i).toString();
             friendID = friendID.substring(1, friendID.length() - 1);
+
             String friendName = friendNameList.get(i).toString();
             friendName = friendName.substring(1, friendName.length() - 1);
             JsonArray positions = positionList.get(i).getAsJsonArray();
@@ -264,7 +289,7 @@ public class ProfileFragment extends Fragment {
 //                contactTime.append(time);
 //            }
 
-            items.add(new Item(friendID, friendName, srcPosition, destPosition, contactTime.toString()));
+            items.add(new Item(friendID, friendName, srcPosition, destPosition, contactTime.toString(), friendName));
         }
     }
 

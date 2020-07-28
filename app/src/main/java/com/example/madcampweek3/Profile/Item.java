@@ -1,27 +1,9 @@
 package com.example.madcampweek3.Profile;
 
-import android.accounts.Account;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.View;
 
-import com.example.madcampweek3.RetrofitService.AccountService;
-import com.example.madcampweek3.RetrofitService.FriendService;
-import com.example.madcampweek3.RetrofitService.RetrofitClient;
-import com.google.gson.JsonObject;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Simple POJO model for example
@@ -35,6 +17,8 @@ public class Item {
     private String toAddress;
     private String contactTime;
     private Bitmap profile;
+    private String username;
+    private int age;
 
     private View.OnClickListener requestBtnClickListener;
 
@@ -44,13 +28,15 @@ public class Item {
     public Item(
             String id, String name,
             String fromAddress, String toAddress,
-            String contactTime) {
+            String contactTime, String username) {
         this.id = id;
         this.name = name;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.contactTime = contactTime;
         this.profile = null;
+        this.username = username;
+
     }
 
     public String getId() {
@@ -126,5 +112,10 @@ public class Item {
         result = 31 * result + (contactTime != null ? contactTime.hashCode() : 0);
         return result;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
 
 }

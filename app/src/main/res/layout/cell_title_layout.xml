@@ -10,7 +10,9 @@
     android:baselineAligned="false"
     android:elevation="10dp"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:paddingBottom="@dimen/_10dp"
+    android:paddingTop="@dimen/_10dp"
+>
 
     <!-- LEFT TITLE PART -->
 
@@ -34,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="#FFFFFF"
         android:paddingStart="15dp"
         android:paddingTop="20dp"
         android:paddingEnd="20dp"
@@ -56,25 +59,24 @@
             android:backgroundTint="#000000"
             android:src="@color/contentDividerLine" />
 
-
         <TextView
-            android:id="@+id/cell_age"
+            android:id="@+id/letter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:text="23살"
-            android:textColor="#141B51" />
-
-        <TextView
-            style="@style/TitleBadgeTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="false"
-            android:layout_centerHorizontal="false"
-            android:layout_marginTop="70dp"
-            android:text="@string/requests_count_badge"
-            android:textColor="@color/red"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/letter_regular"
+            android:text="낮에 만난 인연"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/inImage"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="50dp"
+            tools:srcCompat="@drawable/couple" />
+
 
     </RelativeLayout>
 

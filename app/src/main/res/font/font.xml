@@ -4,4 +4,9 @@
         android:fontStyle = "normal"
         android:fontWeight = "400"
         android:font = "@font/gotham"/>
+
+    <font
+        android:font="@font/letter_regular"
+        android:fontWeight="400"
+        android:fontStyle="normal"/>
 </font-family>
