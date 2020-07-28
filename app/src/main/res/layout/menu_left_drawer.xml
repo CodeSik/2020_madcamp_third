@@ -40,6 +40,7 @@
             android:text="@string/balance_currency" />
 
         <TextView
+            android:id="@+id/probability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance_amount"

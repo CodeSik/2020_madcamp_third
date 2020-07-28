@@ -257,11 +257,12 @@ public class ProfileFragment extends Fragment {
             srcPosition = srcPosition.substring(3, srcPosition.length() - 3);
             String destPosition = positions.get(1).toString();
             destPosition = destPosition.substring(3, destPosition.length() - 3);
-            StringBuilder contactTime = new StringBuilder();
-            for (JsonElement t: contactTimeList.get(i).getAsJsonArray()) {
-                String time = t.getAsString();
-                contactTime.append(time);
-            }
+//            StringBuilder contactTime = new StringBuilder();
+            String contactTime = contactTimeList.get(i).getAsJsonArray().get(0).getAsString();
+//            for (JsonElement t: contactTimeList.get(i).getAsJsonArray()) {
+//                String time = t.getAsString();
+//                contactTime.append(time);
+//            }
 
             items.add(new Item(friendID, friendName, srcPosition, destPosition, contactTime.toString()));
         }
