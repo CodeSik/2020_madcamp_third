@@ -40,9 +40,11 @@ public class ViewPagerAdapter extends PagerAdapter {
             R.drawable.img3};
     private LayoutInflater inflater;
     private Context context;
+    private String friendID;
 
-    public ViewPagerAdapter(Context context){
+    public ViewPagerAdapter(Context context, String friendID){
         this.context = context;
+        this.friendID = friendID;
     }
 
     @Override
@@ -61,7 +63,6 @@ public class ViewPagerAdapter extends PagerAdapter {
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.viewpageslide, container, false);
         appData = context.getSharedPreferences("appData", MODE_PRIVATE);
-        userId = appData.getString("ID","");
 
         ImageView imageView = (ImageView)v.findViewById(R.id.inviewpagerimage);
 
@@ -84,7 +85,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         /* Send image download request */
         String fileName = position + "_" + PROFILE_IMAGE_NAME;
-        service.downloadProfile(userId, PROFILE_IMAGE_KIND, fileName).enqueue(new Callback<ResponseBody>() {
+        service.downloadProfile(friendID, PROFILE_IMAGE_KIND, fileName).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.body() == null) {

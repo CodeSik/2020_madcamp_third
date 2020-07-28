@@ -1,20 +1,26 @@
 package com.example.madcampweek3.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.madcampweek3.Account.AccountActivity;
 import com.example.madcampweek3.R;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 
 ;import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.PendingIntent.getActivity;
 
 /**
  * Simple example of ListAdapter for using with Folding Cell
@@ -45,11 +51,23 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             cell = (FoldingCell) vi.inflate(R.layout.cell, parent, false);
             // binding view parts to view holder
 
+            /* Title */
             viewHolder.profileImage = cell.findViewById(R.id.profile_image);
             viewHolder.fromAddress = cell.findViewById(R.id.title_from_address);
             viewHolder.toAddress = cell.findViewById(R.id.title_to_address);
             viewHolder.requestsCount = cell.findViewById(R.id.title_requests_count);
+
+            /* Content */
+            viewHolder.contentAvatar = cell.findViewById(R.id.content_avatar);
+            viewHolder.contentNameView = cell.findViewById(R.id.content_name_view);
+            viewHolder.contentRatingStar = cell.findViewById(R.id.content_rating_stars);
+            viewHolder.contentNumberRatingStars = cell.findViewById(R.id.content_number_rating_stars);
+            viewHolder.contentFromAddress1 = cell.findViewById(R.id.content_from_address_1);
+            viewHolder.contentToAddress1 = cell.findViewById(R.id.content_to_address_1);
+            viewHolder.contentDate = cell.findViewById(R.id.content_date);
+            viewHolder.contentIntimacy = cell.findViewById(R.id.content_intimacy);
             viewHolder.contentRequestBtn = cell.findViewById(R.id.content_request_btn);
+
             cell.setTag(viewHolder);
         } else {
             // for existing cell set valid valid state(without animation)
@@ -64,19 +82,51 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         if (null == item)
             return cell;
 
+        /* Get date */
+        Calendar time = Calendar.getInstance();
+        String date = (time.get(Calendar.MONTH) + 1) + "/" + time.get(Calendar.DATE);
+
+
         // bind data from selected element to view through view holder
+        String intimacy = String.valueOf(item.getRequestsCount()) + "%";
+        /* Title */
         viewHolder.profileImage.setImageBitmap(item.getProfile());
         viewHolder.fromAddress.setText(item.getFromAddress());
         viewHolder.toAddress.setText(item.getToAddress());
-        viewHolder.requestsCount.setText(String.valueOf(item.getRequestsCount()));
+        viewHolder.requestsCount.setText(intimacy);
+
+        /* Content */
+        viewHolder.contentAvatar.setImageBitmap(item.getProfile());
+        viewHolder.contentNameView.setText(item.getname());
+//        viewHolder.contentRatingStar; // TODO: prepare rating star image
+//        viewHolder.contentNumberRatingStars = cell.findViewById(R.id.content_number_rating_stars);
+        viewHolder.contentFromAddress1.setText(item.getFromAddress());
+        viewHolder.contentToAddress1.setText(item.getToAddress());
+        viewHolder.contentDate.setText(date);
+        viewHolder.contentIntimacy.setText(intimacy);
 
         // set custom btn handler for list item from that item
-        if (item.getRequestBtnClickListener() != null) {
-            viewHolder.contentRequestBtn.setOnClickListener(item.getRequestBtnClickListener());
-        } else {
-            // (optionally) add "default" handler if no handler found in item
-            viewHolder.contentRequestBtn.setOnClickListener(defaultRequestBtnClickListener);
-        }
+        viewHolder.contentRequestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AccountActivity.class);
+                intent.putExtra("friendID", item.getId());
+                getContext().startActivity(intent);
+            }
+        });
+//        if (item.getRequestBtnClickListener() != null) {
+//            viewHolder.contentRequestBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(getContext(), AccountActivity.class);
+//                    intent.putExtra("friendID", item.getId());
+//                    getContext().startActivity(intent);
+//                }
+//            });
+//        } else {
+//            // (optionally) add "default" handler if no handler found in item
+////            viewHolder.contentRequestBtn.setOnClickListener(defaultRequestBtnClickListener);
+//        }
 
         return cell;
     }
@@ -107,13 +157,21 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
     // View lookup cache
     private static class ViewHolder {
-
+        /* Title */
         CircleImageView profileImage;
-        TextView contentRequestBtn;
-
         TextView fromAddress;
         TextView toAddress;
         TextView requestsCount;
 
+        /* Content */
+        ImageView contentAvatar;
+        TextView contentNameView;
+        ImageView contentRatingStar;
+        TextView contentNumberRatingStars;
+        TextView contentFromAddress1;
+        TextView contentToAddress1;
+        TextView contentDate;
+        TextView contentIntimacy;
+        TextView contentRequestBtn;
     }
 }

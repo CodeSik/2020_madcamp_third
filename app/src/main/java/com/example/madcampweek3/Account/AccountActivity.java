@@ -41,12 +41,12 @@ import static com.example.madcampweek3.Account.AccountEditFragment.PROFILE_IMAGE
 public class AccountActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
 
-    private ImageView profileImage;
     ViewPager viewPager;
     ViewPagerAdapter adapter;
     private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor;
     private int age;
-    private String region, username, id;
+    private String region, friendName;
+    private String friendID, userID;
 
 
     @BindView(R.id.toolbar_header_view)
@@ -76,15 +76,20 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /* Get friend ID & user ID */
+        Intent intent = getIntent();
+        friendID = intent.getStringExtra("friendID");
+        appData =getSharedPreferences("appData", MODE_PRIVATE);
+        userID = appData.getString("ID","");
+
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
-        username = "앱내데이터";
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().hide();
 
         viewPager = (ViewPager) findViewById(R.id.profile_image);
-        adapter= new ViewPagerAdapter (this);
+        adapter= new ViewPagerAdapter (this, friendID);
         viewPager.setAdapter(adapter);
 
 
@@ -97,24 +102,14 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         msmoke = findViewById(R.id.profile_smoke);
         mdrink = findViewById(R.id.profile_drink);
 
-
-        // TODO: Suport multiple images
-        //profileImage = (ImageView) findViewById(R.id.profile_image);
-
         initUi();
     }
 
     private void initUi() {
         appBarLayout.addOnOffsetChangedListener(this);
-        appData =getSharedPreferences("appData", MODE_PRIVATE);
-        id = appData.getString("ID","");
 
-        //setProfileImage(id, profileImage, 1);
-        setProfileInfo(id);
 
-        //TODO: 서버의 데이터로 바꿔야함 -> 이름, 나이, 사는곳
-        toolbarHeaderView.bindTo(username, age,region);
-        floatHeaderView.bindTo(username, age, region);
+        setProfileInfo(friendID);
     }
 
     @Override
@@ -130,42 +125,6 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
             toolbarHeaderView.setVisibility(View.GONE);
             isHideToolbarView = !isHideToolbarView;
         }
-    }
-
-    private void setProfileImage(String userID, ImageView imageView, int position) {
-        /* Init */
-        Retrofit retrofit = RetrofitClient.getInstnce();
-        ImageService service = retrofit.create(ImageService.class);
-
-        /* Send image download request */
-        String fileName = position + "_" + PROFILE_IMAGE_NAME;
-        service.downloadProfile(userID, PROFILE_IMAGE_KIND, fileName).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                if (response.body() == null) {
-                    try { // Profile download failure
-                        assert response.errorBody() != null;
-                        Log.d("ProfileService", "res:" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    // Profile download success
-                    Log.d("ProfileService", "res:" + response.message());
-
-                    /* Change profile image */
-                    InputStream stream = response.body().byteStream();
-                    Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                    imageView.setImageBitmap(bitmap);
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                Log.d("ProfileService", "Failed API call with call: " + call
-                        + ", exception: " + t);
-            }
-        });
     }
 
     private void setProfileInfo(String userID) {
@@ -189,6 +148,9 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
                     Log.d("LoginService", "res:" + response.message());
 
                     /* Change profile info */
+                    if (response.body().has("userName")) {
+                        friendName=response.body().get("userName").toString();
+                    }
                     if (response.body().has("age")) {
                         age=response.body().get("age").getAsInt();
                     }
@@ -239,6 +201,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
                         String major_str = response.body().get("major").toString();
                         mmajor.setText(major_str.substring(1, major_str.length() - 1));
                     }
+                    toolbarHeaderView.bindTo(friendName, age, region);
+                    floatHeaderView.bindTo(friendName, age, region);
                 }
             }
             @Override

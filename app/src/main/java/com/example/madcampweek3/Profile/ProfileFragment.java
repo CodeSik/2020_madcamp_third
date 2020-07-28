@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -64,7 +65,7 @@ public class ProfileFragment extends Fragment {
 
     private ListView theListView;
     private ArrayList<Item> items = new ArrayList<>();
-    private ArrayList<Bitmap> profiles = new ArrayList<>();
+    private HashMap<String, Bitmap> profiles = new HashMap<>();
 
 
 
@@ -188,7 +189,8 @@ public class ProfileFragment extends Fragment {
                         /* Change profile image */
                         InputStream stream = response.body().byteStream();
                         Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                        profiles.add(bitmap);
+                        String friendID = call.request().url().queryParameter("id");
+                        profiles.put(friendID, bitmap);
                         if (profiles.size() == items.size()) {
                             addProfileToItem();
                             setList();
@@ -254,9 +256,9 @@ public class ProfileFragment extends Fragment {
             friendName = friendName.substring(1, friendName.length() - 1);
             JsonArray positions = positionList.get(i).getAsJsonArray();
             String srcPosition = positions.get(0).toString();
-            srcPosition = srcPosition.substring(1, srcPosition.length() - 1);
+            srcPosition = srcPosition.substring(3, srcPosition.length() - 3);
             String destPosition = positions.get(1).toString();
-            destPosition = destPosition.substring(1, destPosition.length() - 1);
+            destPosition = destPosition.substring(3, destPosition.length() - 3);
             int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
 
             items.add(new Item(friendID, friendName, srcPosition, destPosition, intimacyScore));
@@ -278,19 +280,20 @@ public class ProfileFragment extends Fragment {
 
     private void addProfileToItem() {
         for (int i = 0; i < items.size(); ++i) {
-            items.get(i).setProfile(profiles.get(i));
+            String friendID = items.get(i).getId();
+            items.get(i).setProfile(profiles.get(friendID));
         }
     }
 
     private void setList() {
         // add custom btn handler to first list item
-        items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
-                startActivity(intent);
-            }
-        });
+//        items.get(0).setRequestBtnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), AccountActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         // create custom adapter that holds elements and their state (we need hold a id's of unfolded elements for reusable elements)
         final FoldingCellListAdapter adapter = new FoldingCellListAdapter(this.getContext(), items);
