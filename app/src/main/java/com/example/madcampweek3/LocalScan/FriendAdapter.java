@@ -64,4 +64,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         this.mDataset = friend;
         notifyDataSetChanged();
     }
+    public void clear()
+    {
+        this.mDataset.clear();
+        notifyDataSetChanged();
+    }
 }

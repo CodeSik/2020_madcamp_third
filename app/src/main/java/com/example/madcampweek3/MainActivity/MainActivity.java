@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO: 확인 필요해
 
+
         /* Run bluetooth service */
         Intent intent = new Intent(this, BluetoothService.class);
         startService(intent);

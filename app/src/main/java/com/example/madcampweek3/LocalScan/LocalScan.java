@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
@@ -47,7 +48,7 @@ public class LocalScan extends Fragment {
     private PendingAdapter pendingAdapter;
     private RecyclerView.LayoutManager layoutManager, pendingLayoutManager;
     public static String userID;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<Friend> matchings = new ArrayList<>();
     private HashMap<String, Bitmap> matchingProfiles = new HashMap<>();
 
@@ -58,6 +59,16 @@ public class LocalScan extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fargment_localscan, container, false);
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+        });
 
         /* Set recycler view */
         recyclerView = (RecyclerView) view.findViewById(R.id.friends_list);
@@ -72,8 +83,21 @@ public class LocalScan extends Fragment {
         pendingRecyclerView.setLayoutManager(pendingLayoutManager);
         pendingAdapter = new PendingAdapter();
         pendingRecyclerView.setAdapter(pendingAdapter);
-
+        downloadMatchingList();
+        downloadPendingList();
+        mAdapter.notifyDataSetChanged();
+        pendingAdapter.notifyDataSetChanged();
         return view;
+    }
+    private void refresh()
+    {
+        mAdapter.clear();
+        downloadMatchingList();
+        mAdapter.setFriend(matchings);
+        pendingAdapter.clear();
+        downloadPendingList();
+        pendingAdapter.setPending(pendings);
+
     }
 
     @Override
@@ -83,13 +107,21 @@ public class LocalScan extends Fragment {
 
         SharedPreferences appData = getContext().getSharedPreferences("appData", MODE_PRIVATE);
         userID = appData.getString("ID","");
-        downloadMatchingList();
-        downloadPendingList();
-    }
+
+
+        }
+
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
+        pendingAdapter.notifyDataSetChanged();
     }
 
     private void downloadPendingList() {
