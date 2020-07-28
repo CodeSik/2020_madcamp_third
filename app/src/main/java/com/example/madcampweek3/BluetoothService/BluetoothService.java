@@ -108,7 +108,7 @@ public class BluetoothService extends Service {
 
         Timer timer = new Timer();
         timer.schedule(discoverRequest, 0, 1000 * 3600);
-        timer.schedule(bluetoothSearch, 0, 1000 * 15);
+        timer.schedule(bluetoothSearch, 0, 1000 * 60);
         return START_STICKY;
 
     }
