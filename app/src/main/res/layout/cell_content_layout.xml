@@ -73,13 +73,16 @@
                 android:fontFamily="@font/gotham"
                 android:text="@string/sender_badge" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/content_avatar"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:contextClickable="false"
                 android:layout_below="@id/content_avatar_title"
-                android:scaleType="centerCrop"
-                android:src="@drawable/avatar" />
+                android:src="@drawable/default_man"
+                />
+
+
 
             <TextView
                 android:id="@+id/content_name_view"
