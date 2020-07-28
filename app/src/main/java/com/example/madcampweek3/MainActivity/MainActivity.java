@@ -101,7 +101,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //TODO: 확인 필요해
-
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setElevation(10);
+        getSupportActionBar().setTitle("우연히 봄");
 
         /* Run bluetooth service */
         Intent intent = new Intent(this, BluetoothService.class);
