@@ -31,6 +31,7 @@ import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.ImageService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
+import com.example.madcampweek3.Store.StoreFragment;
 import com.example.madcampweek3.Utils.BackPressCloseHandler;
 import com.example.madcampweek3.fragment.CenteredTextFragment;
 import com.example.madcampweek3.menu.DrawerAdapter;
@@ -175,6 +176,10 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         } else if (position == POS_PROBABILITY) { // TODO: Change POS_CART
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new LocalScan();
+            showFragment(selectedScreen);
+        }else if (position == POS_CART) { // TODO: Change POS_CART
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new StoreFragment();
             showFragment(selectedScreen);
         }
         else {
