@@ -14,7 +14,8 @@ import com.example.madcampweek3.R;
 import java.util.HashSet;
 import java.util.List;
 
-;
+;import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Simple example of ListAdapter for using with Folding Cell
  * Adapter holds indexes of unfolded elements for correct work with default reusable views behavior
@@ -44,6 +45,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             cell = (FoldingCell) vi.inflate(R.layout.cell, parent, false);
             // binding view parts to view holder
 
+            viewHolder.profileImage = cell.findViewById(R.id.profile_image);
             viewHolder.fromAddress = cell.findViewById(R.id.title_from_address);
             viewHolder.toAddress = cell.findViewById(R.id.title_to_address);
             viewHolder.requestsCount = cell.findViewById(R.id.title_requests_count);
@@ -63,7 +65,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             return cell;
 
         // bind data from selected element to view through view holder
-
+        viewHolder.profileImage.setImageBitmap(item.getProfile());
         viewHolder.fromAddress.setText(item.getFromAddress());
         viewHolder.toAddress.setText(item.getToAddress());
         viewHolder.requestsCount.setText(String.valueOf(item.getRequestsCount()));
@@ -106,6 +108,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
     // View lookup cache
     private static class ViewHolder {
 
+        CircleImageView profileImage;
         TextView contentRequestBtn;
 
         TextView fromAddress;

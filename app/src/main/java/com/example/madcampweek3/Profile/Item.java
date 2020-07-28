@@ -1,8 +1,27 @@
 package com.example.madcampweek3.Profile;
 
+import android.accounts.Account;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.FriendService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
+import com.google.gson.JsonObject;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Simple POJO model for example
@@ -10,43 +29,44 @@ import java.util.ArrayList;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Item {
 
-    private String price;
-    private String pledgePrice;
+    private String id;
+    private String name;
     private String fromAddress;
     private String toAddress;
     private int requestsCount;
-    private String date;
-    private String time;
+    private Bitmap profile;
 
     private View.OnClickListener requestBtnClickListener;
 
     public Item() {
     }
 
-    public Item(String price, String pledgePrice, String fromAddress, String toAddress, int requestsCount, String date, String time) {
-        this.price = price;
-        this.pledgePrice = pledgePrice;
+    public Item(
+            String id, String name,
+            String fromAddress, String toAddress,
+            int requestsCount) {
+        this.id = id;
+        this.name = name;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.requestsCount = requestsCount;
-        this.date = date;
-        this.time = time;
+        this.profile = null;
     }
 
-    public String getPrice() {
-        return price;
+    public String getId() {
+        return id;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPledgePrice() {
-        return pledgePrice;
+    public String getname() {
+        return name;
     }
 
-    public void setPledgePrice(String pledgePrice) {
-        this.pledgePrice = pledgePrice;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getFromAddress() {
@@ -73,21 +93,11 @@ public class Item {
         this.requestsCount = requestsCount;
     }
 
-    public String getDate() {
-        return date;
+    public Bitmap getProfile() {
+        return profile;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public void setProfile(Bitmap profile) { this.profile = profile; }
 
     public View.OnClickListener getRequestBtnClickListener() {
         return requestBtnClickListener;
@@ -104,43 +114,17 @@ public class Item {
 
         Item item = (Item) o;
 
-        if (requestsCount != item.requestsCount) return false;
-        if (price != null ? !price.equals(item.price) : item.price != null) return false;
-        if (pledgePrice != null ? !pledgePrice.equals(item.pledgePrice) : item.pledgePrice != null)
-            return false;
-        if (fromAddress != null ? !fromAddress.equals(item.fromAddress) : item.fromAddress != null)
-            return false;
-        if (toAddress != null ? !toAddress.equals(item.toAddress) : item.toAddress != null)
-            return false;
-        if (date != null ? !date.equals(item.date) : item.date != null) return false;
-        return !(time != null ? !time.equals(item.time) : item.time != null);
-
+        return Objects.equals(id, item.id);
     }
 
     @Override
     public int hashCode() {
-        int result = price != null ? price.hashCode() : 0;
-        result = 31 * result + (pledgePrice != null ? pledgePrice.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (fromAddress != null ? fromAddress.hashCode() : 0);
         result = 31 * result + (toAddress != null ? toAddress.hashCode() : 0);
         result = 31 * result + requestsCount;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
-    }
-
-    /**
-     * @return List of elements prepared for tests
-     */
-    public static ArrayList<Item> getTestingList() {
-        ArrayList<Item> items = new ArrayList<>();
-        items.add(new Item("$14", "$270", "W 79th St, NY, 10024", "W 139th St, NY, 10030", 3, "TODAY", "05:10 PM"));
-        items.add(new Item("$23", "$116", "W 36th St, NY, 10015", "W 114th St, NY, 10037", 10, "TODAY", "11:10 AM"));
-        items.add(new Item("$63", "$350", "W 36th St, NY, 10029", "56th Ave, NY, 10041", 0, "TODAY", "07:11 PM"));
-        items.add(new Item("$19", "$150", "12th Ave, NY, 10012", "W 57th St, NY, 10048", 8, "TODAY", "4:15 AM"));
-        items.add(new Item("$5", "$300", "56th Ave, NY, 10041", "W 36th St, NY, 10029", 0, "TODAY", "06:15 PM"));
-        return items;
-
     }
 
 }
