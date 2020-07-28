@@ -55,7 +55,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             viewHolder.profileImage = cell.findViewById(R.id.profile_image);
             viewHolder.fromAddress = cell.findViewById(R.id.title_from_address);
             viewHolder.toAddress = cell.findViewById(R.id.title_to_address);
-            viewHolder.requestsCount = cell.findViewById(R.id.title_requests_count);
+            viewHolder.contactTime = cell.findViewById(R.id.title_requests_count);
 
             /* Content */
             viewHolder.contentAvatar = cell.findViewById(R.id.content_avatar);
@@ -88,12 +88,12 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
 
         // bind data from selected element to view through view holder
-        String intimacy = String.valueOf(item.getRequestsCount()) + "%";
+        String contactTime = String.valueOf(item.getContactTime());
         /* Title */
         viewHolder.profileImage.setImageBitmap(item.getProfile());
         viewHolder.fromAddress.setText(item.getFromAddress());
         viewHolder.toAddress.setText(item.getToAddress());
-        viewHolder.requestsCount.setText(intimacy);
+        viewHolder.contactTime.setText(contactTime);
 
         /* Content */
         viewHolder.contentAvatar.setImageBitmap(item.getProfile());
@@ -103,7 +103,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         viewHolder.contentFromAddress1.setText(item.getFromAddress());
         viewHolder.contentToAddress1.setText(item.getToAddress());
         viewHolder.contentDate.setText(date);
-        viewHolder.contentIntimacy.setText(intimacy);
+        viewHolder.contentIntimacy.setText(contactTime);
 
         // set custom btn handler for list item from that item
         viewHolder.contentRequestBtn.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         CircleImageView profileImage;
         TextView fromAddress;
         TextView toAddress;
-        TextView requestsCount;
+        TextView contactTime;
 
         /* Content */
         ImageView contentAvatar;

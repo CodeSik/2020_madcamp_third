@@ -231,7 +231,7 @@ public class ProfileFragment extends Fragment {
         JsonArray friendIDList = new JsonArray ();
         JsonArray friendNameList = new JsonArray ();
         JsonArray positionList = new JsonArray ();
-        JsonArray intimacyScoreList = new JsonArray ();
+        JsonArray contactTimeList = new JsonArray ();
 
         assert response.body() != null;
         if (response.body().has("friendID")) {
@@ -243,10 +243,9 @@ public class ProfileFragment extends Fragment {
         if (response.body().has("position")) {
             positionList = response.body().getAsJsonArray("position");
         }
-        if (response.body().has("intimacyScore")) {
-            intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
+        if (response.body().has("contactTime")) {
+            contactTimeList = response.body().getAsJsonArray("contactTime");
         }
-        ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
 
         for (int i = 0; i < friendIDList.size(); ++i) {
             String friendID = friendIDList.get(i).toString();
@@ -258,23 +257,15 @@ public class ProfileFragment extends Fragment {
             srcPosition = srcPosition.substring(3, srcPosition.length() - 3);
             String destPosition = positions.get(1).toString();
             destPosition = destPosition.substring(3, destPosition.length() - 3);
-            int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
+            StringBuilder contactTime = new StringBuilder();
+            for (JsonElement t: contactTimeList.get(i).getAsJsonArray()) {
+                String time = t.getAsString();
+                contactTime.append(time);
+            }
+            contactTime = new StringBuilder(contactTime.substring(0, contactTime.length() - 1));
 
-            items.add(new Item(friendID, friendName, srcPosition, destPosition, intimacyScore));
+            items.add(new Item(friendID, friendName, srcPosition, destPosition, contactTime.toString()));
         }
-    }
-
-    private ArrayList<Number> reviseIntimacyScore(JsonArray intimacyScore) {
-        int totalScore = 0;
-        ArrayList<Number> res = new ArrayList<>();
-        for (JsonElement score: intimacyScore) {
-            totalScore += score.getAsInt();
-        }
-        for (JsonElement score: intimacyScore) {
-            res.add(score.getAsDouble() / totalScore * 100);
-        }
-
-        return res;
     }
 
     private void addProfileToItem() {

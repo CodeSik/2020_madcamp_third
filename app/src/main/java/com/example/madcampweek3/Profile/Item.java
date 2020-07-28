@@ -33,7 +33,7 @@ public class Item {
     private String name;
     private String fromAddress;
     private String toAddress;
-    private int requestsCount;
+    private String contactTime;
     private Bitmap profile;
 
     private View.OnClickListener requestBtnClickListener;
@@ -44,12 +44,12 @@ public class Item {
     public Item(
             String id, String name,
             String fromAddress, String toAddress,
-            int requestsCount) {
+            String contactTime) {
         this.id = id;
         this.name = name;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
-        this.requestsCount = requestsCount;
+        this.contactTime = contactTime;
         this.profile = null;
     }
 
@@ -85,12 +85,12 @@ public class Item {
         this.toAddress = toAddress;
     }
 
-    public int getRequestsCount() {
-        return requestsCount;
+    public String getContactTime() {
+        return contactTime;
     }
 
-    public void setRequestsCount(int requestsCount) {
-        this.requestsCount = requestsCount;
+    public void setContactTime(String contactTime) {
+        this.contactTime = contactTime;
     }
 
     public Bitmap getProfile() {
@@ -123,7 +123,7 @@ public class Item {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (fromAddress != null ? fromAddress.hashCode() : 0);
         result = 31 * result + (toAddress != null ? toAddress.hashCode() : 0);
-        result = 31 * result + requestsCount;
+        result = 31 * result + (contactTime != null ? contactTime.hashCode() : 0);
         return result;
     }
 
