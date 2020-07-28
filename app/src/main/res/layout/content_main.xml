@@ -21,8 +21,7 @@
             android:elevation="10dp"
             android:fitsSystemWindows="true"
             android:padding="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_be_couple_icon">
+            android:scaleType="centerCrop">
 
         </androidx.viewpager.widget.ViewPager>
 
@@ -88,7 +87,7 @@
 
         <RatingBar
             android:id="@+id/rating"
-            style="@android:style/Widget.DeviceDefault.Light.RatingBar"
+            style="@style/Widget.AppCompat.RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

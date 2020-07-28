@@ -35,9 +35,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     public static final String PROFILE_IMAGE_KIND = "profile";
     private String userId;
     private SharedPreferences appData;
-    private int[] images = {R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3};
+
     private LayoutInflater inflater;
     private Context context;
     private String friendID;
@@ -47,14 +45,16 @@ public class ViewPagerAdapter extends PagerAdapter {
         this.friendID = friendID;
     }
 
-    @Override
-    public int getCount() {
-        return images.length;
-    }
+
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == ((LinearLayout) object);
+    }
+
+    @Override
+    public int getCount() {
+        return 6;
     }
 
     @Override

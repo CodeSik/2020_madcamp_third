@@ -7,7 +7,7 @@
     android:paddingRight="12dp"
     android:paddingTop="7dp"
     android:paddingBottom="7dp"
-
+    android:visibility="gone"
     >
 
     <!-- content header line -->

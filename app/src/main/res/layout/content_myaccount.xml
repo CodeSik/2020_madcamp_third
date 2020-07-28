@@ -22,7 +22,7 @@
             android:fitsSystemWindows="true"
             android:padding="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_be_couple_icon">
+      >
 
         </androidx.viewpager.widget.ViewPager>
 
