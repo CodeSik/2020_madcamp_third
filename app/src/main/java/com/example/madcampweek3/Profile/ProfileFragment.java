@@ -245,6 +245,7 @@ public class ProfileFragment extends Fragment {
         if (response.body().has("intimacyScore")) {
             intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
         }
+        ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
 
         for (int i = 0; i < friendIDList.size(); ++i) {
             String friendID = friendIDList.get(i).toString();
@@ -256,10 +257,23 @@ public class ProfileFragment extends Fragment {
             srcPosition = srcPosition.substring(1, srcPosition.length() - 1);
             String destPosition = positions.get(1).toString();
             destPosition = destPosition.substring(1, destPosition.length() - 1);
-            int intimacyScore = intimacyScoreList.get(i).getAsInt();
+            int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
 
             items.add(new Item(friendID, friendName, srcPosition, destPosition, intimacyScore));
         }
+    }
+
+    private ArrayList<Number> reviseIntimacyScore(JsonArray intimacyScore) {
+        int totalScore = 0;
+        ArrayList<Number> res = new ArrayList<>();
+        for (JsonElement score: intimacyScore) {
+            totalScore += score.getAsInt();
+        }
+        for (JsonElement score: intimacyScore) {
+            res.add(score.getAsDouble() / totalScore * 100);
+        }
+
+        return res;
     }
 
     private void addProfileToItem() {
