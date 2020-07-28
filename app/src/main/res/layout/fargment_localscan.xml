@@ -5,19 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:id="@+id/cell_username2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20dp"
+        android:fontFamily="@font/gotham"
+        android:text="Username"
+        android:textColor="@color/folding_pink"
+        android:textColorHighlight="#1E265E"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/title_from_to_dots_divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#000000"
+        android:src="@color/contentDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/cell_username1"
+        tools:layout_editor_absoluteX="0dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pending_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/friends_list"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/title_from_to_dots_divider2" />
+
+    <TextView
+        android:id="@+id/cell_username1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="320dp"
+        android:textSize="20dp"
+        android:fontFamily="@font/gotham"
+        android:text="Username"
+        android:textColor="@color/folding_pink"
+        android:textColorHighlight="#1E265E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/title_from_to_dots_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#000000"
+        android:src="@color/contentDividerLine"
+        app:layout_constraintTop_toBottomOf="@+id/cell_username2"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friends_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/title_from_to_dots_divider1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

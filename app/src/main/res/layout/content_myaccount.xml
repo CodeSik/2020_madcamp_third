@@ -16,6 +16,7 @@
             android:layout_height="40dp"
             android:alpha="0.7"
             android:background="@color/mainColor"
+            android:fontFamily="@font/gotham"
             android:gravity="center|left"
             android:text="   소개"
             android:textColor="#FAFAFA" />
@@ -29,7 +30,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="자기소개"
                 android:textColorHighlight="#0C0C0C" />
@@ -39,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
 
 
@@ -52,6 +54,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="키" />
 
@@ -60,7 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,6 +75,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="학교" />
 
@@ -79,7 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,6 +96,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="전공" />
 
@@ -98,7 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,6 +117,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="직업" />
 
@@ -117,7 +126,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,6 +139,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="취미" />
 
@@ -137,7 +148,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,6 +160,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="흡연 여부" />
 
@@ -156,7 +169,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,6 +181,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
 
+                android:fontFamily="@font/gotham"
                 android:gravity="center"
                 android:text="음주 여부" />
 
@@ -175,7 +190,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:fontFamily="@font/gotham"
+                android:gravity="left" />
         </LinearLayout>
 
     </LinearLayout>

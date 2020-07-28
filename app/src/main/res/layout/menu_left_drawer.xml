@@ -19,6 +19,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:fontFamily="@font/gotham"
         android:paddingStart="24dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
@@ -34,17 +36,22 @@
         android:paddingRight="24dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="@string/balance_currency" />
-
-        <TextView
             android:id="@+id/probability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/gotham"
             android:text="@string/balance_amount"
             android:textSize="34sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gotham"
+            android:text="@string/balance_currency" />
 
     </LinearLayout>
     <LinearLayout
@@ -70,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:fontFamily="@font/gotham"
             android:gravity="center"
             android:paddingLeft="20dp"
             android:text="username" />

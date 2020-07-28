@@ -107,13 +107,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.8"
-                android:background="#8E99AF"
+                android:background="@drawable/buttonshapewhitebg"
                 android:drawableRight="@drawable/ic_email_white_24dp"
                 android:drawablePadding="16dp"
-                android:fontFamily="@font/nanumsquareroundr"
+                android:fontFamily="@font/gotham"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:padding="@dimen/_5dp"
                 android:textColor="@color/gen_white"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -129,13 +130,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.8"
-                android:background="#8E99AF"
+                android:background="@drawable/buttonshapewhitebg"
                 android:drawableRight="@drawable/ic_lock_white_24dp"
                 android:drawablePadding="16dp"
-                android:fontFamily="@font/nanumsquareroundr"
+                android:fontFamily="@font/gotham"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
+                android:padding="@dimen/_5dp"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -171,10 +173,11 @@
                 android:background="@drawable/buttonshapewhitebg"
                 android:fontFamily="@font/nanumsquareroundr"
                 android:text="Sign in"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="#96ffffff"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                 />
 
 
         </LinearLayout>

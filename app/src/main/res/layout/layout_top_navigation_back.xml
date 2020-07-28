@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/ic_chevron_left_black_24dp" />
+            android:background="@drawable/ic_backarrow" />
 
         <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
             android:id="@+id/toolbartag"

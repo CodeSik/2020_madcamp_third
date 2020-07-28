@@ -86,11 +86,11 @@
                                     android:elevation="@dimen/_5dp">
 
                                     <Button
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:layout_margin="7dp"
                                         android:background="@drawable/plus"
                                         android:backgroundTint="#FFCDD2"
-                                        android:layout_margin="10dp"
                                         android:elevation="@dimen/_5dp" />
                                 </LinearLayout>
                             </RelativeLayout>
@@ -128,11 +128,11 @@
                                         android:elevation="@dimen/_5dp">
 
                                         <Button
-                                            android:layout_width="30dp"
-                                            android:layout_height="30dp"
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
+                                            android:layout_margin="7dp"
                                             android:background="@drawable/plus"
                                             android:backgroundTint="#FFCDD2"
-                                            android:layout_margin="10dp"
                                             android:elevation="@dimen/_5dp" />
                                     </LinearLayout>
                                 </RelativeLayout>
@@ -163,11 +163,11 @@
                                         android:elevation="@dimen/_5dp">
 
                                         <Button
-                                            android:layout_width="30dp"
-                                            android:layout_height="30dp"
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
+                                            android:layout_margin="7dp"
                                             android:background="@drawable/plus"
                                             android:backgroundTint="#FFCDD2"
-                                            android:layout_margin="10dp"
 
                                             android:elevation="@dimen/_5dp" />
                                     </LinearLayout>
@@ -208,11 +208,11 @@
                                     android:elevation="@dimen/_5dp">
 
                                     <Button
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:layout_margin="7dp"
                                         android:background="@drawable/plus"
                                         android:backgroundTint="#FFCDD2"
-                                        android:layout_margin="10dp"
                                         android:elevation="@dimen/_5dp" />
                                 </LinearLayout>
                             </RelativeLayout>
@@ -244,11 +244,11 @@
                                     android:elevation="@dimen/_5dp">
 
                                     <Button
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:layout_margin="7dp"
                                         android:background="@drawable/plus"
                                         android:backgroundTint="#FFCDD2"
-                                        android:layout_margin="10dp"
                                         android:elevation="@dimen/_5dp" />
                                 </LinearLayout>
                             </RelativeLayout>
@@ -280,11 +280,11 @@
                                     android:elevation="@dimen/_5dp">
 
                                     <Button
-                                        android:layout_width="30dp"
-                                        android:layout_height="30dp"
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:layout_margin="7dp"
                                         android:background="@drawable/plus"
                                         android:backgroundTint="#FFCDD2"
-                                        android:layout_margin="10dp"
                                         android:elevation="@dimen/_5dp" />
                                 </LinearLayout>
                             </RelativeLayout>
@@ -319,6 +319,7 @@
                             android:layout_gravity="top"
                             android:layout_margin="10dp"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:gravity="top"
                             android:hint="자기소개"
                             android:inputType="textEmailAddress"
@@ -343,6 +344,7 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="학교"
                             android:inputType="textEmailAddress"
                             android:padding="15dp" />
@@ -363,6 +365,7 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="전공"
                             android:inputType="textEmailAddress"
                             android:padding="15dp" />
@@ -383,6 +386,7 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="직업"
                             android:inputType="textEmailAddress"
                             android:padding="15dp" />
@@ -404,13 +408,16 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="취미"
                             android:inputType="textEmailAddress"
                             android:padding="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gotham"
                         android:text="        흡연여부"
                         android:textColor="#7A7A7A" />
 
@@ -429,6 +436,7 @@
                             android:layout_marginEnd="46dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="흡연"
                             android:padding="15dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -443,6 +451,7 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="비흡연"
                             android:padding="15dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -474,6 +483,7 @@
                             android:layout_marginEnd="46dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="자주"
                             android:padding="15dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -488,6 +498,7 @@
                             android:layout_margin="10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
+                            android:fontFamily="@font/gotham"
                             android:hint="안함"
                             android:padding="15dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -511,6 +522,7 @@
                             android:layout_marginTop="25dp"
                             android:layout_marginBottom="25dp"
                             android:background="@drawable/buttonshapepinkbg"
+                            android:fontFamily="@font/gotham"
                             android:padding="12dp"
                             android:text="수정완료"
                             android:textColor="@color/white" />

@@ -54,7 +54,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham"
+                        android:fontFamily="@font/nanumsquareroundl"
                         android:text="우연히 "
                         android:textColor="#000000"
                         android:textSize="28sp" />
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:fontFamily="@font/gotham"
+                        android:fontFamily="@font/nanumsquareroundl"
                         android:text="봄 "
                         android:textColor="#000000"
                         android:textSize="28sp" />
@@ -84,7 +84,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gotham"
+                        android:fontFamily="@font/nanumsquareroundl"
                         android:text="회원가입"
                         android:textColor="#000000"
                         android:textSize="28sp" />
@@ -110,6 +110,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
                     android:text="프로필 정보"
                     android:textColor="@color/mainTextColor" />
 
@@ -138,6 +139,7 @@
                         android:layout_marginEnd="46dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/render"
+                        android:fontFamily="@font/gotham"
                         android:hint="남자"
                         android:padding="15dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -152,6 +154,7 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/render"
+                        android:fontFamily="@font/gotham"
                         android:hint="여자"
                         android:padding="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -173,6 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/render"
+                        android:fontFamily="@font/gotham"
                         android:hint="닉네임"
                         android:padding="15dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -192,6 +196,7 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/render"
+                        android:fontFamily="@font/gotham"
                         android:hint="학교"
                         android:inputType="textEmailAddress"
                         android:padding="15dp" />
@@ -212,6 +217,7 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/render"
+                        android:fontFamily="@font/gotham"
                         android:hint="전공"
                         android:inputType="textEmailAddress"
                         android:padding="15dp" />
@@ -232,6 +238,7 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/render"
+                        android:fontFamily="@font/gotham"
                         android:hint="직업"
                         android:inputType="textEmailAddress"
                         android:padding="15dp" />
@@ -252,6 +259,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
+                        android:fontFamily="@font/gotham"
                         android:text="생년월일"
                         android:textColor="#8E8E8E"
                         android:textSize="14sp"
@@ -288,6 +296,7 @@
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="25dp"
                         android:background="@drawable/buttonshapepinkbg"
+                        android:fontFamily="@font/gotham"
                         android:padding="12dp"
                         android:text="다음으로"
                         android:textColor="@color/white" />
