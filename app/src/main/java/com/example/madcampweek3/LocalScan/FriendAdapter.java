@@ -1,9 +1,9 @@
 package com.example.madcampweek3.LocalScan;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,17 +21,20 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         public TextView name;
         public TextView score;
         public TextView phoneNumber;
+        public ImageView image;
         public FriendViewHolder(View v) {
             super(v);
             name = (TextView) v.findViewById(R.id.friend_name);
             score = (TextView) v.findViewById(R.id.intimacy_score);
             phoneNumber = (TextView) v.findViewById(R.id.phone_number);
+            image = v.findViewById(R.id.friend_image);
         }
 
         public void bind(Friend friend) {
             name.setText(friend.name);
             score.setText(friend.score.toString());
             phoneNumber.setText(friend.phoneNumber);
+            image.setImageBitmap(friend.profile);
         }
     }
 

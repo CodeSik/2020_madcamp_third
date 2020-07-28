@@ -1,13 +1,7 @@
 package com.example.madcampweek3.LocalScan;
 
-import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.madcampweek3.Profile.Item;
 import com.example.madcampweek3.R;
+import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,11 +24,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import com.example.madcampweek3.RetrofitService.AccountService;
-import com.example.madcampweek3.RetrofitService.RetrofitClient;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +40,9 @@ public class LocalScan extends Fragment {
     private FriendAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String userID;
+    private ArrayList<Item> items = new ArrayList<>();
+    private HashMap<String, Bitmap> profiles = new HashMap<>();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,6 +102,14 @@ public class LocalScan extends Fragment {
                         + ", exception: " + t);
             }
         });
+    }
+
+
+    private void addProfileToItem() {
+        for (int i = 0; i < items.size(); ++i) {
+            String friendID = items.get(i).getId();
+            items.get(i).setProfile(profiles.get(friendID));
+        }
     }
 
     private void setMatchingList(Response<JsonObject> response) {
