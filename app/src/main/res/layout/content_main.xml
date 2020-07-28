@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <RatingBar
         android:id="@+id/rating"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:indeterminateTint="#FFC6C6"
         android:numStars="5"
+        android:progressTint="#FFEA7A"
         android:rating="3"
         android:stepSize="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,19 +28,47 @@
         android:gravity="center"
         android:text="매력지수 평가하기" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/like_button"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:alpha="0.7"
-            android:background="@color/mainColor"
+            android:background="@drawable/like_unclick"
+            android:gravity="center"
+            android:text="좋아요"
+            android:textColor="#FAFAFA" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:alpha="0.7"
+            android:background="@drawable/render"
             android:gravity="center|left"
             android:text="   소개"
-            android:textColor="#FAFAFA" />
+            android:textColor="#000000" />
+
+        <View
+            android:layout_width="380dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="15dp"
+
+            android:background="@color/color_sweet" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,6 +112,7 @@
                 android:layout_weight="1"
                 android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -99,6 +132,7 @@
                 android:layout_weight="1"
                 android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -118,6 +152,7 @@
                 android:layout_weight="1"
                 android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -157,6 +192,7 @@
                 android:layout_weight="1"
                 android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -176,6 +212,7 @@
                 android:layout_weight="1"
                 android:gravity="center" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"

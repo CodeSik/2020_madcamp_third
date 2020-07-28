@@ -2,12 +2,9 @@ package com.example.madcampweek3.Account;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,12 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.madcampweek3.LocalScan.Friend;
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.FriendService;
-import com.example.madcampweek3.RetrofitService.ImageService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.JsonObject;
@@ -29,18 +24,13 @@ import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import static com.example.madcampweek3.Account.AccountEditFragment.PROFILE_IMAGE_KIND;
-import static com.example.madcampweek3.Account.AccountEditFragment.PROFILE_IMAGE_NAME;
 
 public class AccountActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
@@ -52,6 +42,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     private String region, friendName;
     private String friendID, userID;
     private RatingBar ratingbar;
+    private TextView likeButton;
 
 
     @BindView(R.id.toolbar_header_view)
@@ -68,6 +59,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
     private boolean isHideToolbarView = false;
     private SharedPreferences appData;
+    private boolean likeSuccess;
 
 
     @Override
@@ -76,6 +68,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         startActivity(intent);
         finish();
     }
+    //TODO: FriendID의 받은 좋아요 리스트를 불러온 다음에 userID가 존재한다면 '보냄'으로 표시하도록 하기.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,14 +99,64 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         mhobby = findViewById(R.id.profile_hobby);
         msmoke = findViewById(R.id.profile_smoke);
         mdrink = findViewById(R.id.profile_drink);
+        likeButton = findViewById(R.id.like_button);
 
         /* Set rating bar */
         ratingbar = findViewById(R.id.rating);
         ratingbar.setOnRatingBarChangeListener(new RatingListener());
 
+
+        /*Set Like Button*/
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendLike();
+            }
+        });
         initUi();
     }
 
+    private void sendLike(){
+        /* Init */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        FriendService service = retrofit.create(FriendService.class);
+
+        /* Get proflie info*/
+        JsonObject like_body = new JsonObject();
+        like_body.addProperty("id",userID);
+        like_body.addProperty("friendID",friendID);
+
+        service.sendLike(like_body).enqueue(new Callback<JsonObject>(){
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() == null) {
+                    try { // Failure
+                        assert response.errorBody() != null;
+                        Log.d("FriendService", "res: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else { // Success
+                    Log.d("FriendService", "res: " + response.body().toString());
+
+                    likeSuccess = response.body().get("message").getAsBoolean();
+
+                    likeButton.setText("보냄");
+                    likeButton.setBackground(getDrawable(R.drawable.like_click));
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("FriendService", "Failed API call with call: " + call
+                        + ", exception: " + t);
+            }
+
+        });
+
+    }
     private void initUi() {
         appBarLayout.addOnOffsetChangedListener(this);
 
@@ -222,6 +265,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         });
 
     }
+
     class RatingListener implements  RatingBar.OnRatingBarChangeListener {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
