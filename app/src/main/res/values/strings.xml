@@ -43,4 +43,10 @@
     <string name="content_to1_mock">46th Ave</string>
     <string name="content_to2_mock">Woodside, NY 11101</string>
     <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="username_hint">닉네임을 입력해주세요.</string>
+    <string name="entered_button">입장</string>
+    <string name="sent_button">전송</string>
+
+
 </resources>

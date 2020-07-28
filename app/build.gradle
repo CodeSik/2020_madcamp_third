@@ -69,4 +69,9 @@ dependencies {
     /* Multidex */
     implementation 'com.android.support:multidex:1.0.3'
 
+    /* Socket */
+    implementation('io.socket:socket.io-client:1.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+
 }

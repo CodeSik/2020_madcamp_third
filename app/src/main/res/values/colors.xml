@@ -157,4 +157,17 @@
     <color name="folding_pink">#FF9FA1</color>
 
 
+    <color name="textHint">#D7D7D7</color>
+    <color name="textDefault">#000000</color>
+    <color name="textEnabled">#523738</color>
+    <color name="textDisabled">#D7D7D7</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="lineLight">#E9E9E9</color>
+    <color name="lineDefault">#89A8BC</color>
+    <color name="colorEnabled">#FF9FA1</color>
+    <color name="colorEnabled1">#FFCDD2</color>
+    <color name="colorDisabled">#F9F9F9</color>
+
+
+
 </resources>
