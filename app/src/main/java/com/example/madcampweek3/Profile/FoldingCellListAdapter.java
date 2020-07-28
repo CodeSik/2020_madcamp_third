@@ -18,9 +18,9 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 
-;import de.hdodenhof.circleimageview.CircleImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.app.PendingIntent.getActivity;
+;
 
 /**
  * Simple example of ListAdapter for using with Folding Cell
@@ -53,9 +53,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
             /* Title */
             viewHolder.profileImage = cell.findViewById(R.id.profile_image);
-            viewHolder.fromAddress = cell.findViewById(R.id.title_from_address);
-            viewHolder.toAddress = cell.findViewById(R.id.title_to_address);
-            viewHolder.contactTime = cell.findViewById(R.id.title_requests_count);
+
 
             /* Content */
             viewHolder.contentAvatar = cell.findViewById(R.id.content_avatar);
@@ -91,9 +89,8 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         String contactTime = String.valueOf(item.getContactTime());
         /* Title */
         viewHolder.profileImage.setImageBitmap(item.getProfile());
-        viewHolder.fromAddress.setText(item.getFromAddress());
-        viewHolder.toAddress.setText(item.getToAddress());
-        viewHolder.contactTime.setText(contactTime);
+
+//        viewHolder.contactTime.setText(contactTime);
 
         /* Content */
         viewHolder.contentAvatar.setImageBitmap(item.getProfile());
