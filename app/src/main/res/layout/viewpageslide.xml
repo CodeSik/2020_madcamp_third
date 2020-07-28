@@ -9,6 +9,6 @@
         android:id="@+id/inviewpagerimage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:scaleType="centerCrop" />
+        android:background="@drawable/render"
+        android:scaleType="fitCenter" />
 </LinearLayout>

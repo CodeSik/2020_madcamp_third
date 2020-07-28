@@ -12,6 +12,80 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/render"
+            android:elevation="10dp"
+            android:fitsSystemWindows="true"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_be_couple_icon">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/render"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="20dp"
+
+                    android:fontFamily="@font/gotham"
+                    android:gravity="left"
+                    android:text="닉네임"
+                    android:textColor="@color/mainColor"
+                    android:textColorHighlight="#0C0C0C"
+                    android:textSize="12sp"
+                    tools:fontFamily="@font/gotham" />
+
+                <TextView
+                    android:id="@+id/profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gotham"
+                    android:textSize="24sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="20dp"
+
+                    android:fontFamily="@font/gotham"
+                    android:gravity="left"
+                    android:text="나이"
+                    android:textColor="@color/mainColor"
+                    android:textColorHighlight="#0C0C0C"
+                    android:textSize="12sp"
+                    tools:fontFamily="@font/gotham" />
+
+                <TextView
+                    android:id="@+id/profile_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gotham"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
         <RatingBar
             android:id="@+id/rating"
             style="@android:style/Widget.DeviceDefault.Light.RatingBar"

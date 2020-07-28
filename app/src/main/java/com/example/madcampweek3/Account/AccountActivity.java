@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
@@ -18,7 +17,6 @@ import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -27,19 +25,17 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class AccountActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class AccountActivity extends AppCompatActivity  {
 
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
-    private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor;
+    private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor,musername,mage;
     private int age;
     private String region, friendName;
     private String friendID, userID;
@@ -47,17 +43,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     private TextView likeButton;
     ArrayList<String> result = new ArrayList<>();
     JsonArray LikeIDList = new JsonArray ();
-    @BindView(R.id.toolbar_header_view)
-    protected HeaderView toolbarHeaderView;
 
-    @BindView(R.id.float_header_view)
-    protected HeaderView floatHeaderView;
-
-    @BindView(R.id.appbar)
-    protected AppBarLayout appBarLayout;
-
-    @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
 
     private boolean isHideToolbarView = false;
     private SharedPreferences appData;
@@ -83,10 +69,9 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         userID = appData.getString("ID","");
 
         setContentView(R.layout.activity_account);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().hide();
+
+
+
 
         viewPager = (ViewPager) findViewById(R.id.profile_image);
         adapter= new ViewPagerAdapter (this, friendID);
@@ -102,6 +87,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         msmoke = findViewById(R.id.profile_smoke);
         mdrink = findViewById(R.id.profile_drink);
         likeButton = findViewById(R.id.like_button);
+        musername=findViewById(R.id.profile_username);
+        mage=findViewById(R.id.profile_age);
 
         /*Get FriendID 's Like List -> To set LikeButton correctly*/
         getLikeStatus();
@@ -209,26 +196,10 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
     }
     private void initUi() {
-        appBarLayout.addOnOffsetChangedListener(this);
-
-
         setProfileInfo(friendID);
     }
 
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(offset) / (float) maxScroll;
 
-        if (percentage == 1f && isHideToolbarView) {
-            toolbarHeaderView.setVisibility(View.VISIBLE);
-            isHideToolbarView = !isHideToolbarView;
-
-        } else if (percentage < 1f && !isHideToolbarView) {
-            toolbarHeaderView.setVisibility(View.GONE);
-            isHideToolbarView = !isHideToolbarView;
-        }
-    }
 
     private void setProfileInfo(String userID) {
         /* Init */
@@ -305,8 +276,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
                         String major_str = response.body().get("major").toString();
                         mmajor.setText(major_str.substring(1, major_str.length() - 1));
                     }
-                    toolbarHeaderView.bindTo(friendName, age, region);
-                    floatHeaderView.bindTo(friendName, age, region);
+                    mage.setText(new Integer(age).toString());
+                    musername.setText(friendName);
                 }
             }
             @Override
