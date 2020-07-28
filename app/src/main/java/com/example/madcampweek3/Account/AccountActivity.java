@@ -19,11 +19,13 @@ import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,8 +45,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
     private String friendID, userID;
     private RatingBar ratingbar;
     private TextView likeButton;
-
-
+    ArrayList<String> result = new ArrayList<>();
+    JsonArray LikeIDList = new JsonArray ();
     @BindView(R.id.toolbar_header_view)
     protected HeaderView toolbarHeaderView;
 
@@ -101,6 +103,10 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
         mdrink = findViewById(R.id.profile_drink);
         likeButton = findViewById(R.id.like_button);
 
+        /*Get FriendID 's Like List -> To set LikeButton correctly*/
+        getLikeStatus();
+
+
         /* Set rating bar */
         ratingbar = findViewById(R.id.rating);
         ratingbar.setOnRatingBarChangeListener(new RatingListener());
@@ -114,6 +120,50 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
             }
         });
         initUi();
+    }
+
+    private void getLikeStatus() {
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        AccountService service = retrofit.create(AccountService.class);
+
+
+        service.getLike(friendID).enqueue(new Callback<JsonObject>(){
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.body()==null)
+                {
+                    try { // Failure
+                        assert response.errorBody() != null;
+                        Log.d("FriendService", "res: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {//Success
+                    Log.d("AccountService", "res: " + response.body().toString());
+                    if (response.body().has("friendID")) {
+                        LikeIDList = response.body().getAsJsonArray("friendID");
+                    }
+                    for (int i = 0; i < LikeIDList.size(); ++i) {
+                        String friendID = LikeIDList.get(i).toString();
+                        friendID = friendID.substring(1, friendID.length() - 1);
+                        result.add(friendID);
+                    }
+                    if(result.contains(userID)){
+                        likeButton.setText("보냄");
+                        likeButton.setBackground(getDrawable(R.drawable.like_click));
+                        likeButton.setEnabled(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     private void sendLike(){
@@ -143,6 +193,7 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
                     likeButton.setText("보냄");
                     likeButton.setBackground(getDrawable(R.drawable.like_click));
+                    likeButton.setEnabled(false);
 
 
                 }
