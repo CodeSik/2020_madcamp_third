@@ -1,34 +1,24 @@
 package com.example.madcampweek3.Account;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
@@ -55,47 +45,34 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class AccountEditFragment extends Fragment {
+    SharedPreferences appData ;
+    String userId = "";
+
     public static final int PICK_IMAGE = 1;
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
     public static final String PROFILE_IMAGE_KIND = "profile";
-    public static final String userID = "test"; // TODO: Change it
-    public static final String SMOKE = "smoking";
-    public static final String NON_SMOKE = "nonsmoking";
 
 
-    private static final String TAG = "EditProfileActivity";
-    private static final int PERMISSION_CALLBACK_CONSTANT = 100;
-    //firebase
-    private static final int REQUEST_PERMISSION_SETTING = 101;
-    Button smoking, nonsmoking, apply;
+    Button smoking, nonsmoking, drinking, nondrinking, continueButton;
+
     ImageButton back;
-    TextView smoking_text, nonsmoking_text;
     ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView;
-    EditText self_instruction, age, region, height, job, hobby, drink;
+
+    EditText mself_instruction, mschool,mmajor,mjob,mhobby;
+    String self_instruction, school, major, job, hobby;
+
     boolean smoke = true;
-    Bitmap myBitmap;
-    Uri picUri;
-    String[] permissionsRequired = new String[]{Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private Context mContext = AccountEditFragment.this.getContext();
-    private ImageView mProfileImage;
-    private String userId, profileImageUri;
-    private Uri resultUri;
-    private String userSex;
-    private EditText phoneNumber, aboutMe;
-    private CheckBox sportsCheckBox, travelCheckBox, musicCheckBox, fishingCheckBox;
-    private boolean isSportsClicked = false;
-    private boolean isTravelClicked = false;
-    private boolean isFishingClicked = false;
-    private boolean isMusicClicked = false;
-    private RadioGroup userSexSelection;
-    private SharedPreferences permissionStatus;
-    private boolean sentToSettings = false;
+    boolean drink = true;
+
+
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
     private int selectedImagePos = 0;
+    private int age;
+    private String region;
+    private int height;
 
 
     private void startMainActivity() {
@@ -103,32 +80,21 @@ public class AccountEditFragment extends Fragment {
         startActivity(intent);
         this.getActivity().finish();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_account, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        permissionStatus = getContext().getSharedPreferences("permissionStatus", getContext().MODE_PRIVATE);
-        requestMultiplePermissions();
-        imageView1 = view.findViewById(R.id.image_view_1);
-        imageView2 = view.findViewById(R.id.image_view_2);
-        imageView3 = view.findViewById(R.id.image_view_3);
-        imageView4 = view.findViewById(R.id.image_view_4);
-        imageView5 = view.findViewById(R.id.image_view_5);
-        imageView6 = view.findViewById(R.id.image_view_6);
-        self_instruction = view.findViewById(R.id.self_instruction);
-        age = view.findViewById(R.id.age);
-        region = view.findViewById(R.id.region);
-        height = view.findViewById(R.id.height);
-        job = view.findViewById(R.id.job);
-        hobby = view.findViewById(R.id.hobby);
-        drink = view.findViewById(R.id.drink);
-        smoking = view.findViewById(R.id.smoking_button);
-        nonsmoking = view.findViewById(R.id.nonsmoking_button);
-        apply = view.findViewById(R.id.apply_button);
-        smoking_text = view.findViewById(R.id.smoking_text);
-        nonsmoking_text = view.findViewById(R.id.nonsmoking_text);
+
+        View view = inflater.inflate(R.layout.fragment_edit_account, container, false);
+
+        appData =getContext().getSharedPreferences("appData", MODE_PRIVATE);
+        userId = appData.getString("ID","");
+
+        //위젯 초기화 --> 여기서 서버에서 받아온다음에 전부 설정해줘야함.
+        initWidgets(view);
+
         back = view.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,37 +103,13 @@ public class AccountEditFragment extends Fragment {
             }
         });
 
-        nonsmoking.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                nonsmoking_text.setTextColor(R.color.colorAccent);
-                nonsmoking.setBackgroundResource(R.drawable.ic_check_select);
-                smoking_text.setTextColor(R.color.black);
-                smoking.setBackgroundResource(R.drawable.ic_check_unselect);
-                smoke = false;
-            }
-        });
-
-        smoking.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                smoking_text.setTextColor(R.color.colorAccent);
-                smoking.setBackgroundResource(R.drawable.ic_check_select);
-                nonsmoking_text.setTextColor(R.color.black);
-                nonsmoking.setBackgroundResource(R.drawable.ic_check_unselect);
-                smoke = true;
-            }
-        });
-
-        apply.setOnClickListener(new View.OnClickListener() {
+        continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tryUploadProfileInfo(); // TODO: Fix automatically profile image upload
+                startMainActivity();
             }
         });
-
         setInitProfileImage();
 
         imageView1.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +130,6 @@ public class AccountEditFragment extends Fragment {
 
             }
         });
-
         imageView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +139,6 @@ public class AccountEditFragment extends Fragment {
 
             }
         });
-
         imageView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,7 +148,6 @@ public class AccountEditFragment extends Fragment {
 
             }
         });
-
         imageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,7 +157,6 @@ public class AccountEditFragment extends Fragment {
 
             }
         });
-
         imageView6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,18 +170,176 @@ public class AccountEditFragment extends Fragment {
 
         return view;
     }
+
+    private void initWidgets(View view) {
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        AccountService service = retrofit.create(AccountService.class);
+
+
+        imageView1 = view.findViewById(R.id.image_view_1);
+        imageView2 = view.findViewById(R.id.image_view_2);
+        imageView3 = view.findViewById(R.id.image_view_3);
+        imageView4 = view.findViewById(R.id.image_view_4);
+        imageView5 = view.findViewById(R.id.image_view_5);
+        imageView6 = view.findViewById(R.id.image_view_6);
+        continueButton = view.findViewById(R.id.edit_fragment_next);
+
+        mself_instruction = view.findViewById(R.id.editfragment_self_instruction);
+        mschool = view.findViewById(R.id.editfragment_school);
+        mmajor = view.findViewById(R.id.editfragment_major);
+        mjob = view.findViewById(R.id.editfragment_job);
+        mhobby = view.findViewById(R.id.editfragment_hobby);
+        smoking = view.findViewById(R.id.editfragment_smokeSelectionButton);
+        nonsmoking= view.findViewById(R.id.editfragment_nonsmokeSelectionButton);
+        drinking = view.findViewById(R.id.editfragment_drinkSelectionButton);
+        nondrinking= view.findViewById(R.id.editfragment_nondrinkSelectionButton);
+
+
+        smoking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                smokeButtonClicked();
+            }
+        });
+        nonsmoking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nonsmokeButtonClicked();
+            }
+        });
+        drinking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drinkButtonClicked();
+            }
+        });
+        nondrinking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nondrinkButtonClicked();
+            }
+        });
+
+        service.downloadProfile(userId).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() == null) {
+                    try { // Profile download failure
+                        assert response.errorBody() != null;
+                        Log.d("LoginService", "res:" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Profile download success
+                    Log.d("LoginService", "res:" + response.message());
+
+                    if (response.body().has("self_instruction")) {
+                        String self_instruction_str = response.body().get("self_instruction").toString();
+                        mself_instruction.setText(self_instruction_str.substring(1, self_instruction_str.length() - 1));
+                    }
+
+                    if (response.body().has("school")) {
+                        String school_str = response.body().get("school").toString();
+                        mschool.setText(school_str.substring(1, school_str.length() - 1));
+                    }
+
+                    if (response.body().has("major")) {
+                        String major_str = response.body().get("major").toString();
+                        mmajor.setText(major_str.substring(1, major_str.length() - 1));
+                    }
+
+                    if (response.body().has("job")) {
+                        String job_str = response.body().get("job").toString();
+                        mjob.setText(job_str.substring(1, job_str.length() - 1));
+                    }
+                    if (response.body().has("hobby")) {
+                        String hobby_str = response.body().get("hobby").toString();
+                        mhobby.setText(hobby_str.substring(1, hobby_str.length() - 1));
+                    }
+
+                    /* Change profile info */
+                    if (response.body().has("age")) {
+                        age = response.body().get("age").getAsInt();
+                    }
+                    if (response.body().has("region")) {
+                        String region_str = response.body().get("region").toString();
+                        region = (region_str.substring(1, region_str.length() - 1));
+                    }
+                    if (response.body().has("height")) {
+                        height = response.body().get("height").getAsInt();
+                    }
+
+                    if (response.body().has("smoke")) {
+                        Boolean smoke_bol = Boolean.parseBoolean(response.body().get("smoke").toString());
+                        smoke = smoke_bol;
+                    }
+                    if (response.body().has("drink")) {
+                        Boolean drink_bol = Boolean.parseBoolean(response.body().get("drink").toString());
+                        drink = drink_bol;
+                    }
+
+                }
+            }
+                @Override
+                public void onFailure (Call < JsonObject > call, Throwable t){
+                    // Profile download success
+                    Log.d("ProfileService", "Failed API call with call: " + call
+                            + ", exception: " + t);
+
+                }
+
+        });
+     }
+
+
+    public void smokeButtonClicked() {
+        // this is to toggle between selection and non selection of button
+        smoke = true;
+        smoking.setBackgroundColor(getContext().getColor(R.color.mainColor));
+        smoking.setAlpha(1.0f);
+        nonsmoking.setAlpha(.5f);
+        nonsmoking.setBackgroundColor(getContext().getColor(R.color.white));
+
+    }
+    public void nonsmokeButtonClicked() {
+        // this is to toggle between selection and non selection of button
+        smoke = false;
+        nonsmoking.setBackgroundColor(getContext().getColor(R.color.mainColor));
+        nonsmoking.setAlpha(1.0f);
+        smoking.setAlpha(.5f);
+        smoking.setBackgroundColor(getContext().getColor(R.color.white));
+
+    }
+    public void drinkButtonClicked() {
+        // this is to toggle between selection and non selection of button
+        drink = true;
+        drinking.setBackgroundColor(getContext().getColor(R.color.mainColor));
+        drinking.setAlpha(1.0f);
+        nondrinking.setAlpha(.5f);
+        nondrinking.setBackgroundColor(getContext().getColor(R.color.white));
+    }
+    public void nondrinkButtonClicked() {
+        // this is to toggle between selection and non selection of button
+        drink = false;
+        nondrinking.setBackgroundColor(getContext().getColor(R.color.mainColor));
+        nondrinking.setAlpha(1.0f);
+        drinking.setAlpha(.5f);
+        drinking.setBackgroundColor(getContext().getColor(R.color.white));
+    }
+
+
+
     private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
-
     private void cameraIntent() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
-
     private void proceedAfterPermission() {
 
 
@@ -286,79 +382,9 @@ public class AccountEditFragment extends Fragment {
         builder.show();
 
     }
-    private void requestMultiplePermissions() {
-        if (ActivityCompat.checkSelfPermission(AccountEditFragment.this.getContext(), permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(AccountEditFragment.this.getContext(), permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(AccountEditFragment.this.getContext(), permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(AccountEditFragment.this.getActivity(), permissionsRequired[0])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(AccountEditFragment.this.getActivity(), permissionsRequired[1])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(AccountEditFragment.this.getActivity(), permissionsRequired[2])) {
-                //Show Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountEditFragment.this.getContext());
-                builder.setTitle("Need Multiple Permissions");
-                builder.setMessage("This app needs Camera and Location permissions.");
-                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        ActivityCompat.requestPermissions(AccountEditFragment.this.getActivity(), permissionsRequired, PERMISSION_CALLBACK_CONSTANT);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            } else if (permissionStatus.getBoolean(permissionsRequired[0], false)) {
-                //Previously Permission Request was cancelled with 'Dont Ask Again',
-                // Redirect to Settings after showing Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(AccountEditFragment.this.getContext());
-                builder.setTitle("Need Multiple Permissions");
-                builder.setMessage("This app needs Camera and Location permissions.");
-                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        sentToSettings = true;
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
-                        intent.setData(uri);
-                        startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
-                       // Toast.makeText(getContext(), "Go to Permissions to Grant  Camera and Location", Toast.LENGTH_LONG).show();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            } else {
-                //just request the permission
-                ActivityCompat.requestPermissions(AccountEditFragment.this.getActivity(), permissionsRequired, PERMISSION_CALLBACK_CONSTANT);
-            }
 
-            // txtPermissions.setText("Permissions Required");
 
-            SharedPreferences.Editor editor = permissionStatus.edit();
-            editor.putBoolean(permissionsRequired[0], true);
-            editor.commit();
-        } else {
-            //You already have the permission, just go ahead.
-            //proceedAfterPermission();
-        }
-    }
 
-    /* Select image from gallery. */
-    private void selectImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -423,7 +449,7 @@ public class AccountEditFragment extends Fragment {
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", image.getName(), requestFile);
 
         /* Send image upload request */
-        service.uploadProfile(userID, PROFILE_IMAGE_KIND, body).enqueue(new Callback<ResponseBody>() {
+        service.uploadProfile(userId, PROFILE_IMAGE_KIND, body).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.body() == null) {
@@ -460,15 +486,21 @@ public class AccountEditFragment extends Fragment {
 
         /* Prepare information */
         JsonObject body = new JsonObject();
-        body.addProperty("id", userID);
-        body.addProperty("age", Integer.parseInt(age.getText().toString()));
-        body.addProperty("region", region.getText().toString());
-        body.addProperty("height", Integer.parseInt(height.getText().toString()));
-        body.addProperty("job", job.getText().toString());
-        body.addProperty("hobby", hobby.getText().toString());
+        body.addProperty("id", userId);
+        body.addProperty("age", age);
+        body.addProperty("region", region);
+        body.addProperty("height", height);
+
+        //-------------------------------여기까지는 수정 불가 정보
+
+
+        body.addProperty("job", mjob.getText().toString());
+        body.addProperty("hobby", mhobby.getText().toString());
         body.addProperty("smoke", smoke);
-        body.addProperty("drink",Integer.parseInt(drink.getText().toString()));
-        body.addProperty("self_instruction",self_instruction.getText().toString());
+        body.addProperty("drink",drink);
+        body.addProperty("self_instruction",mself_instruction.getText().toString());
+        body.addProperty("school",mschool.getText().toString());
+        body.addProperty("major",mmajor.getText().toString());
 
 
         /* Send image upload request */
@@ -508,7 +540,7 @@ public class AccountEditFragment extends Fragment {
 
         /* Send image download request */
         String fileName = position + "_" + PROFILE_IMAGE_NAME;
-        service.downloadProfile(userID, PROFILE_IMAGE_KIND, fileName).enqueue(new Callback<ResponseBody>() {
+        service.downloadProfile(userId, PROFILE_IMAGE_KIND, fileName).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.body() == null) {

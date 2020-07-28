@@ -20,11 +20,14 @@ import butterknife.ButterKnife;
 
 public class HeaderView extends LinearLayout {
 
-    @BindView(R.id.name)
+    @BindView(R.id.header_name)
     TextView name;
 
-    @BindView(R.id.last_seen)
-    TextView lastSeen;
+    @BindView(R.id.header_age)
+    TextView age;
+
+    @BindView(R.id.header_region)
+    TextView region;
 
     public HeaderView(Context context) {
         super(context);
@@ -49,10 +52,11 @@ public class HeaderView extends LinearLayout {
         ButterKnife.bind(this);
     }
 
-    public void bindTo(String name, String lastSeen) {
+    public void bindTo(String name, int age, String region) {
         //TODO: 서버의 데이터로 바꿔야함
         this.name.setText(name);
-        this.lastSeen.setText(lastSeen);
+        this.age.setText(Integer.toString(age));
+        this.region.setText(region);
     }
 
     public void setTextSize(float size) {

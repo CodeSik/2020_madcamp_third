@@ -9,6 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
     <include layout="@layout/layout_top_navigation_back" />
@@ -26,6 +27,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="프로필 수정"
+                    android:textColor="@color/mainTextColor" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/color_sweet" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -279,247 +298,226 @@
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:id="@+id/myTextView_Roboto_Bold"
+                    <Space
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="소개글"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:layout_height="40dp" />
 
-                    <EditText
-                        android:id="@+id/self_instruction"
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="bottom">
+
+                        <EditText
+                            android:id="@+id/editfragment_self_instruction"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="top"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/render"
+                            android:gravity="top"
+                            android:hint="자기소개"
+                            android:inputType="textEmailAddress"
+                            android:padding="15dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="회원님을 어필할 소개글을 작성 해주세요." />
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="bottom">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:id="@+id/myTextView_Roboto_Bold3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="나이"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:id="@+id/view3"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
-
-                    <EditText
-                        android:id="@+id/age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="나이를 입력해주세요."
-                        android:inputType="number"
-                        android:padding="@dimen/_5dp" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:id="@+id/myTextView_Roboto_Bold5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="사는 곳"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/region"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="사는 곳을 입력해주세요."
-                        android:padding="@dimen/_5dp" />
-
-                    <View
-                        android:id="@+id/view5"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:id="@+id/myTextView_Roboto_Bold4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="키"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/height"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="키를 입력해주세요."
-                        android:inputType="number"
-                        android:padding="@dimen/_5dp" />
-
-                    <View
-                        android:id="@+id/view4"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="직업"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/job"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="직업을 추가해주세요."
-                        android:padding="@dimen/_5dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="취미"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/hobby"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="취미가 무엇인가요?"
-                        android:padding="@dimen/_5dp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
-
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="흡연여부"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/smoking_text"
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:id="@+id/editfragment_school"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="흡연"
-                            android:textColor="#FB97A1"
-                            android:textSize="18dp" />
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/render"
+                            android:hint="학교"
+                            android:inputType="textEmailAddress"
+                            android:padding="15dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="bottom">
+
+                        <EditText
+                            android:id="@+id/editfragment_major"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/render"
+                            android:hint="전공"
+                            android:inputType="textEmailAddress"
+                            android:padding="15dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="bottom">
+
+                        <EditText
+                            android:id="@+id/editfragment_job"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/render"
+                            android:hint="직업"
+                            android:inputType="textEmailAddress"
+                            android:padding="15dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="bottom">
+
+                        <EditText
+                            android:id="@+id/editfragment_hobby"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/render"
+                            android:hint="취미"
+                            android:inputType="textEmailAddress"
+                            android:padding="15dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="        흡연여부"
+                        android:textColor="#7A7A7A" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/smoking_button"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_check_select" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/nonsmoking_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="비흡연"
-                            android:textSize="18dp" />
+                            android:id="@+id/editfragment_smokeSelectionButton"
+                            android:layout_width="130dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="46dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/render"
+                            android:hint="흡연"
+                            android:padding="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/femaleSelectionButton"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
-                            android:id="@+id/nonsmoking_button"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_check_unselect"
-                            android:visibility="visible" />
+                            android:id="@+id/editfragment_nonsmokeSelectionButton"
+                            android:layout_width="130dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/render"
+                            android:hint="비흡연"
+                            android:padding="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/maleSelectionButton"
+                            tools:layout_editor_absoluteY="10dp" />
 
-                    </RelativeLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.example.madcampweek3.customfonts.MyTextView_Roboto_Bold
-                        android:id="@+id/myTextView_Roboto_Bold7"
+
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="음주 여부"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:text="        음주여부"
+                        android:textColor="#7A7A7A" />
 
-                    <EditText
-                        android:id="@+id/drink"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:hint="음주 여부를 표시해주세요 (0~3)"
-                        android:inputType="number"
-                        android:padding="@dimen/_5dp" />
+                        android:layout_height="70dp"
+                        android:orientation="horizontal">
 
-                    <View
-                        android:id="@+id/view7"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="#75FFCDD2" />
+                        <Button
+                            android:id="@+id/editfragment_drinkSelectionButton"
+                            android:layout_width="130dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="46dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/render"
+                            android:hint="자주"
+                            android:padding="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/femaleSelectionButton"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
-                        android:id="@+id/apply_button"
+                        <Button
+                            android:id="@+id/editfragment_nondrinkSelectionButton"
+                            android:layout_width="130dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/render"
+                            android:hint="안함"
+                            android:padding="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/maleSelectionButton"
+                            tools:layout_editor_absoluteY="10dp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Apply" />
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/edit_fragment_next"
+                            style="@android:style/Widget.Material.Button.Borderless.Colored"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginBottom="25dp"
+                            android:background="@drawable/buttonshapepinkbg"
+                            android:padding="12dp"
+                            android:text="수정완료"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+
+
 
                 </LinearLayout>
             </LinearLayout>

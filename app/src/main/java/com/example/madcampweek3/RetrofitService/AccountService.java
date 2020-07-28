@@ -2,9 +2,6 @@ package com.example.madcampweek3.RetrofitService;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -40,7 +37,7 @@ public interface AccountService {
             @Query("id") String id
     );
 
-    @POST("/api/image/updateProfile")
+    @POST("/api/account/updateProfile")
     Call<ResponseBody> updateProfile(
             @Body JsonObject body
     );

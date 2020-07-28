@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/header_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -16,7 +16,13 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/last_seen"
+        android:id="@+id/header_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#CA7878" />
+    <TextView
+        android:id="@+id/header_region"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"

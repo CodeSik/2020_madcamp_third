@@ -1,12 +1,11 @@
 package com.example.madcampweek3.Intro;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
@@ -15,6 +14,15 @@ import com.github.paolorotolo.appintro.AppIntro;
 public class PreIntroActivity extends AppIntro {
 
     Fragment mSplash0 = new SplashFragmentPermission();
+    String[] permissionList = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_CONTACTS};
+
+
 
 
     @Override
@@ -58,14 +66,6 @@ public class PreIntroActivity extends AppIntro {
         setNextArrowColor(black);
 
 
-        String[] permissionList = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_CONTACTS};
-
-        askForPermissions(permissionList, 1);
 
     }
 
@@ -81,6 +81,7 @@ public class PreIntroActivity extends AppIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
+        askForPermissions(permissionList, 1);
         Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
         finish();
