@@ -4,56 +4,40 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MyAccountActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class MyAccountActivity extends AppCompatActivity {
 
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
-    private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor;
+    private TextView mheight, mjob, mhobby, msmoke, mdrink, mself_instruction, mschool, mmajor,musername,mage;
     private int age;
     private String region, userName;
     private String friendID, userID;
 
 
-    @BindView(R.id.toolbar_header_view)
-    protected HeaderView toolbarHeaderView;
 
-    @BindView(R.id.float_header_view)
-    protected HeaderView floatHeaderView;
-
-    @BindView(R.id.appbar)
-    protected AppBarLayout appBarLayout;
-
-    @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
-
-    private boolean isHideToolbarView = false;
     private SharedPreferences appData;
+
 
 
     @Override
@@ -74,49 +58,32 @@ public class MyAccountActivity extends AppCompatActivity implements AppBarLayout
         userID = appData.getString("ID","");
 
         setContentView(R.layout.activity_my_account);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().hide();
 
-        viewPager = (ViewPager) findViewById(R.id.profile_image);
+
+        viewPager = (ViewPager) findViewById(R.id.myprofile_image);
         adapter= new ViewPagerAdapter (this, userID);
         viewPager.setAdapter(adapter);
 
 
-        mself_instruction = findViewById(R.id.profile_selfInstruction);
-        mheight = findViewById(R.id.profile_height);
-        mschool = findViewById(R.id.profile_school);
-        mmajor = findViewById(R.id.profile_major);
-        mjob = findViewById(R.id.profile_job);
-        mhobby = findViewById(R.id.profile_hobby);
-        msmoke = findViewById(R.id.profile_smoke);
-        mdrink = findViewById(R.id.profile_drink);
-
+        mself_instruction = findViewById(R.id.myprofile_selfInstruction);
+        mheight = findViewById(R.id.myprofile_height);
+        mschool = findViewById(R.id.myprofile_school);
+        mmajor = findViewById(R.id.myprofile_major);
+        mjob = findViewById(R.id.myprofile_job);
+        mhobby = findViewById(R.id.myprofile_hobby);
+        msmoke = findViewById(R.id.myprofile_smoke);
+        mdrink = findViewById(R.id.myprofile_drink);
+        musername = findViewById(R.id.myprofile_username);
+        mage=findViewById(R.id.myprofile_age);
         initUi();
     }
 
     private void initUi() {
-        appBarLayout.addOnOffsetChangedListener(this);
-
 
         setProfileInfo(userID);
     }
 
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(offset) / (float) maxScroll;
 
-        if (percentage == 1f && isHideToolbarView) {
-            toolbarHeaderView.setVisibility(View.VISIBLE);
-            isHideToolbarView = !isHideToolbarView;
-
-        } else if (percentage < 1f && !isHideToolbarView) {
-            toolbarHeaderView.setVisibility(View.GONE);
-            isHideToolbarView = !isHideToolbarView;
-        }
-    }
 
     private void setProfileInfo(String userID) {
         /* Init */
@@ -140,10 +107,11 @@ public class MyAccountActivity extends AppCompatActivity implements AppBarLayout
 
                     /* Change profile info */
                     if (response.body().has("userName")) {
-                        userName=response.body().get("userName").toString();
+                        String userName_str = response.body().get("userName").toString();
+                        musername.setText(userName_str.substring(1, userName_str.length() - 1));
                     }
                     if (response.body().has("age")) {
-                        age=response.body().get("age").getAsInt();
+                        mage.setText(new Integer(response.body().get("age").getAsInt()).toString() +"살");;
                     }
                     if (response.body().has("region")) {
                         String region_str = response.body().get("region").toString();
@@ -192,8 +160,7 @@ public class MyAccountActivity extends AppCompatActivity implements AppBarLayout
                         String major_str = response.body().get("major").toString();
                         mmajor.setText(major_str.substring(1, major_str.length() - 1));
                     }
-                    toolbarHeaderView.bindTo(userName, age, region);
-                    floatHeaderView.bindTo(userName, age, region);
+
                 }
             }
             @Override

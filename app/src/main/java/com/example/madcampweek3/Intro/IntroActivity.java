@@ -62,7 +62,6 @@ public class IntroActivity extends AppIntro {
 
 
 
-
     }
 
     @Override
