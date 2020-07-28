@@ -142,8 +142,6 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         });
         setUsernameInfo(userId);
         setProfileImage(myProfileImage,1);
-
-
     }
 
     @Override
