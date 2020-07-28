@@ -56,4 +56,9 @@ public interface FriendService {
             @Query("id") String id,
             @Query("date") int date
     );
+
+    @PUT("/api/friend/registerMatch")
+    Call<JsonObject> registerMatch(
+            @Body JsonObject body
+    );
 }

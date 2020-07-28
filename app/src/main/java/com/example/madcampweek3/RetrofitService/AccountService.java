@@ -42,4 +42,23 @@ public interface AccountService {
             @Body JsonObject body
     );
 
+    @GET("/api/account/getLike")
+    Call<JsonObject> getLike(
+            @Query("id") String id
+    );
+
+    @GET("/api/account/getStar")
+    Call<JsonObject> getStar(
+            @Query("id") String id
+    );
+
+    @GET("/api/account/getTodayProbability")
+    Call<JsonObject> getTodayProbability(
+            @Query("id") String id
+    );
+
+    @GET("/api/account/getMatch")
+    Call<JsonObject> getMatch(
+            @Query("id") String id
+    );
 }
