@@ -61,4 +61,10 @@ public interface FriendService {
     Call<JsonObject> registerMatch(
             @Body JsonObject body
     );
+
+    @DELETE("/api/friend/deleteLike")
+    Call<JsonObject> deleteLike(
+            @Query("id") String id,
+            @Query("friendID") String friendID
+    );
 }

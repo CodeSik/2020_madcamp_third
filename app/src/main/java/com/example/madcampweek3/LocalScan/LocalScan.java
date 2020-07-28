@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +50,8 @@ public class LocalScan extends Fragment {
     private FriendAdapter mAdapter;
     private PendingAdapter pendingAdapter;
     private RecyclerView.LayoutManager layoutManager, pendingLayoutManager;
-    private String userID;
+    public static String userID;
+
     private List<Friend> matchings = new ArrayList<>();
     private HashMap<String, Bitmap> matchingProfiles = new HashMap<>();
 
@@ -287,7 +289,7 @@ public class LocalScan extends Fragment {
                         Bitmap bitmap = BitmapFactory.decodeStream(stream);
                         String friendID = call.request().url().queryParameter("id");
                         matchingProfiles.put(friendID, bitmap);
-                        if (matchingProfiles.size() == pendings.size()) {
+                        if (matchingProfiles.size() == matchings.size()) {
                             addProfileToMatching();
                             setMatchingList();
                         }
@@ -343,4 +345,6 @@ public class LocalScan extends Fragment {
 
         return result;
     }
+
+
 }
