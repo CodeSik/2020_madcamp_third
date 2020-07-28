@@ -4,6 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:visibility="gone"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
     >
 
     <!-- content header line -->
@@ -13,9 +17,8 @@
         android:background="#FF9FA1"
         android:paddingBottom="7dp"
         android:alpha="0.6"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="7dp">
+
+        >
 
         <ImageView
             android:layout_width="wrap_content"

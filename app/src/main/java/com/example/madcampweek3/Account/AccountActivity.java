@@ -252,7 +252,8 @@ public class AccountActivity extends AppCompatActivity implements AppBarLayout.O
 
                     /* Change profile info */
                     if (response.body().has("userName")) {
-                        friendName=response.body().get("userName").toString();
+                        String friend_str =response.body().get("userName").toString();
+                        friendName = friend_str.substring(1,friend_str.length()-1);
                     }
                     if (response.body().has("age")) {
                         age=response.body().get("age").getAsInt();

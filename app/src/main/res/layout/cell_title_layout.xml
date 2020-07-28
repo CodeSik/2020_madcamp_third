@@ -9,8 +9,14 @@
     android:background="@drawable/render"
     android:baselineAligned="false"
     android:elevation="10dp"
+    android:layout_marginLeft="@dimen/_10dp"
+    android:layout_marginRight="@dimen/_10dp"
+    android:layout_marginTop="@dimen/_5dp"
+    android:layout_marginBottom="@dimen/_5dp"
     android:orientation="horizontal"
-    android:padding="10dp">
+
+>
+
 
     <!-- LEFT TITLE PART -->
 
