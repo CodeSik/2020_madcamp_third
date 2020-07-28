@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.example.madcampweek3.Intro.PreIntroActivity;
-import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -26,7 +25,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         ImageView splashGif = (ImageView)findViewById(R.id.gif_image);
         Glide.with(this)
-                .load(R.raw.loadinggif)
+                .load(R.raw.loadingimage)
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                 .into(new DrawableImageViewTarget(splashGif));
 
