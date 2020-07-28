@@ -60,8 +60,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         return mDataset.size();
     }
 
-    public void addFriend(Friend friend) {
-        this.mDataset.add(friend);
+    public void setFriend(List<Friend> friend) {
+        this.mDataset = friend;
         notifyDataSetChanged();
     }
 }
