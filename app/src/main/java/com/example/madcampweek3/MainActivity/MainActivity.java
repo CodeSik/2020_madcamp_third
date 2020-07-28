@@ -25,9 +25,11 @@ import com.example.madcampweek3.Account.AccountEditFragment;
 import com.example.madcampweek3.Account.MyAccountActivity;
 import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.LocalScan.LocalScan;
+import com.example.madcampweek3.Profile.Item;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
+import com.example.madcampweek3.RetrofitService.FriendService;
 import com.example.madcampweek3.RetrofitService.ImageService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
 import com.example.madcampweek3.Utils.BackPressCloseHandler;
@@ -36,6 +38,8 @@ import com.example.madcampweek3.menu.DrawerAdapter;
 import com.example.madcampweek3.menu.DrawerItem;
 import com.example.madcampweek3.menu.SimpleItem;
 import com.example.madcampweek3.menu.SpaceItem;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
@@ -44,7 +48,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
@@ -52,6 +58,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static java.lang.Integer.max;
 
 /**
  * Created by yarolegovich on 25.03.2017.
@@ -74,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private String[] screenTitles;
     private Drawable[] screenIcons;
 
+    private TextView mProbability;
     private SlidingRootNav slidingRootNav;
     private CircleImageView myProfileImage;
     private TextView myUserName;
@@ -126,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
         adapter.setSelected(POS_DASHBOARD);
 
-
+        mProbability = findViewById(R.id.probability);
         myProfileImage = findViewById(R.id.my_profile_image);
         myUserName=findViewById(R.id.my_user_name);
         appData =getSharedPreferences("appData", MODE_PRIVATE);
@@ -140,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                 MainActivity.this.finish();
             }
         });
+
+        getProbability();
         setUsernameInfo(userId);
         setProfileImage(myProfileImage,1);
     }
@@ -277,5 +288,73 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                         + ", exception: " + t);
             }
         });
+    }
+
+    private void getProbability() {
+        /* Init retrofit */
+        Retrofit retrofit = RetrofitClient.getInstnce();
+        FriendService service = retrofit.create(FriendService.class);
+
+        /* Prepare input */
+        Calendar time = Calendar.getInstance();
+        int date = time.get(Calendar.DAY_OF_YEAR) + (365 * time.get(Calendar.YEAR));
+
+        /* Get today list */
+        service.getTodayFriend(userId, date).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
+                if (response.body() == null) {
+                    try { // Failure
+                        assert response.errorBody() != null;
+                        Log.d("FriendService", "res: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else { // Success
+                    Log.d("FriendService", "res: " + response.body().toString());
+
+                    int score = getMaxIntimacy(response);
+                    mProbability.setText(String.valueOf(score));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<JsonObject> call, @NotNull Throwable t) {
+                Log.d("FriendService", "Failed API call with call: " + call
+                        + ", exception: " + t);
+            }
+        });
+
+    }
+
+    private int getMaxIntimacy(Response<JsonObject> response) {
+        JsonArray intimacyScoreList = new JsonArray ();
+
+        assert response.body() != null;
+        if (response.body().has("intimacyScore")) {
+            intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
+        }
+
+        ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
+        int maxScore = 0;
+        for (int i = 0; i < intimacyScoreList.size(); ++i) {
+            int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
+            maxScore = max(intimacyScore, maxScore);
+        }
+        return maxScore;
+
+    }
+
+    private ArrayList<Number> reviseIntimacyScore(JsonArray intimacyScore) {
+        int totalScore = 0;
+        ArrayList<Number> res = new ArrayList<>();
+        for (JsonElement score: intimacyScore) {
+            totalScore += score.getAsInt();
+        }
+        for (JsonElement score: intimacyScore) {
+            res.add(score.getAsDouble() / totalScore * 100);
+        }
+
+        return res;
     }
 }
