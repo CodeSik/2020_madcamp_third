@@ -61,7 +61,6 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             viewHolder.contentAvatar = cell.findViewById(R.id.content_avatar);
             viewHolder.contentNameView = cell.findViewById(R.id.content_name_view);
             viewHolder.contentRatingStar = cell.findViewById(R.id.content_rating_stars);
-            viewHolder.contentNumberRatingStars = cell.findViewById(R.id.content_number_rating_stars);
             viewHolder.contentFromAddress1 = cell.findViewById(R.id.content_from_address_1);
             viewHolder.contentToAddress1 = cell.findViewById(R.id.content_to_address_1);
             viewHolder.contentDate = cell.findViewById(R.id.content_date);

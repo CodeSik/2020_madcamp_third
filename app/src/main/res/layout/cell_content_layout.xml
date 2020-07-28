@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone"
     android:paddingLeft="12dp"
     android:paddingRight="12dp"
     android:paddingTop="7dp"
     android:paddingBottom="7dp"
+
     >
 
     <!-- content header line -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FF9FA1"
+        android:background="@drawable/render_pink"
         android:paddingBottom="7dp"
         android:alpha="0.6"
 
@@ -23,6 +23,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_5dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:src="@drawable/menu_icon" />
@@ -37,7 +38,7 @@
         <ImageView
             android:id="@+id/head_image"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:scaleType="centerCrop"
             android:src="@drawable/spring_background" />
 
@@ -67,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/gotham"
                 android:text="@string/sender_badge" />
@@ -99,20 +101,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/content_name_view"
                 android:layout_alignStart="@id/content_name_view"
+                android:padding="@dimen/_5dp"
                 android:src="@drawable/stars" />
 
-            <TextView
-                android:id="@+id/content_number_rating_stars"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/content_rating_stars"
-                android:layout_marginStart="3dp"
-                android:layout_marginBottom="-2dp"
-                android:layout_toEndOf="@id/content_rating_stars"
-                android:fontFamily="@font/gotham"
-                android:text="@string/rating_mock"
-                android:textColor="@color/contentBadgeTitle"
-                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -149,6 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"
                     android:fontFamily="@font/gotham"
                     android:text="@string/from_badge" />
 
@@ -158,10 +150,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_from_badge"
                     android:layout_alignStart="@id/content_from_badge"
-                    android:fontFamily="@font/gotham"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:layout_marginEnd="@dimen/_5dp"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:fontFamily="@font/nanumsquareroundl"
                     android:text="@string/content_from1_mock"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -177,6 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"
                     android:fontFamily="@font/gotham"
                     android:text="@string/to_badge" />
 
@@ -186,10 +182,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_to_badge"
                     android:layout_alignStart="@id/content_to_badge"
-                    android:fontFamily="@font/gotham"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/nanumsquareroundl"
                     android:text="@string/content_to1_mock"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -229,6 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"
                     android:fontFamily="@font/gotham"
                     android:text="Date" />
 
@@ -238,10 +238,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_delivery_date_badge"
                     android:layout_alignStart="@id/content_delivery_date_badge"
-                    android:fontFamily="@font/gotham"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/nanumsquareroundl"
                     android:text="@string/delivery_time_mock"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -257,6 +260,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"
                     android:fontFamily="@font/gotham"
                     android:text="When" />
 
@@ -266,10 +270,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_intimacy_badge"
                     android:layout_alignStart="@id/content_intimacy_badge"
-                    android:fontFamily="@font/gotham"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/nanumsquareroundl"
                     android:text="@string/deadline_time_mock"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -299,7 +306,7 @@
                 android:text="프로필"
                 android:textAlignment="center"
                 android:textColor="@color/mainTextColor"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
