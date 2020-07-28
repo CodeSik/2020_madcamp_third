@@ -136,6 +136,7 @@ public class Login extends AppCompatActivity {
                 } else {
                     try { // Login Success
                         Log.d("AccountService", "res:" + response.body().string());
+
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
                         finish();

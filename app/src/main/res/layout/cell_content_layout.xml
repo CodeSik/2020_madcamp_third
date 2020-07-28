@@ -96,6 +96,7 @@
                 android:src="@drawable/stars" />
 
             <TextView
+                android:id="@+id/content_number_rating_stars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/content_rating_stars"
@@ -154,16 +155,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/content_from_address_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/content_from_address_1"
-                    android:layout_alignStart="@id/content_from_address_1"
-                    android:text="@string/content_from2_mock"
-                    android:textColor="@color/mainTextColor"
-                    android:textSize="14sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -189,16 +180,6 @@
                     android:textColor="@color/mainTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/content_to_address_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/content_to_address_1"
-                    android:layout_alignStart="@id/content_to_address_1"
-                    android:text="@string/content_to2_mock"
-                    android:textColor="@color/mainTextColor"
-                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -237,10 +218,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:text="@string/delivery_date_badge" />
+                    android:text="Date" />
 
                 <TextView
-                    android:id="@+id/content_delivery_time"
+                    android:id="@+id/content_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_delivery_date_badge"
@@ -250,16 +231,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/content_delivery_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/content_delivery_time"
-                    android:layout_alignStart="@id/content_delivery_time"
-                    android:text="@string/delivery_date_mock"
-                    android:textColor="@color/mainTextColor"
-                    android:textSize="14sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -268,33 +239,23 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/content_deadline_badge"
+                    android:id="@+id/content_intimacy_badge"
                     style="@style/ContentMainBadgeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:text="@string/deadline_badge" />
+                    android:text="Intimacy" />
 
                 <TextView
-                    android:id="@+id/content_deadline_time"
+                    android:id="@+id/content_intimacy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/content_deadline_badge"
-                    android:layout_alignStart="@id/content_deadline_badge"
+                    android:layout_below="@id/content_intimacy_badge"
+                    android:layout_alignStart="@id/content_intimacy_badge"
                     android:text="@string/deadline_time_mock"
                     android:textColor="@color/mainTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/content_deadline_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/content_deadline_time"
-                    android:layout_alignStart="@id/content_deadline_time"
-                    android:text=""
-                    android:textColor="@color/mainTextColor"
-                    android:textSize="14sp" />
             </RelativeLayout>
 
         </LinearLayout>
