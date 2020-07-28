@@ -32,7 +32,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="100dp"
+                android:layout_width="244dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/render"
@@ -56,8 +56,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gotham"
-                    android:textSize="24sp" />
+                    android:fontFamily="@font/nanumsquareroundl"
+                    android:textSize="15dp" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -80,8 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gotham"
-                    android:textSize="24sp" />
+                    android:fontFamily="@font/nanumsquareroundl"
+                    android:textSize="15dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -178,8 +178,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
-                android:textSize="24sp" />
+                android:fontFamily="@font/nanumsquareroundl"
+                android:textSize="15dp" />
         </LinearLayout>
 
 
@@ -207,9 +207,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -236,9 +236,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -265,9 +265,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -294,9 +294,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -323,9 +323,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -352,9 +352,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -381,9 +381,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/gotham"
+                android:fontFamily="@font/nanumsquareroundl"
                 android:gravity="left"
-                android:textSize="24sp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>

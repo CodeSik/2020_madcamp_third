@@ -32,6 +32,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gotham"
+                    android:padding="@dimen/_10dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:textSize="12dp"
                     android:text="프로필 수정"
                     android:textColor="@color/mainTextColor" />
                 <View
@@ -328,6 +332,11 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/color_sweet" />
 
                     <com.google.android.material.textfield.TextInputLayout
 
@@ -349,6 +358,8 @@
                             android:inputType="textEmailAddress"
                             android:padding="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+
 
                     <com.google.android.material.textfield.TextInputLayout
 
@@ -391,8 +402,11 @@
                             android:inputType="textEmailAddress"
                             android:padding="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/color_sweet" />
                     <com.google.android.material.textfield.TextInputLayout
 
                         android:layout_width="match_parent"
@@ -414,12 +428,21 @@
                             android:padding="15dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gotham"
+                        android:padding="@dimen/_5dp"
                         android:text="        흡연여부"
                         android:textColor="#7A7A7A" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="15dp"
+                        android:background="@color/color_sweet" />
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -431,7 +454,7 @@
                             android:layout_width="130dp"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:layout_marginStart="60dp"
+                            android:layout_marginStart="70dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="46dp"
                             android:layout_marginBottom="10dp"
@@ -449,6 +472,7 @@
                             android:layout_width="130dp"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
+                            android:layout_marginRight="@dimen/_10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
                             android:fontFamily="@font/gotham"
@@ -478,7 +502,7 @@
                             android:layout_width="130dp"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:layout_marginStart="60dp"
+                            android:layout_marginStart="70dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="46dp"
                             android:layout_marginBottom="10dp"
@@ -496,6 +520,7 @@
                             android:layout_width="130dp"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
+                            android:layout_marginRight="@dimen/_10dp"
                             android:layout_weight="1"
                             android:background="@drawable/render"
                             android:fontFamily="@font/gotham"
