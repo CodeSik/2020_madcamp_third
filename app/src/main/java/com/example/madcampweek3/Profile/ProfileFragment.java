@@ -262,7 +262,6 @@ public class ProfileFragment extends Fragment {
                 String time = t.getAsString();
                 contactTime.append(time);
             }
-            contactTime = new StringBuilder(contactTime.substring(0, contactTime.length() - 1));
 
             items.add(new Item(friendID, friendName, srcPosition, destPosition, contactTime.toString()));
         }

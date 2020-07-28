@@ -76,7 +76,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
             PositionService service = retrofit.create(PositionService.class);
             String address = latitude + "," + longitude;
 
-            service.findRegion(address, getResources().getString(R.string.api_key)).enqueue(new Callback<JsonObject>() {
+            service.findRegion(address, getResources().getString(R.string.api_key), "kr").enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                     if (response.body() == null) {
