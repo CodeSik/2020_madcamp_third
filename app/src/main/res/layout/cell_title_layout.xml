@@ -10,9 +10,7 @@
     android:baselineAligned="false"
     android:elevation="10dp"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/_10dp"
-    android:paddingTop="@dimen/_10dp"
->
+    android:padding="10dp">
 
     <!-- LEFT TITLE PART -->
 
