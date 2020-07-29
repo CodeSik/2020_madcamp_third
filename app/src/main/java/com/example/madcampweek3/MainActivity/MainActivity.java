@@ -52,6 +52,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     private CircleImageView myProfileImage;
     private TextView myUserName;
     private BackPressCloseHandler backPressCloseHandler = new BackPressCloseHandler(this);
+
+    public static HashMap<String, Integer> id2score = new HashMap<>();
 
     @Override
     public void onBackPressed() {
@@ -342,16 +345,23 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
 
     private int getMaxIntimacy(Response<JsonObject> response) {
         JsonArray intimacyScoreList = new JsonArray ();
+        JsonArray friendIDList = new JsonArray ();
 
         assert response.body() != null;
         if (response.body().has("intimacyScore")) {
             intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
+        }
+        if (response.body().has("friendID")) {
+            friendIDList = response.body().getAsJsonArray("friendID");
         }
 
         ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
         int maxScore = 0;
         for (int i = 0; i < intimacyScoreList.size(); ++i) {
             int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
+            String friendID = friendIDList.get(i).getAsString();
+            id2score.put(friendID, intimacyScore);
+
             maxScore = max(intimacyScore, maxScore);
         }
         return maxScore;

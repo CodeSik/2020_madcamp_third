@@ -39,6 +39,7 @@ import retrofit2.Retrofit;
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.madcampweek3.MainActivity.MainActivity.PROFILE_IMAGE_KIND;
 import static com.example.madcampweek3.MainActivity.MainActivity.PROFILE_IMAGE_NAME;
+import static com.example.madcampweek3.MainActivity.MainActivity.id2score;
 
 public class LocalScan extends Fragment {
     public static final int REQUEST_ENABLE_BT = 1;
@@ -175,7 +176,7 @@ public class LocalScan extends Fragment {
             friendID= friendID.substring(1, friendID.length() - 1);
             String friendName = friendNameList.get(i).toString();
             friendName = friendName.substring(1, friendName.length() - 1);
-            int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
+            int intimacyScore = id2score.get(friendID);
             String phoneNumber = phoneNumberList.get(i).toString();
             phoneNumber = phoneNumber.substring(1,phoneNumber.length()-1);
             matchings.add(new Friend(friendID, friendName, intimacyScore, phoneNumber));
