@@ -108,9 +108,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         getSupportActionBar().setElevation(10);
         getSupportActionBar().setTitle("우연히 봄");
 
-        /* Run bluetooth service */
-        Intent intent = new Intent(this, BluetoothService.class);
-        startService(intent);
+
 
         slidingRootNav = new SlidingRootNavBuilder(this)
                 .withToolbarMenuToggle(toolbar)

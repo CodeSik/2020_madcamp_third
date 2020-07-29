@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.MainActivity.MainActivity;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
@@ -155,6 +156,10 @@ public class Login extends AppCompatActivity {
                 } else {
                     try { // Login Success
                         Log.d("AccountService", "res:" + response.body().string());
+
+                        /* Run bluetooth service */
+                        Intent foregroundIntent = new Intent(Login.this, BluetoothService.class);
+                        startService(foregroundIntent);
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
