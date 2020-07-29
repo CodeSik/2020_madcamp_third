@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/letter_regular"
         android:gravity="center"
-        android:text="새로운 인연을 만나고,\n 연인이 될 가능성을 알아보세요"
+        android:text="블루투스 기반 서비스로\n새로운 인연을 만나고,\n 연인이 될 가능성을 알아보세요"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

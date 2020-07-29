@@ -26,7 +26,6 @@ import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
 import com.example.madcampweek3.RetrofitService.ImageService;
 import com.example.madcampweek3.RetrofitService.RetrofitClient;
-import com.example.madcampweek3.Utils.BackPressCloseHandler;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
