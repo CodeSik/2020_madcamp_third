@@ -25,6 +25,7 @@ import com.example.madcampweek3.Account.AccountEditFragment;
 import com.example.madcampweek3.Account.MyAccountActivity;
 import com.example.madcampweek3.BluetoothService.BluetoothService;
 import com.example.madcampweek3.LocalScan.LocalScan;
+import com.example.madcampweek3.LocalScan.PendingFragment;
 import com.example.madcampweek3.Profile.ProfileFragment;
 import com.example.madcampweek3.R;
 import com.example.madcampweek3.RetrofitService.AccountService;
@@ -180,6 +181,11 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         }else if (position == POS_CART) { // TODO: Change POS_CART
             slidingRootNav.closeMenu();
             Fragment selectedScreen = new StoreFragment();
+            showFragment(selectedScreen);
+        }
+        else if (position == POS_MESSAGES){
+            slidingRootNav.closeMenu();
+            Fragment selectedScreen = new PendingFragment();
             showFragment(selectedScreen);
         }
         else {

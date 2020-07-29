@@ -4,8 +4,8 @@
     <string-array name="ld_activityScreenTitles">
         <item>우연히 봄</item>
         <item>내 프로필</item>
-        <item>대화</item>
-        <item>연인 확률</item>
+        <item>받은 좋아요</item>
+        <item>매칭된 인연</item>
         <item>상점</item>
 
         <item>로그아웃</item>

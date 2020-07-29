@@ -40,24 +40,32 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.example.madcampweek3.MainActivity.MainActivity.PROFILE_IMAGE_KIND;
 import static com.example.madcampweek3.MainActivity.MainActivity.PROFILE_IMAGE_NAME;
 
-public class LocalScan extends Fragment {
-    public static final int REQUEST_ENABLE_BT = 1;
 
-    private RecyclerView recyclerView ;
-    private FriendAdapter mAdapter;
+public class PendingFragment extends Fragment {
 
-    private RecyclerView.LayoutManager layoutManager;
-    public static String userID;
+    private RecyclerView pendingRecyclerView;
+    private PendingAdapter pendingAdapter;
+    private RecyclerView.LayoutManager pendingLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private List<Friend> matchings = new ArrayList<>();
-    private HashMap<String, Bitmap> matchingProfiles = new HashMap<>();
+    private List<Pending> pendings = new ArrayList<>();
+    private HashMap<String, Bitmap> pendingProfiles = new HashMap<>();
+    public static String userID;
+
+
+
+
+
+    public PendingFragment() {
+        // Required empty public constructor
+    }
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_localscan, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_pending, container, false);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -67,29 +75,25 @@ public class LocalScan extends Fragment {
             }
 
         });
+        /* Set pending recycler view */
+        pendingRecyclerView = (RecyclerView) view.findViewById(R.id.pending_list);
+        pendingLayoutManager = new LinearLayoutManager(getContext());
+        pendingRecyclerView.setLayoutManager(pendingLayoutManager);
+        pendingAdapter = new PendingAdapter();
+        pendingRecyclerView.setAdapter(pendingAdapter);
 
-        /* Set recycler view */
-        recyclerView = (RecyclerView) view.findViewById(R.id.friends_list);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new FriendAdapter(getContext());
-        recyclerView.setAdapter(mAdapter);
-
-
-        downloadMatchingList();
-
-        mAdapter.notifyDataSetChanged();
-
+        downloadPendingList();
+        pendingAdapter.notifyDataSetChanged();
         return view;
     }
 
     private void refresh()
     {
-        mAdapter.clear();
-        downloadMatchingList();
-        mAdapter.setFriend(matchings);
-
+        pendingAdapter.clear();
+        downloadPendingList();
+        pendingAdapter.setPending(pendings);
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,11 +103,7 @@ public class LocalScan extends Fragment {
         SharedPreferences appData = getContext().getSharedPreferences("appData", MODE_PRIVATE);
         userID = appData.getString("ID","");
 
-
-        }
-
-
-
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -111,18 +111,15 @@ public class LocalScan extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        mAdapter.notifyDataSetChanged();
+        pendingAdapter.notifyDataSetChanged();
     }
-
-
-
-    private void downloadMatchingList() {
+    private void downloadPendingList() {
         /* Init retrofit */
         Retrofit retrofit = RetrofitClient.getInstnce();
         AccountService service = retrofit.create(AccountService.class);
 
         /* Get matching list */
-        service.getMatch(userID).enqueue(new Callback<JsonObject>() {
+        service.getLike(userID).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                 if (response.body() == null) {
@@ -134,8 +131,8 @@ public class LocalScan extends Fragment {
                     }
                 } else { // Success
                     ArrayList<String> friendIDList = getFriendIDList(response);
-                    addMatchingList(response);
-                    downloadProfileForMatchingList(friendIDList);
+                    addPendingList(response);
+                    downloadProfileForPendingList(friendIDList);
                 }
             }
 
@@ -148,40 +145,27 @@ public class LocalScan extends Fragment {
     }
 
 
-
-    private void addMatchingList(Response<JsonObject> response) {
+    private void addPendingList(Response<JsonObject> response) {
         JsonArray friendIDList = new JsonArray ();
         JsonArray friendNameList = new JsonArray ();
-        JsonArray intimacyScoreList = new JsonArray ();
-        JsonArray phoneNumberList = new JsonArray ();
 
         if (response.body().has("friendID")) {
             friendIDList = response.body().getAsJsonArray("friendID");
         }
+
         if (response.body().has("friendName")) {
             friendNameList = response.body().getAsJsonArray("friendName");
         }
-        if (response.body().has("intimacyScore")) {
-            intimacyScoreList = response.body().getAsJsonArray("intimacyScore");
-        }
-        if (response.body().has("phoneNumber")) {
-            phoneNumberList = response.body().getAsJsonArray("phoneNumber");
-        }
-
-        ArrayList<Number> revisedIntimacyScoreList = reviseIntimacyScore(intimacyScoreList);
 
         for (int i = 0; i < friendNameList.size(); ++i) {
             String friendID = friendIDList.get(i).toString();
             friendID= friendID.substring(1, friendID.length() - 1);
             String friendName = friendNameList.get(i).toString();
             friendName = friendName.substring(1, friendName.length() - 1);
-            int intimacyScore = revisedIntimacyScoreList.get(i).intValue();
-            String phoneNumber = phoneNumberList.get(i).toString();
-            phoneNumber = phoneNumber.substring(1,phoneNumber.length()-1);
-            matchings.add(new Friend(friendID, friendName, intimacyScore, phoneNumber));
+
+            pendings.add(new Pending(friendID, friendName));
         }
     }
-
     private ArrayList<Number> reviseIntimacyScore(JsonArray intimacyScore) {
         int totalScore = 0;
         ArrayList<Number> res = new ArrayList<>();
@@ -194,10 +178,7 @@ public class LocalScan extends Fragment {
 
         return res;
     }
-
-
-
-    private void downloadProfileForMatchingList(ArrayList<String> friendIDList) {
+    private void downloadProfileForPendingList(ArrayList<String> friendIDList) {
         /* Init retrofit */
         Retrofit retrofit = RetrofitClient.getInstnce();
         ImageService service = retrofit.create(ImageService.class);
@@ -220,10 +201,10 @@ public class LocalScan extends Fragment {
                         InputStream stream = response.body().byteStream();
                         Bitmap bitmap = BitmapFactory.decodeStream(stream);
                         String friendID = call.request().url().queryParameter("id");
-                        matchingProfiles.put(friendID, bitmap);
-                        if (matchingProfiles.size() == matchings.size()) {
-                            addProfileToMatching();
-                            setMatchingList();
+                        pendingProfiles.put(friendID, bitmap);
+                        if (pendingProfiles.size() == pendings.size()) {
+                            addProfileToPending();
+                            setPendingList();
                         }
                     }
                 }
@@ -236,22 +217,9 @@ public class LocalScan extends Fragment {
             });
         }
     }
-
-
-
-
-
-    private void addProfileToMatching() {
-        for (int i = 0; i < matchings.size(); ++i) {
-            String friendID = matchings.get(i).getId();
-            matchings.get(i).setProfile(matchingProfiles.get(friendID));
-        }
+    private void setPendingList() {
+        pendingAdapter.setPending(pendings);
     }
-
-    private void setMatchingList() {
-        mAdapter.setFriend(matchings);
-    }
-
     private ArrayList<String> getFriendIDList(Response<JsonObject> response) {
         ArrayList<String> result = new ArrayList<>();
         JsonArray friendIDList = new JsonArray ();
@@ -270,6 +238,10 @@ public class LocalScan extends Fragment {
 
         return result;
     }
-
-
+    private void addProfileToPending() {
+        for (int i = 0; i < pendings.size(); ++i) {
+            String friendID = pendings.get(i).getId();
+            pendings.get(i).setProfile(pendingProfiles.get(friendID));
+        }
+    }
 }

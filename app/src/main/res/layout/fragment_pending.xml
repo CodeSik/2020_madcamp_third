@@ -19,7 +19,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/gotham"
-            android:text="매칭된 인연"
+            android:text="받은 좋아요 목록"
             android:textColor="@color/folding_pink"
             android:textColorHighlight="#1E265E"
             android:textSize="20dp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/friends_list"
+            android:id="@+id/pending_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/title_from_to_dots_divider2" />
