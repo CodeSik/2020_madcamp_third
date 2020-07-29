@@ -26,7 +26,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static com.example.madcampweek3.LocalScan.LocalScan.userID;
+import static com.example.madcampweek3.MainActivity.MainActivity.userId;
+
 
 public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingViewHolder>{
     private List<View> mViewList = new ArrayList<>();
@@ -76,9 +77,34 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
 
             /* Get matching list */
             JsonObject body = new JsonObject();
-            body.addProperty("id", userID);
+            body.addProperty("id", userId);
             body.addProperty("friendID", this.friendID);
             service.registerMatch(body).enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
+                    if (response.body() == null) {
+                        try { // Failure
+                            assert response.errorBody() != null;
+                            Log.d("FriendService", "res:" + response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else { // Success
+                        Log.d("FriendService", "delete like success");
+                    }
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<JsonObject> call, @NotNull Throwable t) {
+                    Log.d("FriendService", "Failed API call with call: " + call
+                            + ", exception: " + t);
+                }
+            });
+
+            JsonObject body2 = new JsonObject();
+            body2.addProperty("id", this.friendID);
+            body2.addProperty("friendID", userId);
+            service.registerMatch(body2).enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                     if (response.body() == null) {
@@ -107,7 +133,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             FriendService service = retrofit.create(FriendService.class);
 
             /* Get matching list */
-            service.deleteLike(userID, this.friendID).enqueue(new Callback<JsonObject>() {
+            service.deleteLike(userId, this.friendID).enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(@NotNull Call<JsonObject> call, @NotNull Response<JsonObject> response) {
                     if (response.body() == null) {

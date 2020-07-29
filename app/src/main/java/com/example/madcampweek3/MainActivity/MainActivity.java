@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
     public static final String PROFILE_IMAGE_NAME = "profile_image.jpg";
     public static final String PROFILE_IMAGE_KIND = "profile";
     SharedPreferences appData ;
-    String userId = "";
+    public static String userId = "";
 
     private String[] screenTitles;
     private Drawable[] screenIcons;
