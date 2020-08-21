@@ -17,7 +17,7 @@ By 서건식, 황소진, 서규성
 
 사람들에게 확진자 발생시 알림을 보내는 기술에서 아이디어를 얻어
 
-매일 저녁 오후 7시, 출근길이나 지나가면서 스쳐간 인연들을 블루투스 MAC ADDRESS와 서버에 등록된 ID와 비교하여
+매일 저녁 오후 7시, 출근길이나 지나가면서 스쳐간 인연들
 
 일정시간 접촉시 Matching List에 추가해 소개해주는 서비스입니다.
 
@@ -60,6 +60,22 @@ Login Activity로 넘어갑니다.
 
 프로필 구성은 Animation을 적용했고, Folding cell로 Onclick 시에 펼쳐지고 닫혀지도록 구현하였습니다.
 
+
+### Bluetooth Foreground
+
+블루투스 검색은 매칭 리스트가 시작되는 시점에 허용 여부를 물어보고,
+
+이후 Foreground로 실행되며 계속해서 상대를 탐색합니다.
+
+이때 주변 블루투스 MAC ADDRESS와 서버에 등록된 ID와 비교하여 주변에 우연히 봄 유저가 있는지를 파악하여
+
+있을 시 Matching List에 추가합니다.
+
+일정 시간이 지나면 종료되며, 이는 배터리 소모를 줄이기 위해 Timer를 설정해 둔 것입니다.
+
+이에 대한 코드는 BluetoothService에 구현되어 있습니다.
+
+
 ### Fold
 
 Fold 상태에서는 상대의 닉네임과 사진, 언제 만난 인연인지를 표시해줍니다.
@@ -75,3 +91,8 @@ Unfold 상태에서는 상대 이름과 별점 만난 날짜와 만난 시각을
 언제부터 어디까지 만났던 인연인지를 표시합니다.
 
 또한 프로필 버튼을 누르면, 상대의 프로필을 확인할 수 있습니다.
+
+# Profile Info
+
+![Profile](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/3.gif)
+
