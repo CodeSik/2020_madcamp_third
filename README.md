@@ -52,4 +52,26 @@ https://github.com/geonsikSeo/2020_madcamp_third-server
 
 Login Activity로 넘어갑니다.
 
+# Matching List
 
+![FoldingCell](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/2.gif)
+
+블루투스 기반으로 검색된 인연들은, 매일 오후 7시에 새로 업데이트 됩니다.
+
+프로필 구성은 Animation을 적용했고, Folding cell로 Onclick 시에 펼쳐지고 닫혀지도록 구현하였습니다.
+
+### Fold
+
+Fold 상태에서는 상대의 닉네임과 사진, 언제 만난 인연인지를 표시해줍니다.
+
+낮 / 저녁 / 밤 으로 구성되어 있으며, List에 추가된 시점을 서버에서 받아와 Front에서 처리하여 구분해줍니다.
+
+### Unfold
+
+Unfold 상태에서는 상대 이름과 별점 만난 날짜와 만난 시각을 표시해 줍니다.
+
+또한 List에 추가되었을 때와 제거되었을 때 각 지점을 gps로 받아와
+
+언제부터 어디까지 만났던 인연인지를 표시합니다.
+
+또한 프로필 버튼을 누르면, 상대의 프로필을 확인할 수 있습니다.
