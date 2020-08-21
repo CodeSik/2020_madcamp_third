@@ -54,16 +54,11 @@ Login Activity로 넘어갑니다.
 
 # Sign Up
 
-![Signup1](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/6.jpg){: width="100" height="100"}
+![Signup](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/10.png)
 
+회원가입 버튼을 누르면 회원가입을 할 수 있습니다.
 
-![Signup2](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/7.jpg){: width="100" height="100"}
-
-
-![Signup3](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/8.jpg){: width="100" height="100"}
-
-
-![Signup4](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/9.jpg){: width="100" height="100"}
+필수적인 정보는 나중에 수정이 불가능하며, 초기에 서비스를 이용할 수 있도록 프로필 정보를 기입합니다.
 
 # Main Menu
 
