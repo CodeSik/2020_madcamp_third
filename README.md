@@ -55,8 +55,14 @@ Login Activity로 넘어갑니다.
 # Sign Up
 
 ![Signup1](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/6.jpg){: width="100" height="100"}
+
+
 ![Signup2](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/7.jpg){: width="100" height="100"}
+
+
 ![Signup3](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/8.jpg){: width="100" height="100"}
+
+
 ![Signup4](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/9.jpg){: width="100" height="100"}
 
 # Main Menu
