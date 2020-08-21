@@ -52,6 +52,13 @@ https://github.com/geonsikSeo/2020_madcamp_third-server
 
 Login Activity로 넘어갑니다.
 
+# Sign Up
+
+![Signup1](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/6.jpg){: width="100" height="100"}
+![Signup2](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/7.jpg){: width="100" height="100"}
+![Signup3](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/8.jpg){: width="100" height="100"}
+![Signup4](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/9.jpg){: width="100" height="100"}
+
 # Main Menu
 
 ![Menu](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/5.png)
@@ -60,13 +67,15 @@ Login Activity로 넘어갑니다.
 
 1. 자신의 프로필 사진을 클릭하면 자신의 프로필을 볼 수 있습니다.
 
-2. 우연히 봄을 클릭하면 오늘의 매칭리스트를 확인할 수 있습니다.
+2. 내 프로필을 클릭하면 프로필을 수정할 수 있습니다.
 
-3. 받은 좋아요를 클릭하면 상대에게 받은 좋아요를 확인하고, 수락할 수 있습니다.
+3. 우연히 봄을 클릭하면 오늘의 매칭리스트를 확인할 수 있습니다.
 
-4. 매칭된 인연을 클릭시 수락한 상대의 전화번호를 확인할 수 있습니다.
+4. 받은 좋아요를 클릭하면 상대에게 받은 좋아요를 확인하고, 수락할 수 있습니다.
 
-5. 상점에서는 우연히 봄의 화폐 단위인 '송이'를 구매할 수 있습니다. (구현X)
+5. 매칭된 인연을 클릭시 수락한 상대의 전화번호를 확인할 수 있습니다.
+
+6. 상점에서는 우연히 봄의 화폐 단위인 '송이'를 구매할 수 있습니다. (구현X)
 
 
 # Matching List
@@ -128,4 +137,11 @@ Unfold 상태에서는 상대 이름과 별점 만난 날짜와 만난 시각을
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 
+# 자신의 프로필 수정
+
+![MyProfile](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/4.gif)
+
+메뉴의 내 프로필을 클릭하면 자신이 회원가입시 작성했던 소개 문구들과 사진등을 변경할 수 있습니다.
+
+초기에 설정한 것 중 닉네임, 키, 생년월일 등은 수정이 불가능합니다.
 
