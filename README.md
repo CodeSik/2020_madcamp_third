@@ -96,3 +96,19 @@ Unfold 상태에서는 상대 이름과 별점 만난 날짜와 만난 시각을
 
 ![Profile](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/3.gif)
 
+
+나이, 자기소개, 키, 학교, 전공, 직업, 취미, 흡연/음주 여부 그리고 사진을 보고 마음에 드는 인연이라면
+
+좋아요와 높은 별점을 보내보세요.
+
+서버와의 통신은 Retrofit 라이브러리를 사용해 request를 보내고 response를 받습니다.
+
+해당 코드는 RetrofitService에 구현되어 있습니다.
+
+    /* Retrofit */
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+
+
