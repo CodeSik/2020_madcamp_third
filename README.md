@@ -146,3 +146,25 @@ Unfold 상태에서는 상대 이름과 별점 만난 날짜와 만난 시각을
 
 초기에 설정한 것 중 닉네임, 키, 생년월일 등은 수정이 불가능합니다.
 
+# 좋아요 수락과 매칭
+
+상대의 프로필로 좋아요를 보내는 기능을 통해, 자신 또한 받은 좋아요를 관리할 수 있습니다.
+
+### 좋아요 도착
+
+![Like](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/13.png)
+
+상대로 부터 좋아요가 도착하면, 수락과 거절을 할 수 있습니다.
+
+### 매칭된 인연
+
+![Matching](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/11.png)
+
+상대와 연결되면, 상대의 전화번호와 연인확률을 확인할 수 있으며, 프로필 사진을 클릭하면
+
+Intent로 문자를 보낼 수 있도록 연결해뒀습니다.
+
+# 상점
+
+![buy](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/12.png)
+
