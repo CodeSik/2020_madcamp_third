@@ -52,6 +52,23 @@ https://github.com/geonsikSeo/2020_madcamp_third-server
 
 Login Activity로 넘어갑니다.
 
+# Main Menu
+
+![Menu](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/5.png)
+
+메인메뉴는 해당 캡처 화면으로 구성되어 있습니다.
+
+1. 자신의 프로필 사진을 클릭하면 자신의 프로필을 볼 수 있습니다.
+
+2. 우연히 봄을 클릭하면 오늘의 매칭리스트를 확인할 수 있습니다.
+
+3. 받은 좋아요를 클릭하면 상대에게 받은 좋아요를 확인하고, 수락할 수 있습니다.
+
+4. 매칭된 인연을 클릭시 수락한 상대의 전화번호를 확인할 수 있습니다.
+
+5. 상점에서는 우연히 봄의 화폐 단위인 '송이'를 구매할 수 있습니다. (구현X)
+
+
 # Matching List
 
 ![FoldingCell](https://github.com/geonsikSeo/2020_madcamp_third/blob/master/imageformd/2.gif)
