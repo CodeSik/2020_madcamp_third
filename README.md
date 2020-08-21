@@ -172,7 +172,7 @@ Intent로 문자를 보낼 수 있도록 연결해뒀습니다.
 
 # Package
 
-   implementation ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+    implementation ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -193,7 +193,6 @@ Intent로 문자를 보낼 수 있도록 연결해뒀습니다.
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.AppIntro:AppIntro:6.0.0'
-
     implementation 'com.github.paolorotolo:appintro:4.1.0'
     implementation "androidx.core:core-ktx:1.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
