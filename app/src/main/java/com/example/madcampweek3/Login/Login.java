@@ -150,6 +150,7 @@ public class Login extends AppCompatActivity {
                 if (response.body() == null) {
                     try { // Login Failure
                         Log.d("AccountService", "res:" + response.errorBody().string());
+                        Toast.makeText(mContext, "이메일과 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -162,6 +163,7 @@ public class Login extends AppCompatActivity {
                         startService(foregroundIntent);
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
+                        Toast.makeText(mContext, "환영합니다.", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                         finish();
                     } catch (IOException e) {
