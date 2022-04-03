@@ -89,7 +89,7 @@ public class RegisterBasicInfo extends AppCompatActivity {
                     } else { // Success
                         if (response.body().has("results")) {
                             JsonArray results = response.body().getAsJsonArray("results");
-                            Log.d("PositionService", "res:" + results.get(0));
+//                            Log.d("PositionService", "res:" + results.get(0));
                             if (results.get(0).getAsJsonObject().has("formatted_address")) {
                                 region = results.get(0).getAsJsonObject().get("formatted_address").toString();
                                 Calendar currentTime = Calendar.getInstance();

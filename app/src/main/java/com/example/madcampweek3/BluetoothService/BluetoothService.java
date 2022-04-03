@@ -2,6 +2,9 @@ package com.example.madcampweek3.BluetoothService;
 
 import android.Manifest;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -53,15 +57,36 @@ public class BluetoothService extends Service {
     private String frinedID = null; // TODO: Support multiple friend
     private boolean first = true;
     private String userID = null;
+/*
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "우연히";
+            String description = "Bluetooth 탐색 중";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("1234", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    */
 
     @Override
     public void onCreate() {
+      //  createNotificationChannel();
+
         Notification notification =
                 new Notification.Builder(this, "1234")
                         .setContentTitle("우연히")
                         .setContentText("Bluetooth 탐색 중")
                         .setSmallIcon(R.drawable.pngwing)
                         .build();
+
+
         startForeground(ONGOING_BLUETOOTH, notification);
 
         SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE);
@@ -94,7 +119,7 @@ public class BluetoothService extends Service {
             public void run() {
                 Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                 discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 3600);
-                startActivity(discoverableIntent);
+                startActivity(discoverableIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         };
 
